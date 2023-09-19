@@ -116,8 +116,8 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className="bottom">
-        <div className="colorOption" onClick={() => setEnable(false)}></div>
-        <div className="colorOption" onClick={() => setEnable(true)}></div>
+        <div className="colorOption" onClick={() => setEnable("false")}></div>
+        <div className="colorOption" onClick={() => setEnable("true")}></div>
       </div>
     </div>
   );
