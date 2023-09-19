@@ -1,56 +1,28 @@
-import { useState, useEffect } from "react";
-import styles from "./home.module.scss";
-import Promo from "./Promo";
-import Ticket from "./Ticket";
-import BigBanner from "./BigBanner";
-import PromoFirst from "./PromoFirst";
-import PromoSecond from "./PromoSecond";
-import ProductDeal from "./ProductDeal";
-import ProductBrand from "./ProductBrand";
-import ProductTrend from "./ProductTrend";
-import CovenientService from "./CovenientService";
-import DiscountOnline from "./DiscountOnline";
-import ProductSuggest from "./ProductSuggest";
-import ProductCategory from "./ProductCategory";
-import ProductHistory from "src/components/ProductHistory";
-import { Helmet } from "react-helmet-async";
+import "./home.scss";
+import Widget from "../../components/widget/Widget";
+import Featured from "../../components/featured/Featured";
+import Chart from "../../components/chart/Chart";
+import Table from "../../components/table/Table";
 
-const Home = ({ title }: { title: string }) => {
-  const [displayTicket, setDisplayTicket] = useState<boolean>(false);
-  useEffect(() => {
-    const handleScroll = (event: Event) => {
-      setDisplayTicket(window.scrollY > 500);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-  useEffect(() => {
-    document.title = title;
-  }, []);
+const Home = () => {
   return (
     <div>
-      <Helmet>
-        <title>Trang chủ </title>
-        <meta name="description" content="Trang chủ " />
-      </Helmet>
-      <main className={styles.main}>
-        <BigBanner />
-        <Ticket show={displayTicket} />
-        <Promo />
-        <PromoFirst />
-        <PromoSecond />
-        <ProductTrend />
-        <ProductSuggest />
-        <ProductCategory />
-        <DiscountOnline />
-        <CovenientService />
-        <ProductHistory styleTitle="uppercase text-textWhiteMain" />
-        <ProductBrand />
-        <ProductDeal />
-      </main>
+      <div className="widgets">
+        <Widget type="user" />
+        <Widget type="order" />
+        <Widget type="earning" />
+        <Widget type="balance" />
+      </div>
+      <div className="charts">
+        <Featured />
+        <Chart title="Last 6 Months (Revenue)" />
+      </div>
+      <div className="listContainer">
+        <div className="listTitle">Latest Transactions</div>
+        <Table />
+      </div>
     </div>
   );
 };
+
 export default Home;

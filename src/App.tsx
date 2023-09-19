@@ -7,22 +7,26 @@ import "normalize.css";
 import "src/assets/styles/global.scss";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { useContext } from "react";
+import { DarkModeContext } from "./contexts/darkModeContext";
 
 const theme = createTheme({
   direction: "rtl",
-  // other theme properties
 });
 
 function App() {
   const routeElements = useRouteElements();
-
+  const { enable } = useContext(DarkModeContext);
+  console.log(enable);
   return (
-    <ThemeProvider theme={theme}>
-      <HelmetProvider>
-        <ErrorBoundary>{routeElements}</ErrorBoundary>
-        <ToastContainer />
-      </HelmetProvider>
-    </ThemeProvider>
+    <div className={enable === "true" ? "app dark" : "app"}>
+      <ThemeProvider theme={theme}>
+        <HelmetProvider>
+          <ErrorBoundary>{routeElements}</ErrorBoundary>
+          <ToastContainer />
+        </HelmetProvider>
+      </ThemeProvider>
+    </div>
   );
 }
 
