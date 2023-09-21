@@ -49,7 +49,7 @@ const Login = () => {
       // await setAccessTokenToLS(d?.accessToken);
       // await getAccessTokenFromLS();
       // await setIsAuthenticated(true);
-      if (body.email === "admin@gmail.com" && body.password === "123456") {
+      if (body.email === "admin" && body.password === "123456") {
         await toast.success("Đăng nhập thành công ");
         setTimeout(async () => {
           await navigate("/");

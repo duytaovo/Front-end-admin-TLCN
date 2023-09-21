@@ -13,15 +13,17 @@ const Home = () => {
         <Widget type="earning" />
         <Widget type="balance" />
       </div>
-      <div className="charts">
-        <div className="w-1/2">
+      <div className="charts ">
+        <div className="">
           <Featured />
         </div>
         <Chart title="Last 6 Months (Revenue)" />
       </div>
       <div className="listContainer">
         <div className="listTitle">Latest Transactions</div>
-        <Table />
+        <div className=" overflow-auto h-[100px]">
+          <Table />
+        </div>
       </div>
     </div>
   );

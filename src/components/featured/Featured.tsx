@@ -14,7 +14,6 @@ const Featured = () => {
         <MoreVertIcon fontSize="large" />
       </div>
       <div className="bottom">
-        {/* <div className="featuredChart"> */}
         <Box sx={{ position: "relative", display: "inline-flex" }}>
           <CircularProgress variant="determinate" size={"80px"} />
           <Box
@@ -27,14 +26,17 @@ const Featured = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              height: "70%",
             }}
           >
             <Typography
               variant="caption"
               component="div"
               color="text.secondary"
-              fontSize={"35px"}
-            >{`30%`}</Typography>
+              fontSize={"45px"}
+            >
+              $3420
+            </Typography>
           </Box>
         </Box>
         {/* </div> */}

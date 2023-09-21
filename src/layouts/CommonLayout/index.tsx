@@ -5,7 +5,7 @@ function Layout() {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="flex-[6] h-screen">
+      <div className="flex-[] h-screen">
         <Navbar />
         <Outlet />
       </div>

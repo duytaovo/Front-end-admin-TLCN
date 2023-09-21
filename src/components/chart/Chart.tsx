@@ -63,7 +63,7 @@ const ChartComponent = ({ title }: Props) => {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-2/3">
       <canvas ref={chartRef}></canvas>
     </div>
   );

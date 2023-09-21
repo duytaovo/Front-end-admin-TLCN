@@ -29,9 +29,9 @@ export default function useRouteElements() {
       <Route
         path=""
         element={
-          <UnAuthenticatedGuard>
-            <CommonLayout />
-          </UnAuthenticatedGuard>
+          // <UnAuthenticatedGuard>
+          <CommonLayout />
+          // </UnAuthenticatedGuard>
         }
       >
         {renderRouter}

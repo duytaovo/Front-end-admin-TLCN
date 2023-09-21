@@ -76,9 +76,9 @@ const List = () => {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id} className="text-lg">
-              <TableCell className="tableCell text-lg">{row.id}</TableCell>
-              <TableCell className="tableCell">
+            <TableRow key={row.id} className="text-xl">
+              <TableCell className="tableCell text-xl">{row.id}</TableCell>
+              <TableCell className="tableCell text-xl">
                 <div className="cellWrapper">
                   <img src={row.img} alt="" className="image" />
                   {row.product}
