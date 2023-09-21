@@ -46,6 +46,12 @@ const UserDatatable = ({ rows, title, userColumns, setData }: any) => {
         rows={rows}
         columns={userColumns?.concat(actionColumn)}
         checkboxSelection
+        initialState={{
+          pagination: {
+            paginationModel: { page: 0, pageSize: 5 },
+          },
+        }}
+        pageSizeOptions={[5, 10]}
       />
     </div>
   );

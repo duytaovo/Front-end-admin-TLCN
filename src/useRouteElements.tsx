@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import AuthenticatedGuard from "./guards/AuthenticatedGuard";
 import UnAuthenticatedGuard from "./guards/UnAuthenticatedGuard";
 import ListUser from "./pages/ListUser/ListUser";
+import AddUser from "./pages/ListUser/NewUser";
+import ListProduct from "./pages/Product/ListProduct";
 
 export default function useRouteElements() {
   const renderRouter = useMemo(() => {
@@ -38,11 +40,23 @@ export default function useRouteElements() {
         {renderRouter}
         <Route path="users">
           <Route index element={<ListUser />} />
-          {/* <Route path=":userId" element={<User />} />
-        <Route
-          path="new"
-          element={<New inputs={userInputs} title="Add New User" />}
-        /> */}
+          {/* <Route path=":userId" element={<User />} /> */}
+          <Route path="new" element={<AddUser />} />
+        </Route>
+        <Route path="products">
+          <Route index element={<ListProduct />} />
+          {/* <Route
+              path=":productId"
+              element={
+                <EditProduct inputs={typeProduct} title="Add New Product" />
+              }
+            />
+            <Route
+              path="new"
+              element={
+                <NewPhone inputs={typeProduct} title="Add New Product" />
+              }
+            /> */}
         </Route>
       </Route>
 

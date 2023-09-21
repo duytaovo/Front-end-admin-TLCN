@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import config from "src/constants/configApi";
 import HttpStatusCode from "src/constants/httpStatusCode.enum";
 import { ErrorResponse } from "src/types/utils.type";
 
@@ -60,6 +61,9 @@ export const getIdFromNameId = (name: string) => {
   const arr = name?.split("-i-");
   return arr[arr?.length - 1];
 };
+export const getAvatarUrl = (avatarName?: string) =>
+  avatarName ? `${config.baseUrl}images/${avatarName}` : "";
+
 //////////// routes
 // export const showPlayerInfo = (value: boolean) => {
 //   const dispatch = useAppDispatch()

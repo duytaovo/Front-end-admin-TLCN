@@ -50,7 +50,7 @@ const Order = ({ title }: { title?: string }) => {
 
   return (
     <div>
-      <Table hoverable={true} className="">
+      <Table hoverable={true} className="bg-transparent">
         <Table.Head>
           <Table.HeadCell> Mã đơn hàng </Table.HeadCell>
           <Table.HeadCell>Sản phẩm</Table.HeadCell>
@@ -62,7 +62,7 @@ const Order = ({ title }: { title?: string }) => {
             <span className="sr-only">Edit</span>
           </Table.HeadCell>
         </Table.Head>
-        <Table.Body className=" h-1/2">
+        <Table.Body className=" ">
           {orders.map((order: any, index) => {
             const styleStatus = style(order.status);
             const displayDetail = index === orderDetail.index;
@@ -70,7 +70,7 @@ const Order = ({ title }: { title?: string }) => {
             const styleDisable = "bg-gray-100";
             return (
               <>
-                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 overflow-hidden">
+                <Table.Row className=" dark:border-gray-700 dark:bg-gray-800 overflow-hidden">
                   <Table.Cell className="text-blue-400">#{order.id}</Table.Cell>
                   <Table.Cell className="text-blue-400 hover:text-blue-700 select-none">
                     <button
