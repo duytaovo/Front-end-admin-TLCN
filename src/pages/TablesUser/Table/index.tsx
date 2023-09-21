@@ -2,6 +2,7 @@ import * as React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Paper } from "@mui/material";
 import "./styles.css";
+import { Link } from "react-router-dom";
 // import PaginationCustom from '../Pagination'
 interface Props {
   rows: any;
@@ -20,7 +21,12 @@ const DataTable = ({
 }: Props) => {
   return (
     <Paper className="">
-      <div className="" style={{ height: 400, width: "100%" }}>
+      <div className="datatableTitle">
+        <Link to="/users/new" className="link">
+          Add New User
+        </Link>
+      </div>
+      <div className="" style={{ height: 400, width: "80%" }}>
         <DataGrid
           rows={rows}
           columns={columns}

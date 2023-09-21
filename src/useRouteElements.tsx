@@ -6,8 +6,7 @@ import CommonLayout from "./layouts/CommonLayout";
 import Login from "./pages/Login";
 import AuthenticatedGuard from "./guards/AuthenticatedGuard";
 import UnAuthenticatedGuard from "./guards/UnAuthenticatedGuard";
-import UserTable from "./pages/TablesUser";
-import ListUser from "./pages/ListUser";
+import ListUser from "./pages/ListUser/ListUser";
 
 export default function useRouteElements() {
   const renderRouter = useMemo(() => {
@@ -37,15 +36,16 @@ export default function useRouteElements() {
         }
       >
         {renderRouter}
-      </Route>
-      <Route path="users">
-        <Route index element={<ListUser />} />
-        {/* <Route path=":userId" element={<User />} />
+        <Route path="users">
+          <Route index element={<ListUser />} />
+          {/* <Route path=":userId" element={<User />} />
         <Route
           path="new"
           element={<New inputs={userInputs} title="Add New User" />}
         /> */}
+        </Route>
       </Route>
+
       <Route
         path="/login"
         element={
