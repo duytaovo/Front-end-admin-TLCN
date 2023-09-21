@@ -1,41 +1,15 @@
 {
-  "header": {
-    "howItWork": "Our Solution",
-    "hoisting": "Carshare",
-    "partners": "Partners",
-    "newrooms": "Newsroom",
-    "aboutUs": "About Us",
-    "bookACar": "Book a Car",
-    "shareACar": "Share a Car",
-    "login": "Login",
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "products": "Products",
+    "orders": "Orders",
+    "delivery": "Delivery",
+    "Review": "Review",
+    "Comment": "Comment",
+    "status": "Status",
+    "notification": "Notification",
+    "profile": "Profile",
     "logout": "Logout"
-  },
-  "solution": {
-    "insurance": "Insurance",
-    "trust&safe": "Safey & Trust",
-    "technology": "Technology",
-    "term": "Terms & Conditions"
-  },
-  "shareCar": {
-    "shareaCar": "Share a Car",
-    "term": "Terms & Conditions",
-    "benefit": "Sharer Benefits",
-    "refer": "Refer a Sharer"
-  },
-  "partners": {
-    "partnerWithUs": "Parter with us",
-    "partnerWithOur": "Our Partners",
-    "driveWithUber": "Grab/Be Drivers"
-  },
-  "newsroom": {
-    "news": "News",
-    "blogs": "Blogs",
-    "policy": "Policy & Regulations",
-    "eligibilities": "Eligibilities"
-  },
-  "about us": {
-    "unlockTeam": "Unlock Team",
-    "contact": "Contact Us",
-    "movetoLive": "Our vision"
   }
 }

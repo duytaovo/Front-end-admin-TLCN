@@ -17,10 +17,12 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { DarkModeContext } from "src/contexts/darkModeContext";
+import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const { enable, setEnable } = useContext(DarkModeContext);
-
+  const { t } = useTranslation("home");
+  const { i18n } = useTranslation();
   const logout = () => {
     if (confirm("Bạn có muốn thoát không?")) {
       localStorage.removeItem("token");
@@ -31,7 +33,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">TECH</span>
+          <span className="logo">TECH-ADMIN</span>
         </Link>
       </div>
       <hr />
@@ -41,55 +43,55 @@ const Sidebar = () => {
           <Link to="/" style={{ textDecoration: "none" }}>
             <li>
               <DashboardIcon className="icon" />
-              <span>Dashboard</span>
+              <span>{t("sidebar.dashboard")}</span>
             </li>
           </Link>
           <p className="title">LISTS</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
-              <span>Users</span>
+              <span>{t("sidebar.users")}</span>
             </li>
           </Link>
           <Link to="/products" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
-              <span>Products</span>
+              <span>{t("sidebar.products")}</span>
             </li>
           </Link>
           <Link to="/orders" style={{ textDecoration: "none" }}>
             <li>
               <CreditCardIcon className="icon" />
-              <span>Orders</span>
+              <span>{t("sidebar.orders")}</span>
             </li>
           </Link>
           <Link to="/delivery" style={{ textDecoration: "none" }}>
             <li>
               <LocalShippingIcon className="icon" />
-              <span>Delivery</span>
+              <span>{t("sidebar.delivery")}</span>
             </li>
           </Link>
           <Link to="/reviews" style={{ textDecoration: "none" }}>
             <li>
               <ThumbUpIcon className="icon" />
-              <span>Review</span>
+              <span>{t("sidebar.Review")}</span>
             </li>
           </Link>
           <Link to="/comments" style={{ textDecoration: "none" }}>
             <li>
               <ChatIcon className="icon" />
-              <span>Comment</span>
+              <span>{t("sidebar.Comment")}</span>
             </li>
           </Link>
           <Link to="/order" style={{ textDecoration: "none" }}></Link>
           <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />
-            <span>Stats</span>
+            <span>{t("sidebar.status")}</span>
           </li>
           <li>
             <NotificationsNoneIcon className="icon" />
-            <span>Notifications</span>
+            <span>{t("sidebar.notification")}</span>
           </li>
           {/* <p className="title">SERVICE</p>
           <li>
@@ -107,11 +109,11 @@ const Sidebar = () => {
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
+            <span>{t("sidebar.profile")}</span>
           </li>
           <li onClick={logout}>
             <ExitToAppIcon className="icon" />
-            <span>Logout</span>
+            <span>{t("sidebar.logout")}</span>
           </li>
         </ul>
       </div>
