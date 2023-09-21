@@ -2,11 +2,26 @@ import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
 const data = {
-  labels: ["January", "February", "March", "April", "May", "June"],
+  labels: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ],
   datasets: [
     {
       label: "Total",
-      data: [1200, 2100, 800, 1600, 900, 1700],
+      data: [
+        1200, 2100, 800, 1600, 900, 1700, 900, 900, 1900, 800, 1200, 1400, 900,
+      ],
       backgroundColor: "rgba(136, 132, 216, 0.8)",
       borderColor: "rgba(136, 132, 216, 1)",
       borderWidth: 1,
@@ -48,7 +63,7 @@ const ChartComponent = ({ title }: Props) => {
   }, []);
 
   return (
-    <div className="chart">
+    <div className="w-full">
       <canvas ref={chartRef}></canvas>
     </div>
   );

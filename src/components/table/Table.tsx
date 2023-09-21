@@ -62,7 +62,7 @@ const List = () => {
   ];
   return (
     <TableContainer component={Paper} className="table">
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 850 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell className="tableCell">Tracking ID</TableCell>
@@ -76,8 +76,8 @@ const List = () => {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell className="tableCell">{row.id}</TableCell>
+            <TableRow key={row.id} className="text-lg">
+              <TableCell className="tableCell text-lg">{row.id}</TableCell>
               <TableCell className="tableCell">
                 <div className="cellWrapper">
                   <img src={row.img} alt="" className="image" />

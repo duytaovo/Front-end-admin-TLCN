@@ -36,12 +36,20 @@ export default function useRouteElements() {
       >
         {renderRouter}
       </Route>
+      <Route path="users">
+        {/* <Route index element={<ListUser />} /> */}
+        {/* <Route path=":userId" element={<User />} />
+        <Route
+          path="new"
+          element={<New inputs={userInputs} title="Add New User" />}
+        /> */}
+      </Route>
       <Route
         path="/login"
         element={
-          <AuthenticatedGuard>
-            <Login />
-          </AuthenticatedGuard>
+          // <AuthenticatedGuard>
+          <Login />
+          // </AuthenticatedGuard>
         }
       />
     </Routes>

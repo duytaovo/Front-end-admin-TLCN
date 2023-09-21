@@ -17,7 +17,6 @@ const theme = createTheme({
 function App() {
   const routeElements = useRouteElements();
   const { enable } = useContext(DarkModeContext);
-  console.log(enable);
   return (
     <div className={enable === "true" ? "app dark" : "app"}>
       <ThemeProvider theme={theme}>

@@ -1,12 +1,11 @@
 import { Outlet } from "react-router-dom";
-import "./layout.scss";
 import Sidebar from "src/components/sidebar/Sidebar";
 import Navbar from "src/components/navbar/Navbar";
 function Layout() {
   return (
-    <div className="home">
+    <div className="flex">
       <Sidebar />
-      <div className="homeContainer">
+      <div className="flex-[6] h-screen">
         <Navbar />
         <Outlet />
       </div>
