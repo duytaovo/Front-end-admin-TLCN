@@ -18,9 +18,9 @@ export default function SelectCustom({
   name = "",
   disabled,
   ...props
-}) {
+}: any) {
   const renderSelectOption = () => {
-    return options.map((item, index) => {
+    return options.map((item: any, index: number) => {
       return (
         <MenuItem
           onClick={() => {
@@ -36,7 +36,7 @@ export default function SelectCustom({
     });
   };
 
-  const handleChange = (id) => {
+  const handleChange = (id: number | string) => {
     props.onChange && props.onChange(id);
   };
 

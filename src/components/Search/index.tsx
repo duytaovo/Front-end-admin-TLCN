@@ -30,11 +30,11 @@ const Search = ({ placeholder, onChange, width }: Props) => {
   return (
     <div
       style={{ width: width, height: 35 }}
-      className="flex h-8 content-center border items-center  rounded bg-white text-xl"
+      className="flex h-8 content-center border items-center  rounded  text-xl shadow"
     >
       <IconButton />
       <input
-        className="mr-5 placeholder:text-xl focus:outline-none w-[inherit] text-xl"
+        className="mr-5 placeholder:text-xl focus:outline-none w-[inherit] text-xl bg-transparent"
         type="search"
         placeholder={`${placeholder}...`}
         onChange={getValue}

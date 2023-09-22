@@ -1,4 +1,3 @@
-import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -7,15 +6,11 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import ChatIcon from "@mui/icons-material/Chat";
-import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
-import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { useDispatch } from "react-redux";
 import { DarkModeContext } from "src/contexts/darkModeContext";
 import { useTranslation } from "react-i18next";
 
@@ -30,96 +25,122 @@ const Sidebar = () => {
     }
   };
   return (
-    <div className="sidebar">
-      <div className="top">
+    <div className="border-r-[0.5px_solid_rgb(230,227,227)] min-h-screen bg-white sidebar">
+      <div className="h-[50px] flex items-center justify-center">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">TECH-ADMIN</span>
+          <span className="text-xl font-bold text-mainColor">TECH-ADMIN</span>
         </Link>
       </div>
       <hr />
-      <div className="center">
+      <div className="pl-[10px]">
         <ul>
-          <p className="title">MAIN</p>
+          <p className="text-[10px] font-bold text-[#999] mt-[15px] mb-[5px]">
+            MAIN
+          </p>
           <Link to="/" style={{ textDecoration: "none" }}>
-            <li>
-              <DashboardIcon className="icon" />
-              <span>{t("sidebar.dashboard")}</span>
+            <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
+              <DashboardIcon className="text-[18px] text-mainColor" />
+              <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
+                {t("sidebar.dashboard")}
+              </span>
             </li>
           </Link>
-          <p className="title">LISTS</p>
+          <p className="text-[10px] font-bold text-[#999] mt-[15px] mb-[5px]">
+            LISTS
+          </p>
           <Link to="/users" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span>{t("sidebar.users")}</span>
+            <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
+              <PersonOutlineIcon className="text-[18px] text-mainColor" />
+              <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
+                {t("sidebar.users")}
+              </span>
             </li>
           </Link>
           <Link to="/products" style={{ textDecoration: "none" }}>
-            <li>
-              <StoreIcon className="icon" />
-              <span>{t("sidebar.products")}</span>
+            <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
+              <StoreIcon className="text-[18px] text-mainColor" />
+              <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
+                {t("sidebar.products")}
+              </span>
             </li>
           </Link>
           <Link to="/orders" style={{ textDecoration: "none" }}>
-            <li>
-              <CreditCardIcon className="icon" />
-              <span>{t("sidebar.orders")}</span>
+            <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
+              <CreditCardIcon className="text-[18px] text-mainColor" />
+              <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
+                {t("sidebar.orders")}
+              </span>
             </li>
           </Link>
           <Link to="/delivery" style={{ textDecoration: "none" }}>
-            <li>
-              <LocalShippingIcon className="icon" />
-              <span>{t("sidebar.delivery")}</span>
+            <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
+              <LocalShippingIcon className="text-[18px] text-mainColor" />
+              <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
+                {t("sidebar.delivery")}
+              </span>
             </li>
           </Link>
           <Link to="/reviews" style={{ textDecoration: "none" }}>
-            <li>
-              <ThumbUpIcon className="icon" />
-              <span>{t("sidebar.Review")}</span>
+            <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
+              <ThumbUpIcon className="text-[18px] text-mainColor" />
+              <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
+                {t("sidebar.Review")}
+              </span>
             </li>
           </Link>
           <Link to="/comments" style={{ textDecoration: "none" }}>
-            <li>
-              <ChatIcon className="icon" />
-              <span>{t("sidebar.Comment")}</span>
+            <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
+              <ChatIcon className="text-[18px] text-mainColor" />
+              <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
+                {t("sidebar.Comment")}
+              </span>
             </li>
           </Link>
           <Link to="/order" style={{ textDecoration: "none" }}></Link>
-          <p className="title">USEFUL</p>
-          <li>
-            <InsertChartIcon className="icon" />
-            <span>{t("sidebar.status")}</span>
+          <p className="text-[10px] font-bold text-[#999] mt-[15px] mb-[5px]">
+            USEFUL
+          </p>
+          <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
+            <InsertChartIcon className="text-[18px] text-mainColor" />
+            <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
+              {t("sidebar.status")}
+            </span>
           </li>
-          <li>
-            <NotificationsNoneIcon className="icon" />
-            <span>{t("sidebar.notification")}</span>
+          <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
+            <NotificationsNoneIcon className="text-[18px] text-mainColor" />
+            <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
+              {t("sidebar.notification")}
+            </span>
           </li>
-          {/* <p className="title">SERVICE</p>
-          <li>
-            <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <span>System Health</span>
+          <p className="text-[10px] font-bold text-[#999] mt-[15px] mb-[5px]">
+            USER
+          </p>
+          <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
+            <AccountCircleOutlinedIcon className="text-[18px] text-mainColor" />
+            <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
+              {t("sidebar.profile")}
+            </span>
           </li>
-          <li>
-            <PsychologyOutlinedIcon className="icon" />
-            <span>Logs</span>
-          </li>
-          <li>
-            <SettingsApplicationsIcon className="icon" />
-            <span>Settings</span>
-          </li> */}
-          <p className="title">USER</p>
-          <li>
-            <AccountCircleOutlinedIcon className="icon" />
-            <span>{t("sidebar.profile")}</span>
-          </li>
-          <li onClick={logout}>
-            <ExitToAppIcon className="icon" />
-            <span>{t("sidebar.logout")}</span>
+          <li
+            onClick={logout}
+            className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]"
+          >
+            <ExitToAppIcon className="text-[18px] text-mainColor" />
+            <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
+              {t("sidebar.logout")}
+            </span>
           </li>
         </ul>
       </div>
-      <div className="bottom">
-        <div className="colorOption" onClick={() => setEnable("false")}></div>
-        <div className="colorOption" onClick={() => setEnable("true")}></div>
+      <div className="flex items-center m-[10px]">
+        <div
+          className="w-5 h-5 rounded border-[1px_solid_#7451f8] cursor-pointer m-[5px]"
+          onClick={() => setEnable("false")}
+        ></div>
+        <div
+          className="w-5 h-5 rounded border-[1px_solid_#7451f8] cursor-pointer m-[5px]"
+          onClick={() => setEnable("true")}
+        ></div>
       </div>
     </div>
   );

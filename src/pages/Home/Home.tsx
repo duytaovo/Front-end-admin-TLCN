@@ -1,8 +1,8 @@
 import "./home.scss";
 import Widget from "../../components/widget/Widget";
-import Featured from "../../components/featured/Featured";
+import Featured from "../../components/Featured/Featured";
 import Chart from "../../components/Chart/Chart";
-import Table from "../../components/table/Table";
+import Table from "../../components/Table/Table";
 
 const Home = () => {
   return (
@@ -21,7 +21,7 @@ const Home = () => {
       </div>
       <div className="listContainer">
         <div className="listTitle">Latest Transactions</div>
-        <div className=" overflow-auto h-[100px]">
+        <div className=" overflow-auto h-[180px]">
           <Table />
         </div>
       </div>

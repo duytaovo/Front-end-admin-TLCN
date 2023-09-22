@@ -1,4 +1,3 @@
-import "./table.scss";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -61,7 +60,7 @@ const List = () => {
     },
   ];
   return (
-    <TableContainer component={Paper} className="table">
+    <TableContainer component={Paper} className="text-[24px] table">
       <Table sx={{ minWidth: 850 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -79,8 +78,12 @@ const List = () => {
             <TableRow key={row.id} className="text-xl">
               <TableCell className="tableCell text-xl">{row.id}</TableCell>
               <TableCell className="tableCell text-xl">
-                <div className="cellWrapper">
-                  <img src={row.img} alt="" className="image" />
+                <div className="flex item-center ">
+                  <img
+                    src={row.img}
+                    alt=""
+                    className="w-8 h-8 rouded-[50%] mr-[10px] object-cover"
+                  />
                   {row.product}
                 </div>
               </TableCell>
@@ -89,7 +92,15 @@ const List = () => {
               <TableCell className="tableCell">{row.amount}</TableCell>
               <TableCell className="tableCell">{row.method}</TableCell>
               <TableCell className="tableCell">
-                <span className={`status ${row.status}`}>{row.status}</span>
+                <span
+                  className={`pd-[5px] rounded-[5px] ${
+                    row.status === "Approved"
+                      ? "text-green-500 bg-[rgba(0,128,0,0.151)]"
+                      : "text-[goldenrod] bg-[rgba(189, 189, 3, 0.103)]"
+                  }`}
+                >
+                  {row.status}
+                </span>
               </TableCell>
             </TableRow>
           ))}

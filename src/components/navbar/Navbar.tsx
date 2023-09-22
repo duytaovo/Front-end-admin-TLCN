@@ -1,6 +1,3 @@
-import "./navbar.scss";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
@@ -57,22 +54,17 @@ const Navbar = () => {
   const currentLanguage = locales[i18n.language as keyof typeof locales];
   const { setEnable, enable } = useContext(DarkModeContext);
   return (
-    <div className="navbar">
-      <div className="wrapper">
-        <div className="search">
+    <div className="h-[50px] border-b-[0.5px_solid_rgb(231,228,228)] flex items-center text-base text-[#555]">
+      <div className="w-full p-5 flex items-center justify-between">
+        <div className="flex items-center border-[0.5px solid lightgray] dark">
           <Search onChange={() => {}} placeholder="Tìm kiếm" width="300px" />
         </div>
-        <div className="items">
+        <div className="flex items-center">
           <div className="">
             <CustomDropDown
               {...customDropdownStyle}
               menuStyle={menuStyle}
               items={items}
-              // arrow
-              // menu={{
-              //   items
-              // }}
-              // placement='bottom'
             >
               <div className=" hover:text-mainColor">
                 <LanguageIcon />
@@ -82,11 +74,11 @@ const Navbar = () => {
               </div>
             </CustomDropDown>
           </div>
-          <div className="item">
+          <div className="flex items-center mr-5 relative">
             {enable === "true" ? (
               <IconButton>
                 <DarkModeOutlinedIcon
-                  className="icon text-white/70"
+                  className="text-xl  text-white/70"
                   onClick={() => {
                     setEnable("false");
                     localStorage.setItem("enable", "false");
@@ -96,7 +88,7 @@ const Navbar = () => {
             ) : (
               <IconButton>
                 <LightModeOutlinedIcon
-                  className="icon"
+                  className="text-xl"
                   onClick={() => {
                     setEnable("true");
                     localStorage.setItem("enable", "true");
@@ -105,25 +97,29 @@ const Navbar = () => {
               </IconButton>
             )}
           </div>
-          <div className="item">
-            <FullscreenExitOutlinedIcon className="icon" />
+          <div className="flex item-center mr-5 relative">
+            <FullscreenExitOutlinedIcon className="text-xl" />
           </div>
-          <div className="item">
-            <NotificationsNoneOutlinedIcon className="icon" />
-            <div className="counter">1</div>
+          <div className="flex item-center mr-5 relative">
+            <NotificationsNoneOutlinedIcon className="text-xl" />
+            <div className="w-[15px] h-[15px] bg-red-500 rounded-[50%] text-white flex items-center justify-center text-[10px] font-bold absolute -top-[5px] -r-[5px]">
+              1
+            </div>
           </div>
-          <div className="item">
-            <ChatBubbleOutlineOutlinedIcon className="icon" />
-            <div className="counter">2</div>
+          <div className="flex item-center mr-5 relative">
+            <ChatBubbleOutlineOutlinedIcon className="text-xl" />
+            <div className="w-[15px] h-[15px] bg-red-500 rounded-[50%] text-white flex items-center justify-center text-[10px] font-bold absolute -top-[5px] -r-[5px]">
+              2
+            </div>
           </div>
-          <div className="item">
-            <ListOutlinedIcon className="icon" />
+          <div className="flex item-center mr-5 relative">
+            <ListOutlinedIcon className="text-xl" />
           </div>
-          <div className="item">
+          <div className="flex item-center mr-5 relative">
             <img
               src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
               alt=""
-              className="avatar"
+              className="w-[30px] h-[30px] rounded-[50%]"
             />
           </div>
         </div>
