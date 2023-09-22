@@ -6,9 +6,6 @@ import CommonLayout from "./layouts/CommonLayout";
 import Login from "./pages/Login";
 import AuthenticatedGuard from "./guards/AuthenticatedGuard";
 import UnAuthenticatedGuard from "./guards/UnAuthenticatedGuard";
-import ListUser from "./pages/ListUser/ListUser";
-import AddUser from "./pages/ListUser/NewUser";
-import ListProduct from "./pages/Product/ListProduct";
 
 export default function useRouteElements() {
   const renderRouter = useMemo(() => {

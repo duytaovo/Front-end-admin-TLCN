@@ -1,8 +1,15 @@
-import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+
+interface Props {
+  rows: any;
+  title: string;
+  productColumns: any;
+  type: string;
+  reply: boolean;
+}
 
 const Datatable = ({
   rows,
@@ -10,11 +17,10 @@ const Datatable = ({
   productColumns,
   type = "",
   reply = false,
-}: any) => {
+}: Props) => {
   const dispatch = useDispatch();
   const idPro = useParams();
-  console.log("rows", rows);
-  const handleDelete = (id: any, repply: any) => {
+  const handleDelete = (id: number, repply: string) => {
     // setData(data.filter((item) => item.id !== id));
     // if (type === "comment") {
     //   const getCommentDel = rows.find((item) => item.id === id);
@@ -57,7 +63,7 @@ const Datatable = ({
   // const hanleReplly = (id)=>{
   //   repplyComments(dispatch,id,idPro.commentId)
   // }
-  const handleAddPostModal = (repllyforId: any) => {
+  const handleAddPostModal = (repllyforId: number) => {
     // showModal(dispatch, repllyforId);
   };
 
@@ -68,13 +74,15 @@ const Datatable = ({
       width: 200,
       renderCell: (params: any) => {
         return (
-          <div className="cellAction">
+          <div className="flex items-center gap-4 ">
             {type === "comment" && !reply && (
               <Link
                 to={`/comments/${params.row.id}`}
                 style={{ textDecoration: "none" }}
               >
-                <div className="viewButton">View</div>
+                <div className="p-[2px_5px] rounded text-[darkblue] border-[1px] border-[rgba(0,0,139,0.596)] border-dotted cursor-pointer">
+                  View
+                </div>
               </Link>
             )}
             {type === "comment" && reply && (
@@ -96,7 +104,9 @@ const Datatable = ({
                 to={`/reviews/${params.row.id}`}
                 style={{ textDecoration: "none" }}
               >
-                <div className="viewButton">View</div>
+                <div className="p-[2px_5px] rounded text-[darkblue] border-[1px] border-[rgba(0,0,139,0.596)] border-dotted cursor-pointer">
+                  View
+                </div>
               </Link>
             )}
             {type === "user" && (
@@ -104,7 +114,9 @@ const Datatable = ({
                 to={`/users/${params.row.id}`}
                 style={{ textDecoration: "none" }}
               >
-                <div className="viewButton">View</div>
+                <div className="p-[2px_5px] rounded text-[darkblue] border-[1px] border-[rgba(0,0,139,0.596)] border-dotted cursor-pointer">
+                  View
+                </div>
               </Link>
             )}
             {type === "products" && (
@@ -112,11 +124,13 @@ const Datatable = ({
                 to={`/products/${params.row.id}`}
                 style={{ textDecoration: "none" }}
               >
-                <div className="viewButton">View</div>
+                <div className="p-[2px_5px] rounded text-[darkblue] border-[1px] border-[rgba(0,0,139,0.596)] border-dotted cursor-pointer">
+                  View
+                </div>
               </Link>
             )}
             <div
-              className="deleteButton"
+              className="p-[2px_5px] rounded text-[crimson] border-[1px] border-[rgba(220,20,60,0.6)] cursor-pointer"
               onClick={() => {
                 if (type === "comment") {
                   handleDelete(params.row.id, params.row.creator.replyforId);
@@ -133,10 +147,16 @@ const Datatable = ({
     },
   ];
   return (
-    <div className="datatable">
-      <div className="datatableTitle">
+    <div className="h-[600px] p-[20px] ">
+      <div
+        className="w-full text-[24px] text-gray-500 mb-[10px] flex items-center justify-between
+      "
+      >
         Add New {title}
-        <Link to={"/" + type + "/new"} className="link">
+        <Link
+          to={"/" + type + "/new"}
+          className="no-underline text-green-500 text-base font-medium border-[1px] border-solid border-[green] p-1 rounded cursor-pointer"
+        >
           Add New
         </Link>
       </div>

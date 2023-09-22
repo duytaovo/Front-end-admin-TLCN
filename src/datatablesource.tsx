@@ -6,8 +6,12 @@ export const productColumns = [
     width: 230,
     renderCell: (params: any) => {
       return (
-        <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img} alt="avatar" />
+        <div className="flex items-center ">
+          <img
+            className="w-8 h-8 rounded-[50%] object-cover mr-5 "
+            src={params.row.img}
+            alt="avatar"
+          />
           {params.row.username}
         </div>
       );
@@ -96,7 +100,7 @@ export const userColumns = [
     width: 230,
     renderCell: (params: any) => {
       return (
-        <div className="cellWithImg">
+        <div className="flex items-center">
           <img className="cellImg" src={params.row.avatar} alt="avatar" />
         </div>
       );
@@ -107,7 +111,7 @@ export const userColumns = [
     headerName: "Name",
     width: 230,
     renderCell: (params: any) => {
-      return <div className="cellWithImg">{params.row.username}</div>;
+      return <div className="flex items-center">{params.row.username}</div>;
     },
   },
   {
@@ -145,7 +149,7 @@ export const reviewProductColumns = [
     headerName: "ID",
     width: 50,
     renderCell: (params: any) => {
-      return <div className="cellWithImg">{params.row.id}</div>;
+      return <div className="flex items-center">{params.row.id}</div>;
     },
   },
   {
@@ -154,7 +158,7 @@ export const reviewProductColumns = [
     width: 550,
     renderCell: (params: any) => {
       return (
-        <div className="cellWithImg">
+        <div className="flex items-center">
           <img className="cellImg" src={params.row.img} alt="avatar" />
           {params.row.title}
         </div>
@@ -167,7 +171,7 @@ export const reviewProductColumns = [
     headerName: "Stars",
     width: 80,
     renderCell: (params: any) => {
-      return <div className="cellWithImg">{params.row.star}</div>;
+      return <div className="flex items-center">{params.row.star}</div>;
     },
   },
   {
@@ -175,7 +179,7 @@ export const reviewProductColumns = [
     headerName: "Total Vote",
     width: 90,
     renderCell: (params: any) => {
-      return <div className="cellWithImg">{params.row.totalVote}</div>;
+      return <div className="flex items-center">{params.row.totalVote}</div>;
     },
   },
 ];
@@ -186,7 +190,7 @@ export const reviewDetailColumns = [
     headerName: "ID",
     width: 400,
     renderCell: (params: any) => {
-      return <div className="cellWithImg">{params.row.id}</div>;
+      return <div className="flex items-center">{params.row.id}</div>;
     },
   },
 
@@ -195,7 +199,9 @@ export const reviewDetailColumns = [
     headerName: "User",
     width: 100,
     renderCell: (params: any) => {
-      return <div className="cellWithImg">{params.row.user.username}</div>;
+      return (
+        <div className="flex items-center">{params.row.user.username}</div>
+      );
     },
   },
 
@@ -204,7 +210,7 @@ export const reviewDetailColumns = [
     headerName: "Stars",
     width: 80,
     renderCell: (params: any) => {
-      return <div className="cellWithImg">{params.row.star}</div>;
+      return <div className="flex items-center">{params.row.star}</div>;
     },
   },
   {

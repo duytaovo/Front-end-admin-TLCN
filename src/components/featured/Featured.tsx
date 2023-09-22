@@ -1,6 +1,4 @@
-import "./featured.scss";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
@@ -8,8 +6,8 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 
 const Featured = () => {
   return (
-    <div className="featured">
-      <div className="top">
+    <div className="flex-[2] shadow-[2px 4px 10px 1px rgba(0, 0, 0, 0.47)] p-[3]">
+      <div className="flex items-center justify-between text-gray-500">
         <h1 className="title">Total Revenue</h1>
         <MoreVertIcon fontSize="large" />
       </div>

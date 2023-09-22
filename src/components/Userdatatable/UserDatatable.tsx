@@ -15,15 +15,17 @@ const UserDatatable = ({ rows, title, userColumns, setData }: any) => {
       width: 200,
       renderCell: (params: any) => {
         return (
-          <div className="cellAction">
+          <div className="flex items-center gap-4">
             <Link
               to={`/users/${params.row.id}`}
               style={{ textDecoration: "none" }}
             >
-              <div className="viewButton">View</div>
+              <div className="p-[2px_5px] rounded text-[darkblue] border-[1px] border-[rgba(0,0,139,0.596)] border-dotted cursor-pointer">
+                View
+              </div>
             </Link>
             <div
-              className="deleteButton"
+              className="p-[2px_5px] rounded text-[crimson] border-[1px] border-[rgba(220,20,60,0.6)] cursor-pointer"
               onClick={() => handleDelete(params.row.id)}
             >
               Delete
@@ -34,8 +36,8 @@ const UserDatatable = ({ rows, title, userColumns, setData }: any) => {
     },
   ];
   return (
-    <div className="datatable">
-      <div className="datatableTitle">
+    <div className="h-[600px] p-[20px]">
+      <div className="w-full text-[24px] text-gray-500 mb-[10px] flex items-center justify-between">
         Add New {title}
         <Link to="/users/new" className="link">
           Add New

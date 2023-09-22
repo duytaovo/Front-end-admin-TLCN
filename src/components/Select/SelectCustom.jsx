@@ -31,11 +31,6 @@ export default function SelectCustom({
           className="text-black"
         >
           {props.isBrand && item.carBrandName}
-          {/* {props.isYear && item.year} */}
-          {props.isModel && item.carModelName}
-          {props.isCarSeri && item.carSeriName}
-          {props.isCarType && item.vehicleTypeName}
-          {props.isCarLicense && item.licensePlateTypeName}
         </MenuItem>
       );
     });
