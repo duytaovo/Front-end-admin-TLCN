@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
-import "./widget.scss";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
@@ -21,7 +19,7 @@ const Widget = ({ type }: { type: string }) => {
         link: "See all users",
         icon: (
           <PersonOutlinedIcon
-            className="icon"
+            className="text-[25px] p-[5px] rounded-[5px] self-end"
             style={{
               color: "crimson",
               backgroundColor: "rgba(255, 0, 0, 0.2)",
@@ -37,7 +35,7 @@ const Widget = ({ type }: { type: string }) => {
         link: "View all orders",
         icon: (
           <ShoppingCartOutlinedIcon
-            className="icon"
+            className="text-[25px] p-[5px] rounded-[5px] self-end"
             style={{
               backgroundColor: "rgba(218, 165, 32, 0.2)",
               color: "goldenrod",
@@ -53,7 +51,7 @@ const Widget = ({ type }: { type: string }) => {
         link: "View net earnings",
         icon: (
           <MonetizationOnOutlinedIcon
-            className="icon"
+            className="text-[25px] p-[5px] rounded-[5px] self-end"
             style={{
               backgroundColor: "rgba(0, 128, 0, 0.2)",
               color: "green",
@@ -69,7 +67,7 @@ const Widget = ({ type }: { type: string }) => {
         link: "See details",
         icon: (
           <AccountBalanceOutlinedIcon
-            className="icon"
+            className="text-[25px] p-[5px] rounded-[5px] self-end"
             style={{
               backgroundColor: "rgba(128, 0, 128, 0.2)",
               color: "purple",
@@ -83,18 +81,22 @@ const Widget = ({ type }: { type: string }) => {
       break;
   }
   return (
-    <div className="widget">
-      <div className="left">
-        <span className="title">{data?.title}</span>
-        <span className="counter">
+    <div className="widget flex justify-between flex-1 p-[10px] shadow-[2px_4px_10px_1px_rgba(201,201,201,0.47)] rounded-[10px] h-[100px]">
+      <div className="flex flex-col justify-between">
+        <span className="font-bold text-sm text-[rgb(160,160,160)]">
+          {data?.title}
+        </span>
+        <span className="text-[28px] font-light">
           {data?.isMoney && "$"} {amount}
         </span>
         <Link to={`${type}s`}>
-          <span className="link">{data?.link}</span>
+          <span className="w-max text-xs border-b-[1px_solid_gray]">
+            {data?.link}
+          </span>
         </Link>
       </div>
-      <div className="right">
-        <div className="percentage positive">
+      <div className="flex flex-col justify-between">
+        <div className="flex items-center text-sm text-green-500">
           <KeyboardArrowUpIcon />
           {diff} %
         </div>
