@@ -1,8 +1,8 @@
+import Widget from "src/components/widget/Widget";
 import "./home.scss";
-import Widget from "../../components/widget/Widget";
-import Featured from "../../components/Featured/Featured";
-import Chart from "../../components/Chart/Chart";
-import Table from "../../components/Table/Table";
+import Featured from "src/components/Featured";
+import ChartComponent from "src/components/Chart/Chart";
+import List from "src/components/Table/Table";
 
 const Home = () => {
   return (
@@ -17,12 +17,12 @@ const Home = () => {
         <div className="">
           <Featured />
         </div>
-        <Chart title="Last 6 Months (Revenue)" />
+        <ChartComponent title="Last 6 Months (Revenue)" />
       </div>
       <div className="listContainer">
         <div className="listTitle">Latest Transactions</div>
         <div className=" overflow-auto h-[180px]">
-          <Table />
+          <List />
         </div>
       </div>
     </div>
