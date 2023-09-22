@@ -1,7 +1,7 @@
-import Widget from "src/components/widget/Widget";
+import Widget from "src/components/widget";
 import Featured from "src/components/Featured";
-import ChartComponent from "src/components/Chart/Chart";
-import List from "src/components/Table/Table";
+import ChartComponent from "src/components/Chart";
+import CustomTable from "src/components/Table";
 
 const Home = () => {
   return (
@@ -23,7 +23,7 @@ const Home = () => {
           Latest Transactions
         </div>
         <div className=" overflow-auto h-[180px]">
-          <List />
+          <CustomTable />
         </div>
       </div>
     </div>
