@@ -11,7 +11,6 @@ const Users = (props: Props) => {
   };
   return (
     <div className="">
-      {/* <UserTable onClick={handleOpen} /> */}\
       <ListUser />
     </div>
   );
