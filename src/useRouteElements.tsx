@@ -38,28 +38,7 @@ export default function useRouteElements() {
         }
       >
         {renderRouter}
-        <Route path="users">
-          <Route index element={<ListUser />} />
-          {/* <Route path=":userId" element={<User />} /> */}
-          <Route path="new" element={<AddUser />} />
-        </Route>
-        <Route path="products">
-          <Route index element={<ListProduct />} />
-          {/* <Route
-              path=":productId"
-              element={
-                <EditProduct inputs={typeProduct} title="Add New Product" />
-              }
-            />
-            <Route
-              path="new"
-              element={
-                <NewPhone inputs={typeProduct} title="Add New Product" />
-              }
-            /> */}
-        </Route>
       </Route>
-
       <Route
         path="/login"
         element={
