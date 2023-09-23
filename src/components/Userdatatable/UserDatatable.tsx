@@ -2,7 +2,14 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const UserDatatable = ({ rows, title, userColumns, setData }: any) => {
+interface Props {
+  rows: [];
+  title: string;
+  userColumns: any;
+  setData: (value: any) => void;
+}
+
+const UserDatatable = ({ rows, title, userColumns, setData }: Props) => {
   const handleDelete = (id: number) => {
     setData(rows.filter((item: any) => item.id !== id));
   };
@@ -38,7 +45,10 @@ const UserDatatable = ({ rows, title, userColumns, setData }: any) => {
     <div className="h-[600px] p-[20px]">
       <div className="w-full text-[24px] text-gray-500 mb-[10px] flex items-center justify-between">
         Add New {title}
-        <Link to="/users/new" className="link">
+        <Link
+          to="/users/new"
+          className="no-underline text-green-500 text-lg font-medium border-[1px] border-solid border-[green] p-3 rounded cursor-pointer"
+        >
           Add New
         </Link>
       </div>

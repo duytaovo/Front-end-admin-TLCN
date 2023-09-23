@@ -155,7 +155,7 @@ const Datatable = ({
         Add New {title}
         <Link
           to={"/" + type + "/new"}
-          className="no-underline text-green-500 text-base font-medium border-[1px] border-solid border-[green] p-1 rounded cursor-pointer"
+          className="no-underline text-green-500 text-lg font-medium border-[1px] border-solid border-[green] p-3 rounded cursor-pointer"
         >
           Add New
         </Link>

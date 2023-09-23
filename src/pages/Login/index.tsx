@@ -75,12 +75,12 @@ const Login = () => {
   });
 
   return (
-    <div className="w-2/3 items-center m-auto flex justify-center">
+    <div className=" items-start bg-white  m-auto mb-5 flex justify-center  h-screen">
       <Helmet>
         <title>Login </title>
         <meta name="description" content="Trang đăng nhập" />
       </Helmet>
-      <div className="lg:col-span-2 lg:col-start-4 bg-white w-1/2 md:w-full justify-center m-10 rounded-2xl">
+      <div className="lg:col-span-2 lg:col-start-4  bg-mainColor/30 w-1/4 md:w-full justify-center m-10 rounded-2xl">
         <div className="flex items-center justify-center rounded-2xl mt-3">
           <img src={logo} alt="logo" className="w-30 h-20 md:hidden"></img>
         </div>
@@ -113,9 +113,9 @@ const Login = () => {
           />
           <div className="mt-3 flex justify-center space-x-2 items-center ">
             <Button
-              isNext
+              // isNext
               type="submit"
-              className="flex w-full items-center justify-center mt-2 rounded-[30px] bg-mainColor py-4 px-2 text-sm uppercase text-white hover:opacity-80"
+              className="flex w-full items-center justify-center mt-2 rounded-[30px] bg-mainColor py-3 px-2 text-sm uppercase text-white hover:opacity-80"
             >
               {isSubmitting ? (
                 <CircularProgress

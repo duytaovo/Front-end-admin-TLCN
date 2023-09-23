@@ -5,7 +5,7 @@ import { userColumns } from "src/datatablesource";
 
 const ListUser = () => {
   const locationUrl = useLocation();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>([]);
 
   useEffect(() => {
     async function getUsers() {
@@ -16,7 +16,12 @@ const ListUser = () => {
   return (
     <div className="">
       <div className="">
-        <UserDatatable rows={data} title="" userColumns={userColumns} />
+        <UserDatatable
+          rows={data}
+          title=""
+          userColumns={userColumns}
+          setData={setData}
+        />
       </div>
     </div>
   );

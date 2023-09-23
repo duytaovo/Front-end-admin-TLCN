@@ -41,6 +41,8 @@ module.exports = {
       backgroundColor: {
         mainBackGroundColor: "#1c2635",
         bgHeaderMobile: "rgb(249 248 248 / 80%)",
+        bgLogin:
+          "linear-gradient( to right, hsla(141, 54%, 86%, 1) 0%,hsla(333, 73%, 85%, 1) 50%,hsla(211, 58%, 79%, 1) 100%)",
       },
 
       margin: {
