@@ -1,5 +1,4 @@
 import React from "react";
-import UserTable from "../TablesUser";
 import ListUser from "./ListUser";
 
 type Props = {};

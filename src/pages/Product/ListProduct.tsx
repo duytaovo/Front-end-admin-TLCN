@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Datatable from "src/components/Datatable";
+import Datatable from "src/components/Datatable/Datatable";
 import { productColumns } from "src/datatablesource";
 
-const ListProduct = () => {
+export default function ListProduct() {
   const locationUrl = useLocation();
   const [data, setData] = useState([]);
 
@@ -26,6 +26,4 @@ const ListProduct = () => {
       </div>
     </div>
   );
-};
-
-export default ListProduct;
+}
