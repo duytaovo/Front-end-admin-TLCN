@@ -13,11 +13,11 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DarkModeContext } from "src/contexts/darkModeContext";
 import { useTranslation } from "react-i18next";
-
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import Brightness4OutlinedIcon from "@mui/icons-material/Brightness4Outlined";
 const Sidebar = () => {
   const { enable, setEnable } = useContext(DarkModeContext);
   const { t } = useTranslation("home");
-  const { i18n } = useTranslation();
   const logout = () => {
     if (confirm("Bạn có muốn thoát không?")) {
       localStorage.removeItem("token");
@@ -136,11 +136,15 @@ const Sidebar = () => {
         <div
           className="w-5 h-5 rounded border-[1px_solid_#7451f8] cursor-pointer m-[5px]"
           onClick={() => setEnable("false")}
-        ></div>
+        >
+          <LightModeOutlinedIcon />
+        </div>
         <div
           className="w-5 h-5 rounded border-[1px_solid_#7451f8] cursor-pointer m-[5px]"
           onClick={() => setEnable("true")}
-        ></div>
+        >
+          <Brightness4OutlinedIcon />
+        </div>
       </div>
     </div>
   );

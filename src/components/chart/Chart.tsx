@@ -3,18 +3,18 @@ import Chart from "chart.js/auto";
 
 const data = {
   labels: [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "T1",
+    "T2",
+    "T3",
+    "T4",
+    "T5",
+    "T6",
+    "T7",
+    "T8",
+    "T9",
+    "T10",
+    "T11",
+    "T12",
   ],
   datasets: [
     {
@@ -22,8 +22,8 @@ const data = {
       data: [
         1200, 2100, 800, 1600, 900, 1700, 900, 900, 1900, 800, 1200, 1400, 900,
       ],
-      backgroundColor: "rgba(136, 132, 216, 0.8)",
-      borderColor: "rgba(136, 132, 216, 1)",
+      backgroundColor: "#CDFCF6",
+      borderColor: "#3699d3",
       borderWidth: 1,
       fill: true,
     },

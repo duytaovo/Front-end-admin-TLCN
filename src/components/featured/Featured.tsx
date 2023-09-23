@@ -11,7 +11,7 @@ const Featured = () => {
         <h1 className="text-base font-medium">Total Revenue</h1>
         <MoreVertIcon fontSize="large" />
       </div>
-      <div className="p-5 flex items-center justify-between flex-col gap-4">
+      <div className="p-5 flex items-center justify-between flex-col gap-4 ">
         <Box sx={{ position: "relative", display: "inline-flex" }}>
           <CircularProgress variant="determinate" size={"80px"} />
           <Box
@@ -30,7 +30,7 @@ const Featured = () => {
             <Typography
               variant="caption"
               component="div"
-              color="text.secondary"
+              color=""
               fontSize={"45px"}
             >
               $3420
@@ -45,24 +45,24 @@ const Featured = () => {
         </p>
         <div className="w-full flex items-center justify-between">
           <div className="text-center">
-            <div className="text-sm text-gray-500">Target</div>
-            <div className="flex item-center mt-[10px] text-sm text-red-500">
+            <div className="text-2xl text-gray-500">Target</div>
+            <div className="flex item-center mt-[10px] text-3xl text-red-500">
               <KeyboardArrowDownIcon fontSize="medium" />
-              <div className="resultAmount">$12.4k</div>
+              <div className="text-3xl">$12.4k</div>
             </div>
           </div>
           <div className="text-center">
-            <div className="text-sm text-gray-500">Last Week</div>
-            <div className="flex item-center mt-[10px] text-sm text-green-500">
+            <div className="text-2xl text-gray-500">Last Week</div>
+            <div className="flex item-center mt-[10px] text-3xl text-green-500">
               <KeyboardArrowUpOutlinedIcon fontSize="medium" />
-              <div className="resultAmount">$12.4k</div>
+              <div className="text-3xl">$12.4k</div>
             </div>
           </div>
           <div className="text-center">
-            <div className="text-sm text-gray-500">Last Month</div>
-            <div className="flex item-center mt-[10px] text-sm text-green-500">
+            <div className="text-2xl text-gray-500">Last Month</div>
+            <div className="flex item-center mt-[10px] text-3xl text-green-500">
               <KeyboardArrowUpOutlinedIcon fontSize="small" />
-              <div className="resultAmount">$12.4k</div>
+              <div className="text-3xl">$12.4k</div>
             </div>
           </div>
         </div>
