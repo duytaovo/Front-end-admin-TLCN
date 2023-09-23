@@ -2,11 +2,11 @@ import { lazy } from "react";
 import path from "src/constants/path";
 
 const Home = lazy(() => import("src/pages/Home/Home"));
-const Order = lazy(() => import("src/pages/Order/Order"));
+const Orders = lazy(() => import("src/pages/Order"));
 const NotFound = lazy(() => import("src/pages/NotFound/NotFound"));
 const ListUser = lazy(() => import("src/pages/ListUser/ListUser"));
 const AddUser = lazy(() => import("src/pages/ListUser/NewUser"));
-const ListProducts = lazy(() => import("src/pages/Product/ListProduct"));
+const Products = lazy(() => import("src/pages/Product"));
 
 export const routeMain = [
   {
@@ -15,7 +15,7 @@ export const routeMain = [
   },
   {
     path: path.orders,
-    Component: Order,
+    Component: Orders,
   },
   {
     path: path.users,
@@ -31,7 +31,7 @@ export const routeMain = [
   },
   {
     path: path.products,
-    Component: ListProducts,
+    Component: Products,
   },
   {
     path: "*",

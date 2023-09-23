@@ -49,7 +49,7 @@ const Order = ({ title }: { title?: string }) => {
   }, [title]);
 
   return (
-    <div>
+    <div className="h-1/2">
       <Table hoverable={true} className="bg-transparent">
         <Table.Head>
           <Table.HeadCell> Mã đơn hàng </Table.HeadCell>
