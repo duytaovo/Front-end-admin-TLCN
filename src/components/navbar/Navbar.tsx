@@ -48,7 +48,7 @@ const menuStyle = {
   padding: "20px 20px",
   borderRadius: "16px",
 };
-export const Navbar = () => {
+export default function Navbar() {
   const { t } = useTranslation("home");
   const { i18n } = useTranslation();
   const currentLanguage = locales[i18n.language as keyof typeof locales];
@@ -126,4 +126,4 @@ export const Navbar = () => {
       </div>
     </div>
   );
-};
+}
