@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Grid } from "@mui/material";
-import Navbar from "../../components/Navbar";
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "src/components/Sidebar";
+import Navbar from "src/components/Navbar";
 function Layout() {
   return (
     <div className="home">

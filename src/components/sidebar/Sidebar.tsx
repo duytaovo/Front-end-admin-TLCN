@@ -15,7 +15,8 @@ import { DarkModeContext } from "src/contexts/darkModeContext";
 import { useTranslation } from "react-i18next";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import Brightness4OutlinedIcon from "@mui/icons-material/Brightness4Outlined";
-const Sidebar = () => {
+
+export const Sidebar = () => {
   const { enable, setEnable } = useContext(DarkModeContext);
   const { t } = useTranslation("home");
   const logout = () => {
@@ -149,5 +150,3 @@ const Sidebar = () => {
     </div>
   );
 };
-
-export default Sidebar;
