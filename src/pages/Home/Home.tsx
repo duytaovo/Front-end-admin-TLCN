@@ -1,7 +1,7 @@
-import Widget from "src/components/widget";
-import Featured from "src/components/Featured";
 import ChartComponent from "src/components/Chart";
+import Featured from "src/components/Featured";
 import CustomTable from "src/components/Table";
+import Widget from "src/components/widget";
 
 const Home = () => {
   return (

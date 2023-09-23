@@ -11,13 +11,13 @@ interface Props {
   reply: boolean;
 }
 
-const Datatable = ({
+export default function Datatable({
   rows,
   title,
   productColumns,
   type = "",
   reply = false,
-}: Props) => {
+}: Props) {
   const dispatch = useDispatch();
   const idPro = useParams();
   const handleDelete = (id: number, repply: string) => {
@@ -171,6 +171,4 @@ const Datatable = ({
       {/* <CreatePostModal></CreatePostModal> */}
     </div>
   );
-};
-
-export default Datatable;
+}

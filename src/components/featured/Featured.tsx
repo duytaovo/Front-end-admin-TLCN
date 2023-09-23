@@ -4,7 +4,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import { Box, CircularProgress, Typography } from "@mui/material";
 
-const Featured = () => {
+export default function Featured() {
   return (
     <div className="flex-[2] shadow-[2px 4px 10px 1px rgba(0, 0, 0, 0.47)] p-[3]">
       <div className="flex items-center justify-between text-gray-500">
@@ -69,6 +69,4 @@ const Featured = () => {
       </div>
     </div>
   );
-};
-
-export default Featured;
+}

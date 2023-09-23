@@ -33,7 +33,7 @@ const data = {
 interface Props {
   title: string;
 }
-const ChartComponent = ({ title }: Props) => {
+export default function ChartComponent({ title }: Props) {
   const chartRef = useRef(null);
   const chartInstance: any = useRef(null); // Sử dụng ref để theo dõi biểu đồ
 
@@ -67,6 +67,4 @@ const ChartComponent = ({ title }: Props) => {
       <canvas ref={chartRef}></canvas>
     </div>
   );
-};
-
-export default ChartComponent;
+}

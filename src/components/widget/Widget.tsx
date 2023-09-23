@@ -4,7 +4,7 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
-const Widget = ({ type }: { type: string }) => {
+export default function Widget({ type }: { type: string }) {
   let data;
 
   //temporary
@@ -104,6 +104,4 @@ const Widget = ({ type }: { type: string }) => {
       </div>
     </div>
   );
-};
-
-export default Widget;
+}

@@ -6,7 +6,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-const CustomTable = () => {
+export default function CustomTable() {
   const rows = [
     {
       id: 1143155,
@@ -108,6 +108,4 @@ const CustomTable = () => {
       </Table>
     </TableContainer>
   );
-};
-
-export default CustomTable;
+}
