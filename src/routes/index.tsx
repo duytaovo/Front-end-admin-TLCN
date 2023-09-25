@@ -7,6 +7,7 @@ const NotFound = lazy(() => import("src/pages/NotFound/NotFound"));
 const ListUser = lazy(() => import("src/pages/ListUser/ListUser"));
 const AddUser = lazy(() => import("src/pages/ListUser/NewUser"));
 const Products = lazy(() => import("src/pages/Product"));
+const NewProduct = lazy(() => import("src/pages/Product/NewProduct"));
 
 export const routeMain = [
   {
@@ -32,6 +33,10 @@ export const routeMain = [
   {
     path: path.products,
     Component: Products,
+  },
+  {
+    path: path.productNew,
+    Component: NewProduct,
   },
   {
     path: "*",
