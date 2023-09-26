@@ -12,10 +12,10 @@ import useQueryConfig from "src/hooks/useQueryConfig";
 type Props = {
   onClick: (value: boolean) => void;
 };
-const UserTable = ({ onClick }: Props) => {
+const TableProduct = ({ onClick }: Props) => {
   const dispatch = useAppDispatch();
-  // const { carList } = useAppSelector((state) => state);
-  const carList: [] = [];
+  const { user } = useAppSelector((state) => state.user);
+
   useEffect(() => {
     // dispatch(getCars(""));
   }, []);
@@ -96,6 +96,7 @@ const UserTable = ({ onClick }: Props) => {
 
         const handleClick = () => {
           navigate({
+            // pathname: path.carMange,
             search: createSearchParams({
               ...queryConfig,
               id: row.id,
@@ -122,23 +123,11 @@ const UserTable = ({ onClick }: Props) => {
       },
     },
   ];
-  const rows: [] = [];
-  for (let i = 0; i < carList.length; i++) {
-    // rows.push({
-    //   id: carList[i].id | 1,
-    //   stt: i + 1,
-    //   email: carList[i].user,
-    //   location: carList[i].currentLocationInHCM,
-    //   brand: carList[i].car_brand,
-    //   model: carList[i].car_model,
-    //   type: carList[i].vehicle_type,
-    //   license: carList[i].license_plate_type,
-    //   seri: carList[i].car_seri,
-    //   regis: carList[i].regis,
-    //   createDate: carList[i].created
-    //     ? moment(carList[i].created).format("DD/MM/YYYY")
-    //     : moment().format("DD/MM/YYYY"),
-    // });
+  const rows = [];
+  for (let i = 0; i < user.length; i++) {
+    rows.push({
+      stt: i + 1,
+    });
   }
 
   const handlePagination = (e: any, value: any) => {
@@ -158,4 +147,4 @@ const UserTable = ({ onClick }: Props) => {
   );
 };
 
-export default UserTable;
+export default TableProduct;

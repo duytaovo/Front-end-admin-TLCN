@@ -15,7 +15,8 @@ import { DarkModeContext } from "src/contexts/darkModeContext";
 import { useTranslation } from "react-i18next";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import Brightness4OutlinedIcon from "@mui/icons-material/Brightness4Outlined";
-
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import LocalPoliceOutlinedIcon from "@mui/icons-material/LocalPoliceOutlined";
 export default function Sidebar() {
   const { enable, setEnable } = useContext(DarkModeContext);
   const { t } = useTranslation("home");
@@ -81,19 +82,19 @@ export default function Sidebar() {
               </span>
             </li>
           </Link>
-          <Link to="/reviews" style={{ textDecoration: "none" }}>
+          <Link to="/category" style={{ textDecoration: "none" }}>
             <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
-              <ThumbUpIcon className="text-[18px] text-mainColor" />
+              <CategoryOutlinedIcon className="text-[18px] text-mainColor" />
               <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
-                {t("sidebar.Review")}
+                {t("sidebar.Category")}
               </span>
             </li>
           </Link>
-          <Link to="/comments" style={{ textDecoration: "none" }}>
+          <Link to="/brand" style={{ textDecoration: "none" }}>
             <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
-              <ChatIcon className="text-[18px] text-mainColor" />
+              <LocalPoliceOutlinedIcon className="text-[18px] text-mainColor" />
               <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
-                {t("sidebar.Comment")}
+                {t("sidebar.Brand")}
               </span>
             </li>
           </Link>

@@ -32,6 +32,7 @@ interface IUser {
   isActiveEdit?: boolean;
   userUuid: any;
   userId: number;
+  user: [];
 }
 
 let decodeToken: DecodedToken;
@@ -60,6 +61,7 @@ const initialState: IUser = {
   isActiveEdit: false,
   userId: isAccessTokenExpired().userId | 0,
   userUuid: isAccessTokenExpired().userUuid,
+  user: [],
 };
 const userSlice = createSlice({
   name: "user",

@@ -3,6 +3,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Paper } from "@mui/material";
 import "./styles.css";
 import { Link } from "react-router-dom";
+import path from "src/constants/path";
 // import PaginationCustom from '../Pagination'
 interface Props {
   rows: any;
@@ -20,13 +21,17 @@ const DataTable = ({
   handleOnChange,
 }: Props) => {
   return (
-    <Paper className="">
-      <div className="datatableTitle">
-        <Link to="/users/new" className="link">
-          Add New User
+    <Paper className="p-4">
+      <div className="w-full text-[24px] text-gray-500 mb-[10px] flex items-center justify-between">
+        Thêm sản phẩm
+        <Link
+          to={path.productNew}
+          className="no-underline text-green-500 text-lg font-medium border-[1px] border-solid border-[green] p-3 rounded cursor-pointer"
+        >
+          Thêm mới
         </Link>
       </div>
-      <div className="" style={{ height: 400, width: "80%" }}>
+      <div className="" style={{ height: 400, width: "100%" }}>
         <DataGrid
           rows={rows}
           columns={columns}

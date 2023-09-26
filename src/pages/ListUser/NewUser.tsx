@@ -30,7 +30,7 @@ const FormDisabledDemo: React.FC = () => {
   const [componentDisabled, setComponentDisabled] = useState<boolean>(false);
 
   return (
-    <div className="bg-white shadow">
+    <div className="bg-white shadow ">
       <h2 className="font-bold m-4 text-2xl">Thêm người dùng</h2>
       <Form
         labelCol={{ span: 4 }}
