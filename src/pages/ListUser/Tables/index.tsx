@@ -29,35 +29,34 @@ const TableUser = ({ onClick }: Props) => {
     onClick && onClick(true);
   };
   const columns = [
-    // { field: 'id', headerName: 'ID', width: 70 },
+    { field: "id", headerName: "ID", width: 70 },
     {
       field: "email",
       headerName: "Email",
       width: 150,
     },
-    { field: "location", headerName: "Vị trí", width: 150 },
-    { field: "brand", headerName: "Thuơng hiệu xe", width: 150 },
-    { field: "model", headerName: "Kiểu xe", width: 150 },
-    { field: "type", headerName: "Loại phương tiện", width: 150 },
-    { field: "license", headerName: "Loại biển xe", width: 150 },
-    { field: "seri", headerName: "Dòng xe", width: 150 },
-    {
-      field: "regis",
-      headerName: "Phương thức đăng ký",
-      width: 150,
-      renderCell: (params: any) => {
-        const { row } = params;
-        return (
-          <div className="flex flex-wrap">
-            {row.regis?.map((item: any, index: number) => (
-              <div key={index} className="">
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-        );
-      },
-    },
+    { field: "avatar", headerName: "Avatar", width: 150 },
+    { field: "name", headerName: "Họ Tên", width: 150 },
+    { field: "gender", headerName: "Giới tính", width: 150 },
+    { field: "address", headerName: "Địa chỉ", width: 150 },
+    { field: "phone", headerName: "Điện thoại", width: 150 },
+    // {
+    //   field: "regis",
+    //   headerName: "Phương thức đăng ký",
+    //   width: 150,
+    //   renderCell: (params: any) => {
+    //     const { row } = params;
+    //     return (
+    //       <div className="flex flex-wrap">
+    //         {row.regis?.map((item: any, index: number) => (
+    //           <div key={index} className="">
+    //             <span>{item}</span>
+    //           </div>
+    //         ))}
+    //       </div>
+    //     );
+    //   },
+    // },
     // {
     //   field: 'status',
     //   headerName: 'Trạng thái',
@@ -92,13 +91,13 @@ const TableUser = ({ onClick }: Props) => {
       renderCell: (params: any) => {
         const navigate = useNavigate();
         const { row } = params;
-        const queryConfig = useQueryConfig();
+        // const queryConfig = useQueryConfig();
 
         const handleClick = () => {
           navigate({
-            // pathname: path.carMange,
+            pathname: path.usersDetail,
             search: createSearchParams({
-              ...queryConfig,
+              // ...queryConfig,
               id: row.id,
             }).toString(),
           });
@@ -113,22 +112,37 @@ const TableUser = ({ onClick }: Props) => {
                 }}
               />
             </IconButton>
-            {/* <Tooltip title='Thay đổi trạng thái xe' className='disabled:bg-white'>
+            <Tooltip
+              title="Thay đổi trạng thái tài khoản"
+              className="disabled:bg-white"
+            >
               <IconButton>
-                <DeleteIcon className='text-red-700' />
+                <DeleteIcon className="text-red-700" />
               </IconButton>
-            </Tooltip> */}
+            </Tooltip>
           </>
         );
       },
     },
   ];
-  const rows = [];
-  for (let i = 0; i < user.length; i++) {
-    rows.push({
-      stt: i + 1,
-    });
-  }
+  // const rows = [];
+  // for (let i = 0; i < user.length; i++) {
+  //   rows.push({
+  //     stt: i + 1,
+  //   });
+  // }
+
+  const rows = [
+    {
+      id: 1,
+      email: "voduytao3@gmail.com",
+      avatar: "",
+      name: "voduytao",
+      gender: "Nam",
+      address: "TPHCM",
+      phone: "0123456569",
+    },
+  ];
 
   const handlePagination = (e: any, value: any) => {
     // setPage(value)

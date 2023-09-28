@@ -6,9 +6,9 @@ const path = {
   orders: "/orders",
   users: "/users",
   usersNew: "/users/new",
-  usersDetail: "/users/:userId",
+  usersDetail: "/user/detail",
   products: "/products",
-  productsDetail: "/products/:productId",
+  productsDetail: "/product/detail",
   productNew: "/products/new",
 } as const;
 

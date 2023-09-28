@@ -1,3 +1,4 @@
+import { SuccessResponse } from "src/types/utils.type";
 import http from "src/utils/http";
 
 const authApi = {
@@ -9,6 +10,12 @@ const authApi = {
   },
   logout() {
     return http.post("/auth/logout-user", {});
+  },
+  addUser(data: any) {
+    return http.post("/user/create", data);
+  },
+  getUser() {
+    return http.get<SuccessResponse<any>>("", {});
   },
 };
 

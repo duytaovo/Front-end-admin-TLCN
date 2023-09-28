@@ -91,33 +91,19 @@ export const userSchema = yup.object({
   new_password: schema.fields["password"],
   confirm_password: handleConfirmPasswordYup("new_password"),
 });
-export const schemaAddCar = yup.object({
-  license_plate: yup
-    .string()
-    .required("Biển số xe là bắt buộc")
-    .min(5, "Độ dài từ 6 - 160 ký tự")
-    .max(160, "Độ dài từ 6 - 160 ký tự"),
-  phoneOwner: yup
+export const schemaAddUser = yup.object({
+  gioitinh: yup.string(),
+  phone: yup
     .string()
     .required("Số điện thoại là bắt buộc")
-    .min(5, "Độ dài từ 10 chữ số")
+    .min(10, "Độ dài từ 10 chữ số")
     .matches(
       /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
       "Số điện thoại không đúng định dạng"
     ),
-  vinNumber: yup
-    .string()
-    .matches(/\b[(A-H|J-N|P|R-Z|0-9)]{17}\b/, "Số khung không đúng định dạng"),
-  carBrand: yup.string(),
-  carModel: yup.string(),
-  carYear: yup.string(),
-  carSeri: yup.string(),
-  carType: yup.string(),
-  carLicense: yup.string(),
-  currentLocation: yup.string(),
-  regis: yup.array(),
+  name: yup.string().required("Họ Tên là bắt buộc"),
+  address: yup.string().required("Địa chỉ là bắt buộc"),
   image: yup.string(),
-  photos: yup.array().of(yup.mixed()),
 });
 export type UserSchema = yup.InferType<typeof userSchema>;
 

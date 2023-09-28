@@ -17,7 +17,14 @@ export const logoutUser = createAsyncThunk(
   "auth/logoutUser",
   payloadCreator(authApi.logout)
 );
-
+export const getUser = createAsyncThunk(
+  "auth/getUser",
+  payloadCreator(authApi.getUser)
+);
+export const addUser = createAsyncThunk(
+  "auth/addUser",
+  payloadCreator(authApi.addUser)
+);
 interface DecodedToken {
   userId: number;
   permissions: number;
