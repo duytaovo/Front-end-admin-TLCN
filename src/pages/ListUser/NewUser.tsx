@@ -103,12 +103,12 @@ const FormDisabledDemo: React.FC = () => {
         noValidate
         onSubmitCapture={onSubmit}
       >
-        <Form.Item label="Giới tính">
+        {/* <Form.Item label="Giới tính">
           <Radio.Group>
             <Radio value="apple"> Nam </Radio>
             <Radio value="pear"> Nữ </Radio>
           </Radio.Group>
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item label="Họ Tên">
           <Input
             name="name"

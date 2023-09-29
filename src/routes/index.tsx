@@ -8,7 +8,11 @@ const ListUser = lazy(() => import("src/pages/ListUser/ListUser"));
 const AddUser = lazy(() => import("src/pages/ListUser/NewUser"));
 const UpdateUser = lazy(() => import("src/pages/ListUser/UpdateUser"));
 const Products = lazy(() => import("src/pages/Product"));
+const Categorys = lazy(() => import("src/pages/Category"));
 const NewProduct = lazy(() => import("src/pages/Product/NewProduct"));
+const UpdateProduct = lazy(() => import("src/pages/Product/UpdateProduct"));
+const UpdateCategory = lazy(() => import("src/pages/Category/UpdateCategory"));
+const NewCategory = lazy(() => import("src/pages/Category/NewCategory"));
 
 export const routeMain = [
   {
@@ -25,11 +29,11 @@ export const routeMain = [
   },
   {
     path: path.usersDetail,
-    Component: AddUser,
+    Component: UpdateUser,
   },
   {
     path: path.usersNew,
-    Component: UpdateUser,
+    Component: AddUser,
   },
   {
     path: path.products,
@@ -41,7 +45,19 @@ export const routeMain = [
   },
   {
     path: path.productsDetail,
-    Component: NewProduct,
+    Component: UpdateProduct,
+  },
+  {
+    path: path.categories,
+    Component: Categorys,
+  },
+  {
+    path: path.category,
+    Component: UpdateCategory,
+  },
+  {
+    path: path.categoryNew,
+    Component: NewCategory,
   },
   {
     path: "*",

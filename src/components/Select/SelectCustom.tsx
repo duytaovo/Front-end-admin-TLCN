@@ -24,20 +24,20 @@ export default function SelectCustom({
       return (
         <MenuItem
           onClick={() => {
-            handleChange(item?.id);
+            handleChange(item);
           }}
-          value={item.id}
+          value={item}
           key={index}
           className="text-black"
         >
-          {props.isBrand && item.carBrandName}
+          {item}
         </MenuItem>
       );
     });
   };
 
   const handleChange = (id: number | string) => {
-    props.onChange && props.onChange(id);
+    // props.onChange && props.onChange(id);
   };
 
   return (
@@ -47,12 +47,12 @@ export default function SelectCustom({
           className ? className : ""
         }`}
       >
-        <h1 className="text-sm mb-2 text-[#29303b] font-medium text-left ">
+        {/* <h1 className="text-sm mb-2 text-[#29303b] font-medium text-left ">
           {label}
           {requirementField && (
             <span className="text-red-500 text-sm font-medium ">*</span>
           )}
-        </h1>
+        </h1> */}
         <FormControl
           className="select-formControl hover:shadow-sm"
           fullWidth

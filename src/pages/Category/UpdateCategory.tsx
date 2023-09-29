@@ -1,8 +1,9 @@
 import { PlusOutlined } from "@ant-design/icons";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unwrapResult } from "@reduxjs/toolkit";
 
-import { Button, DatePicker, Form, Radio, Upload } from "antd";
+import { Button, DatePicker, Form, Radio, TreeSelect, Upload } from "antd";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -12,8 +13,12 @@ import path from "src/constants/path";
 import { useAppDispatch } from "src/hooks/useRedux";
 import { addUser, getUser } from "src/store/user/userSlice";
 import { ErrorResponse } from "src/types/utils.type";
-import { schemaAddUser } from "src/utils/rules";
+import { schemaAddUser, schemaProduct } from "src/utils/rules";
 import { isAxiosUnprocessableEntityError } from "src/utils/utils";
+import SelectCustom from "src/components/Select";
+import { FormControl, MenuItem, Select } from "@mui/material";
+import Textarea from "src/components/Textarea";
+const { RangePicker } = DatePicker;
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -21,13 +26,28 @@ const normFile = (e: any) => {
   }
   return e?.fileList;
 };
+
 interface FormData {
+  loaiSp: string;
+  model: string;
+  mota: string;
   name: string;
-  address: string;
-  phone: string;
-  image: string;
+  price: string;
+  sale: string;
+  upload: string;
 }
-const FormDisabledDemo: React.FC = () => {
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+const CategoryDetail: React.FC = () => {
+  const [componentDisabled, setComponentDisabled] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const {
     handleSubmit,
@@ -36,17 +56,19 @@ const FormDisabledDemo: React.FC = () => {
     register,
     setValue,
   } = useForm({
-    resolver: yupResolver(schemaAddUser),
+    resolver: yupResolver(schemaProduct),
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [file, setFile] = useState<File[]>();
   useEffect(() => {
-    setValue("address", "abc");
-    setValue("gioitinh", "Nam");
-    setValue("image", "abc");
-    setValue("name", "abc");
-    setValue("phone", "0352811529");
+    setValue("loaiSp", "");
+    setValue("model", "");
+    setValue("mota", "");
+    setValue("name", "");
+    setValue("price", "");
+    setValue("sale", "");
+    setValue("upload", "");
   }, []);
 
   const onSubmit = handleSubmit(async (data) => {
@@ -85,25 +107,61 @@ const FormDisabledDemo: React.FC = () => {
     }
   });
   const onClickHuy = () => {
-    setValue("address", "");
-    setValue("gioitinh", "");
-    setValue("image", "");
+    setValue("loaiSp", "");
+    setValue("model", "");
+    setValue("mota", "");
     setValue("name", "");
-    setValue("phone", "");
+    setValue("price", "");
+    setValue("sale", "");
+    setValue("upload", "");
   };
   return (
     <div className="bg-white shadow ">
-      <h2 className="font-bold m-4 text-2xl">Thêm người dùng</h2>
+      <h2 className="font-bold m-4 text-2xl">Thêm sản phẩm</h2>
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
         layout="horizontal"
         style={{ maxWidth: 600, padding: 5 }}
-        autoComplete="off"
-        noValidate
-        onSubmitCapture={onSubmit}
       >
-        <Form.Item label="Họ Tên">
+        <Form.Item label="Loại sản phẩm" className="rounded-3xl">
+          {/* <TreeSelect
+            treeData={[
+              {
+                title: "Laptop",
+                value: "laptop",
+                children: [{ title: "Bamboo", value: "bamboo" }],
+              },
+              {
+                title: "Điện thoại",
+                value: "phone",
+                children: [{ title: "Bamboo", value: "bamboo" }],
+              },
+              {
+                title: "Tablet",
+                value: "tablet",
+                children: [{ title: "Bamboo", value: "bamboo" }],
+              },
+            ]}
+          /> */}
+          <SelectCustom
+            className={"flex-1 text-black"}
+            id="carBrand"
+            // label="Hãng xe"
+            placeholder="Vui lòng chọn"
+            defaultValue={""}
+            options={["Điện thoại", "Laptop", "Tablet", "Phụ kiện"]}
+            register={register}
+            isBrand={true}
+            // disabled={false}
+
+            // onChange={handleOnChangeCarBrand}
+          >
+            {errors.loaiSp?.message}
+          </SelectCustom>
+        </Form.Item>
+
+        <Form.Item label="Tên sản phẩm">
           <Input
             name="name"
             register={register}
@@ -112,38 +170,46 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.name?.message}
           />
         </Form.Item>
-        <Form.Item label="Địa chỉ">
+        {/* <Form.Item label="slug">
+          <Input name="slug" />
+        </Form.Item> */}
+        <Form.Item label="Hãng sản xuất">
           <Input
-            name="address"
+            name="model"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.address?.message}
+            errorMessage={errors.model?.message}
           />
         </Form.Item>
-        <Form.Item label="Số điện thoại">
+        <Form.Item label="Giá sản phẩm">
           <Input
-            name="phone"
+            name="price"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.phone?.message}
+            errorMessage={errors.price?.message}
           />
         </Form.Item>
-        {/* <Form.Item label="TreeSelect">
-          <TreeSelect
-            treeData={[
-              {
-                title: "Light",
-                value: "light",
-                children: [{ title: "Bamboo", value: "bamboo" }],
-              },
-            ]}
+        <Form.Item label="Khuyến mãi">
+          <Input
+            name="sale"
+            register={register}
+            type="text"
+            className=""
+            errorMessage={errors.sale?.message}
           />
-        </Form.Item> */}
-        {/* <Form.Item label="InputNumber">
-          <InputNumber />
-        </Form.Item> */}
+        </Form.Item>
+        <Form.Item label="Mô tả">
+          <Textarea
+            defaultValue="Mô tả sản phẩm"
+            id="mota"
+            isUpdate={false}
+            register={register}
+            setValue={() => {}}
+            textAlign={"left"}
+          />
+        </Form.Item>
         <Form.Item
           label="Upload"
           valuePropName="fileList"
@@ -157,13 +223,11 @@ const FormDisabledDemo: React.FC = () => {
           </Upload>
         </Form.Item>
         <Form.Item label="" className="ml-[100px] mb-2">
-          <Button className="w-[100px]" onClick={onSubmit}>
-            Lưu
-          </Button>
+          <Button className="w-[100px]">Lưu</Button>
         </Form.Item>
       </Form>
     </div>
   );
 };
 
-export default () => <FormDisabledDemo />;
+export default () => <CategoryDetail />;

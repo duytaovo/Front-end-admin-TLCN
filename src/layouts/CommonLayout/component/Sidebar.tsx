@@ -17,6 +17,7 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import Brightness4OutlinedIcon from "@mui/icons-material/Brightness4Outlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import LocalPoliceOutlinedIcon from "@mui/icons-material/LocalPoliceOutlined";
+import path from "src/constants/path";
 export default function Sidebar() {
   const { enable, setEnable } = useContext(DarkModeContext);
   const { t } = useTranslation("home");
@@ -82,7 +83,7 @@ export default function Sidebar() {
               </span>
             </li>
           </Link>
-          <Link to="/category" style={{ textDecoration: "none" }}>
+          <Link to={path.categories} style={{ textDecoration: "none" }}>
             <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
               <CategoryOutlinedIcon className="text-[18px] text-mainColor" />
               <span className="text-[13px] font-[600] text-[#888] ml-[10px]">

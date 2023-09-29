@@ -10,6 +10,9 @@ const path = {
   products: "/products",
   productsDetail: "/product/detail",
   productNew: "/products/new",
+  categories: "/categories",
+  category: "/category/detail",
+  categoryNew: "/category/new",
 } as const;
 
 export default path;

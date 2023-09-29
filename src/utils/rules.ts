@@ -105,6 +105,16 @@ export const schemaAddUser = yup.object({
   address: yup.string().required("Địa chỉ là bắt buộc"),
   image: yup.string(),
 });
+
+export const schemaProduct = yup.object({
+  loaiSp: yup.string().required("Loại sản phẩm là bắt buộc"),
+  name: yup.string().required("Tên sp là bắt buộc"),
+  model: yup.string().required("Hãng sx là bắt buộc"),
+  price: yup.string().required("Giá sản phẩm là bắt buộc"),
+  sale: yup.string(),
+  mota: yup.string().required("Mô tả là bắt buộc"),
+  upload: yup.string().required("Upload ảnh là bắt buộc"),
+});
 export type UserSchema = yup.InferType<typeof userSchema>;
 
 export type Schema = yup.InferType<typeof schema>;

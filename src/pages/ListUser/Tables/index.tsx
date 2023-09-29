@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { IconButton, Tooltip } from "@mui/material";
+import {
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  Tooltip,
+} from "@mui/material";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
@@ -8,7 +15,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { SelectChangeEvent } from "@mui/material/Select";
 import path from "src/constants/path";
-import useQueryConfig from "src/hooks/useQueryConfig";
 type Props = {
   onClick: (value: boolean) => void;
 };
@@ -34,12 +40,13 @@ const TableUser = ({ onClick }: Props) => {
       field: "email",
       headerName: "Email",
       width: 150,
+      flex: 1,
     },
-    { field: "avatar", headerName: "Avatar", width: 150 },
-    { field: "name", headerName: "Họ Tên", width: 150 },
-    { field: "gender", headerName: "Giới tính", width: 150 },
-    { field: "address", headerName: "Địa chỉ", width: 150 },
-    { field: "phone", headerName: "Điện thoại", width: 150 },
+    // { field: "avatar", headerName: "Avatar", width: 150 },
+    { field: "name", headerName: "Họ Tên", width: 150, flex: 1 },
+    // { field: "gender", headerName: "Giới tính", width: 150 },
+    { field: "address", headerName: "Địa chỉ", width: 150, flex: 1 },
+    { field: "phone", headerName: "Điện thoại", width: 150, flex: 1 },
     // {
     //   field: "regis",
     //   headerName: "Phương thức đăng ký",
@@ -57,32 +64,34 @@ const TableUser = ({ onClick }: Props) => {
     //     );
     //   },
     // },
-    // {
-    //   field: 'status',
-    //   headerName: 'Trạng thái',
-    //   width: 150,
-    //   renderCell: (params: any) => {
-    //     const { row } = params
-    //     const handleChangeStatus = (e: any) => {}
-    //     return (
-    //       <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
-    //         <InputLabel id='demo-select-small-label'>Trạng thái</InputLabel>
-    //         <Select
-    //           labelId='demo-select-small-label'
-    //           id='demo-select-small'
-    //           value={status}
-    //           label='Status'
-    //           onChange={handleChange}
-    //         >
-    //           <MenuItem value={0}>Not verify</MenuItem>
-    //           <MenuItem value={1}>Verify</MenuItem>
-    //           <MenuItem value={2}>Disable</MenuItem>
-    //           <MenuItem value={3}>Enable</MenuItem>
-    //         </Select>
-    //       </FormControl>
-    //     )
-    //   }
-    // },
+    {
+      field: "status",
+      headerName: "Trạng thái",
+      width: 150,
+      flex: 1,
+
+      renderCell: (params: any) => {
+        const { row } = params;
+        const handleChangeStatus = (e: any) => {};
+        return (
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="demo-select-small-label">Trạng thái</InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              value={status}
+              label="Status"
+              onChange={handleChange}
+            >
+              <MenuItem value={0}>Not verify</MenuItem>
+              <MenuItem value={1}>Verify</MenuItem>
+              <MenuItem value={2}>Disable</MenuItem>
+              <MenuItem value={3}>Enable</MenuItem>
+            </Select>
+          </FormControl>
+        );
+      },
+    },
     {
       field: "action",
       headerName: "Tùy chỉnh",
