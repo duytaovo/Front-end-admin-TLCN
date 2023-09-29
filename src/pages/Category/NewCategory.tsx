@@ -117,14 +117,14 @@ const FormDisabledDemo: React.FC = () => {
   };
   return (
     <div className="bg-white shadow ">
-      <h2 className="font-bold m-4 text-2xl">Thêm sản phẩm</h2>
+      <h2 className="font-bold m-4 text-2xl">Thêm loại hàng</h2>
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
         layout="horizontal"
         style={{ maxWidth: 600, padding: 5 }}
       >
-        <Form.Item label="Loại sản phẩm" className="rounded-3xl">
+        <Form.Item label="Loại loại hàng" className="rounded-3xl">
           {/* <TreeSelect
             treeData={[
               {
@@ -161,7 +161,7 @@ const FormDisabledDemo: React.FC = () => {
           </SelectCustom>
         </Form.Item>
 
-        <Form.Item label="Tên sản phẩm">
+        <Form.Item label="Tên loại hàng">
           <Input
             name="name"
             register={register}

@@ -117,7 +117,7 @@ const CategoryDetail: React.FC = () => {
   };
   return (
     <div className="bg-white shadow ">
-      <h2 className="font-bold m-4 text-2xl">Thêm sản phẩm</h2>
+      <h2 className="font-bold m-4 text-2xl">Cập nhật loại hàng</h2>
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
@@ -161,7 +161,7 @@ const CategoryDetail: React.FC = () => {
           </SelectCustom>
         </Form.Item>
 
-        <Form.Item label="Tên sản phẩm">
+        <Form.Item label="Tên loại hàng">
           <Input
             name="name"
             register={register}
@@ -182,7 +182,7 @@ const CategoryDetail: React.FC = () => {
             errorMessage={errors.model?.message}
           />
         </Form.Item>
-        <Form.Item label="Giá sản phẩm">
+        <Form.Item label="Giá loại hàng">
           <Input
             name="price"
             register={register}
@@ -202,7 +202,7 @@ const CategoryDetail: React.FC = () => {
         </Form.Item>
         <Form.Item label="Mô tả">
           <Textarea
-            defaultValue="Mô tả sản phẩm"
+            defaultValue="Mô tả loại hàng"
             id="mota"
             isUpdate={false}
             register={register}

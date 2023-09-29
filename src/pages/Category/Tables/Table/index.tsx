@@ -23,9 +23,9 @@ const DataTable = ({
   return (
     <Paper className="p-4">
       <div className="w-full text-[24px] text-gray-500 mb-[10px] flex items-center justify-between">
-        Thêm danh mục
+        Thêm loại hàng
         <Link
-          to={path.productNew}
+          to={path.categoryNew}
           className="no-underline text-green-500 text-lg font-medium border-[1px] border-solid border-[green] p-3 rounded cursor-pointer"
         >
           Thêm mới

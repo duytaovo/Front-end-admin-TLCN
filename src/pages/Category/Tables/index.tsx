@@ -39,11 +39,11 @@ const TableCategory = ({ onClick }: Props) => {
     { field: "id", headerName: "ID", width: 70 },
     {
       field: "loaiDm",
-      headerName: "Loại danh mục",
+      headerName: "Loại loại hàng",
       width: 150,
       flex: 1,
     },
-    { field: "name", headerName: "Tên danh mục", width: 150, flex: 1 },
+    { field: "name", headerName: "Tên loại hàng", width: 150, flex: 1 },
     // { field: "brand", headerName: "Hãng SX", width: 150, flex: 1 },
     // { field: "price", headerName: "Giá SP", width: 150, flex: 1 },
     // { field: "sale", headerName: "Khuyến mãi", width: 150, flex: 1 },
@@ -104,7 +104,7 @@ const TableCategory = ({ onClick }: Props) => {
 
         const handleClick = () => {
           navigate({
-            pathname: path.productsDetail,
+            pathname: path.category,
             search: createSearchParams({
               // ...queryConfig,
               id: row.id,
@@ -140,7 +140,7 @@ const TableCategory = ({ onClick }: Props) => {
   const _rows = [
     {
       id: 1,
-      loaiSp: "Điện thoại",
+      loaiDm: "Điện thoại",
       brand: "Apple",
       name: "Iphone 15 Promax",
       price: "40.000.000đ",
