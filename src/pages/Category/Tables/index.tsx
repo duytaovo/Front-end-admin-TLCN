@@ -19,7 +19,7 @@ import useQueryConfig from "src/hooks/useQueryConfig";
 type Props = {
   onClick: (value: boolean) => void;
 };
-const TableProduct = ({ onClick }: Props) => {
+const TableCategory = ({ onClick }: Props) => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
 
@@ -38,15 +38,15 @@ const TableProduct = ({ onClick }: Props) => {
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
     {
-      field: "loaiSp",
-      headerName: "Loại SP",
+      field: "loaiDm",
+      headerName: "Loại danh mục",
       width: 150,
       flex: 1,
     },
-    { field: "name", headerName: "Tên SP", width: 150, flex: 1 },
-    { field: "brand", headerName: "Hãng SX", width: 150, flex: 1 },
-    { field: "price", headerName: "Giá SP", width: 150, flex: 1 },
-    { field: "sale", headerName: "Khuyến mãi", width: 150, flex: 1 },
+    { field: "name", headerName: "Tên danh mục", width: 150, flex: 1 },
+    // { field: "brand", headerName: "Hãng SX", width: 150, flex: 1 },
+    // { field: "price", headerName: "Giá SP", width: 150, flex: 1 },
+    // { field: "sale", headerName: "Khuyến mãi", width: 150, flex: 1 },
     { field: "mota", headerName: "Mô tả", width: 150, flex: 1 },
     { field: "image", headerName: "image", width: 150, flex: 1 },
     // {
@@ -167,4 +167,4 @@ const TableProduct = ({ onClick }: Props) => {
   );
 };
 
-export default TableProduct;
+export default TableCategory;
