@@ -9,10 +9,13 @@ const AddUser = lazy(() => import("src/pages/ListUser/NewUser"));
 const UpdateUser = lazy(() => import("src/pages/ListUser/UpdateUser"));
 const Products = lazy(() => import("src/pages/Product"));
 const Categorys = lazy(() => import("src/pages/Category"));
+const Brands = lazy(() => import("src/pages/Brand"));
 const NewProduct = lazy(() => import("src/pages/Product/NewProduct"));
 const UpdateProduct = lazy(() => import("src/pages/Product/UpdateProduct"));
+const UpdateBrand = lazy(() => import("src/pages/Brand/UpdateBrand"));
 const UpdateCategory = lazy(() => import("src/pages/Category/UpdateCategory"));
 const NewCategory = lazy(() => import("src/pages/Category/NewCategory"));
+const NewBrand = lazy(() => import("src/pages/Brand/NewBrand"));
 
 export const routeMain = [
   {
@@ -58,6 +61,18 @@ export const routeMain = [
   {
     path: path.categoryNew,
     Component: NewCategory,
+  },
+  {
+    path: path.brand,
+    Component: Brands,
+  },
+  {
+    path: path.brandDetail,
+    Component: UpdateBrand,
+  },
+  {
+    path: path.brandNew,
+    Component: NewBrand,
   },
   {
     path: "*",

@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   FormControl,
   IconButton,
@@ -7,19 +6,133 @@ import {
   Select,
   Tooltip,
 } from "@mui/material";
-import { createSearchParams, useNavigate } from "react-router-dom";
-import moment from "moment";
+import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
-import DataTable from "./Table";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { SelectChangeEvent } from "@mui/material/Select";
 import path from "src/constants/path";
-import useQueryConfig from "src/hooks/useQueryConfig";
-type Props = {
-  onClick: (value: boolean) => void;
-};
-const TableProduct = ({ onClick }: Props) => {
+
+import React, { useEffect, useState } from "react";
+import { Button, Space, Table, Typography } from "antd";
+import type { ColumnsType } from "antd/es/table";
+
+interface DataType {
+  key: React.Key;
+  name: string;
+  brand: string;
+  price: string;
+  mota: string;
+  status?: any;
+  action?: any;
+  sale: string;
+  description: string;
+  loaiSp: string;
+}
+
+const columns: ColumnsType<DataType> = [
+  { title: "Loại sản phẩm", dataIndex: "loaiSp", key: "loaiSp" },
+  { title: "Tên sản phẩm", dataIndex: "name", key: "name" },
+  { title: "Tên thương hiệu", dataIndex: "brand", key: "brand" },
+  { title: "Giá sản phẩm", dataIndex: "price", key: "price" },
+  { title: "Mô tả", dataIndex: "mota", key: "mota" },
+  { title: "Khuyến mãi", dataIndex: "sale", key: "sale" },
+  {
+    title: "Trạng thái",
+    dataIndex: "status",
+    key: "status",
+    render: () => {
+      // const handleChangeStatus = (e: any) => {};
+      return (
+        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+          <InputLabel id="demo-select-small-label">Trạng thái</InputLabel>
+          <Select
+            labelId="demo-select-small-label"
+            id="demo-select-small"
+            value={status}
+            label="Status"
+            // onChange={handleChange}
+          >
+            <MenuItem value={0}>Not verify</MenuItem>
+            <MenuItem value={1}>Verify</MenuItem>
+            <MenuItem value={2}>Disable</MenuItem>
+            <MenuItem value={3}>Enable</MenuItem>
+          </Select>
+        </FormControl>
+      );
+    },
+  },
+  {
+    title: "Action",
+    dataIndex: "",
+    key: "x",
+    render: () => (
+      <Space>
+        <Link to={path.usersDetail}>
+          {" "}
+          <IconButton className="text-mainColor">
+            <EditIcon
+              className="text-mainColor"
+              sx={{
+                color: "",
+              }}
+            />
+          </IconButton>
+        </Link>
+        <Link to={path.users}>
+          <Tooltip title="Thay đổi trạng thái " className="disabled:bg-white">
+            <IconButton>
+              <DeleteIcon className="text-red-700" />
+            </IconButton>
+          </Tooltip>
+        </Link>
+      </Space>
+    ),
+  },
+];
+// const originData: DataType[] = [];
+// for (let i = 0; i < 100; i++) {
+//   originData.push({
+//     key: i.toString(),
+//     name: `Edward ${i}`,
+//     age: 32,
+//     address: `London Park no. ${i}`,
+//   });
+// }
+const data: DataType[] = [
+  {
+    key: 1,
+    loaiSp: "Điện thoại",
+    brand: "Apple",
+    name: "Iphone 15 Plus",
+    price: "34.500.000",
+    sale: "235.000",
+    mota: "Iphone 15 Plus được ra mắt ....",
+    description: "Mô tả chi tiết ở đây",
+  },
+  {
+    key: 2,
+    loaiSp: "Điện thoại",
+    brand: "Apple",
+    name: "Iphone 15 Plus",
+    price: "34.500.000",
+    sale: "235.000",
+    mota: "Iphone 15 Plus được ra mắt ....",
+    description: "Mô tả chi tiết ở đây",
+  },
+  {
+    key: 3,
+    loaiSp: "Điện thoại",
+    brand: "Apple",
+    name: "Iphone 15 Plus",
+    price: "34.500.000",
+    sale: "235.000",
+    mota: "Iphone 15 Plus được ra mắt ....",
+    description: "Mô tả chi tiết ở đây",
+  },
+];
+
+const TableProduct: React.FC = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
 
@@ -32,138 +145,63 @@ const TableProduct = ({ onClick }: Props) => {
     setStatus(event.target.value);
   };
 
-  const handleOpen = () => {
-    onClick && onClick(true);
-  };
-  const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    {
-      field: "loaiSp",
-      headerName: "Loại SP",
-      width: 150,
-      flex: 1,
-    },
-    { field: "name", headerName: "Tên SP", width: 150, flex: 1 },
-    { field: "brand", headerName: "Hãng SX", width: 150, flex: 1 },
-    { field: "price", headerName: "Giá SP", width: 150, flex: 1 },
-    { field: "sale", headerName: "Khuyến mãi", width: 150, flex: 1 },
-    { field: "mota", headerName: "Mô tả", width: 150, flex: 1 },
-    { field: "image", headerName: "image", width: 150, flex: 1 },
-    // {
-    //   field: "regis",
-    //   headerName: "Phương thức đăng ký",
-    //   width: 150,
-    //   renderCell: (params: any) => {
-    //     const { row } = params;
-    //     return (
-    //       <div className="flex flex-wrap">
-    //         {row.regis?.map((item: any, index: number) => (
-    //           <div key={index} className="">
-    //             <span>{item}</span>
-    //           </div>
-    //         ))}
-    //       </div>
-    //     );
-    //   },
-    // },
-    {
-      field: "status",
-      headerName: "Trạng thái",
-      width: 150,
-      renderCell: (params: any) => {
-        const { row } = params;
-        const handleChangeStatus = (e: any) => {};
-        return (
-          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <InputLabel id="demo-select-small-label">Trạng thái</InputLabel>
-            <Select
-              labelId="demo-select-small-label"
-              id="demo-select-small"
-              value={status}
-              label="Status"
-              onChange={handleChange}
-            >
-              <MenuItem value={0}>Not verify</MenuItem>
-              <MenuItem value={1}>Verify</MenuItem>
-              <MenuItem value={2}>Disable</MenuItem>
-              <MenuItem value={3}>Enable</MenuItem>
-            </Select>
-          </FormControl>
-        );
-      },
-    },
-    {
-      field: "action",
-      headerName: "Tùy chỉnh",
-      width: 120,
-      sortable: false,
-      renderCell: (params: any) => {
-        const navigate = useNavigate();
-        const { row } = params;
-        const queryConfig = useQueryConfig();
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [loading, setLoading] = useState(false);
 
-        const handleClick = () => {
-          navigate({
-            pathname: path.productsDetail,
-            search: createSearchParams({
-              // ...queryConfig,
-              id: row.id,
-            }).toString(),
-          });
-        };
-        return (
-          <>
-            <IconButton onClick={handleClick} className="text-mainColor">
-              <EditIcon
-                className="text-mainColor"
-                sx={{
-                  color: "",
-                }}
-              />
-            </IconButton>
-            <Tooltip title="Thay đổi trạng thái " className="disabled:bg-white">
-              <IconButton>
-                <DeleteIcon className="text-red-700" />
-              </IconButton>
-            </Tooltip>
-          </>
-        );
-      },
-    },
-  ];
-  const rows = [];
-  for (let i = 0; i < user.length; i++) {
-    rows.push({
-      stt: i + 1,
-    });
-  }
-  const _rows = [
-    {
-      id: 1,
-      loaiSp: "Điện thoại",
-      brand: "Apple",
-      name: "Iphone 15 Promax",
-      price: "40.000.000đ",
-      sale: "300.000đ",
-      mota: "Là điện thoại mới ra mắt, có nhiều tính năng nổi bật như usb c,...",
-      image:
-        "	https://cdn2.cellphones.com.vn/insecure/rs:fill:35…ia/catalog/product/i/p/iphone-15-pro-max_2__5.jpg",
-    },
-  ];
-  const handlePagination = (e: any, value: any) => {
-    // setPage(value)
+  const start = () => {
+    setLoading(true);
+    // ajax request after empty completing
+    setTimeout(() => {
+      setSelectedRowKeys([]);
+      setLoading(false);
+    }, 1000);
   };
 
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+  const hasSelected = selectedRowKeys.length > 0;
   return (
-    <>
-      <DataTable
-        rows={_rows}
+    <div className="mx-6">
+      <div className="w-full text-[24px] text-gray-500 mb-[10px] flex items-center justify-between">
+        Quản lý sản phẩm
+        <Link
+          to={path.productNew}
+          className="no-underline text-green-500 text-lg font-medium border-[1px] border-solid border-[green] p-3 rounded cursor-pointer"
+        >
+          Thêm mới
+        </Link>
+      </div>
+      <div style={{ marginBottom: 16 }}>
+        <Button
+          type="primary"
+          onClick={start}
+          disabled={!hasSelected}
+          loading={loading}
+        >
+          Reload
+        </Button>
+        <span style={{ marginLeft: 8 }}>
+          {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
+        </span>
+      </div>
+      <Table
         columns={columns}
-        // totalPages={rows.length}
-        // totalItems={rows?.length}
-        // handleOnChange={handlePagination}
+        expandable={{
+          expandedRowRender: (record) => (
+            <p style={{ margin: 0 }}>{record?.description}</p>
+          ),
+          rowExpandable: (record) => record?.name !== "Not Expandable",
+        }}
+        dataSource={data}
       />
-    </>
+    </div>
   );
 };
 

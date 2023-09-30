@@ -26,7 +26,7 @@ const ListUser = () => {
         /> */}
 
         <div>
-          <TableUser onClick={() => {}} />
+          <TableUser />
         </div>
       </div>
     </div>

@@ -13,6 +13,9 @@ const path = {
   categories: "/categories",
   category: "/category/detail",
   categoryNew: "/category/new",
+  brand: "/brand",
+  brandDetail: "/brand/detail",
+  brandNew: "/brand/new",
 } as const;
 
 export default path;
