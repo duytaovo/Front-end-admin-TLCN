@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import TableProduct from "./Tables";
+import TableCategory from "./Tables";
 
-export default function ListProduct() {
+export default function ListCategory() {
   const locationUrl = useLocation();
   const [data, setData] = useState([]);
 
@@ -22,7 +22,7 @@ export default function ListProduct() {
           type="products"
           reply
         /> */}
-        <TableProduct onClick={() => {}} />
+        <TableCategory />
       </div>
     </div>
   );

@@ -46,7 +46,7 @@ const MenuProps = {
     },
   },
 };
-const CategoryDetail: React.FC = () => {
+const FormDisabledDemo: React.FC = () => {
   const [componentDisabled, setComponentDisabled] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const {
@@ -117,7 +117,7 @@ const CategoryDetail: React.FC = () => {
   };
   return (
     <div className="bg-white shadow ">
-      <h2 className="font-bold m-4 text-2xl">Cập nhật thương hiệu</h2>
+      <h2 className="font-bold m-4 text-2xl">Thêm thương hiệu</h2>
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
@@ -161,7 +161,7 @@ const CategoryDetail: React.FC = () => {
           </SelectCustom>
         </Form.Item>
 
-        <Form.Item label="Tên loại hàng">
+        <Form.Item label="Tên thương hiệu">
           <Input
             name="name"
             register={register}
@@ -173,7 +173,7 @@ const CategoryDetail: React.FC = () => {
         {/* <Form.Item label="slug">
           <Input name="slug" />
         </Form.Item> */}
-        <Form.Item label="Hãng sản xuất">
+        {/* <Form.Item label="Hãng sản xuất">
           <Input
             name="model"
             register={register}
@@ -181,8 +181,8 @@ const CategoryDetail: React.FC = () => {
             className=""
             errorMessage={errors.model?.message}
           />
-        </Form.Item>
-        <Form.Item label="Giá loại hàng">
+        </Form.Item> */}
+        {/* <Form.Item label="Giá sản phẩm">
           <Input
             name="price"
             register={register}
@@ -190,8 +190,8 @@ const CategoryDetail: React.FC = () => {
             className=""
             errorMessage={errors.price?.message}
           />
-        </Form.Item>
-        <Form.Item label="Khuyến mãi">
+        </Form.Item> */}
+        {/* <Form.Item label="Khuyến mãi">
           <Input
             name="sale"
             register={register}
@@ -199,10 +199,10 @@ const CategoryDetail: React.FC = () => {
             className=""
             errorMessage={errors.sale?.message}
           />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item label="Mô tả">
           <Textarea
-            defaultValue="Mô tả loại hàng"
+            defaultValue="Mô tả sản phẩm"
             id="mota"
             isUpdate={false}
             register={register}
@@ -230,4 +230,4 @@ const CategoryDetail: React.FC = () => {
   );
 };
 
-export default () => <CategoryDetail />;
+export default () => <FormDisabledDemo />;

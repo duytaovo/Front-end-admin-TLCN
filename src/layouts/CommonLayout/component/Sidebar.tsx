@@ -75,14 +75,7 @@ export default function Sidebar() {
               </span>
             </li>
           </Link>
-          <Link to="/delivery" style={{ textDecoration: "none" }}>
-            <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
-              <LocalShippingIcon className="text-[18px] text-mainColor" />
-              <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
-                {t("sidebar.delivery")}
-              </span>
-            </li>
-          </Link>
+
           <Link to={path.categories} style={{ textDecoration: "none" }}>
             <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
               <CategoryOutlinedIcon className="text-[18px] text-mainColor" />
@@ -96,6 +89,14 @@ export default function Sidebar() {
               <LocalPoliceOutlinedIcon className="text-[18px] text-mainColor" />
               <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
                 {t("sidebar.Brand")}
+              </span>
+            </li>
+          </Link>
+          <Link to="/delivery" style={{ textDecoration: "none" }} className="">
+            <li className="flex item-center p-[5px] cursor-pointer hover:bg-[#ece8ff]">
+              <LocalShippingIcon className="text-[18px] text-mainColor" />
+              <span className="text-[13px] font-[600] text-[#888] ml-[10px]">
+                {t("sidebar.delivery")}
               </span>
             </li>
           </Link>

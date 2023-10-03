@@ -1,4 +1,3 @@
-import React from "react";
 import ListBrand from "./ListBrand";
 
 type Props = {};

@@ -68,7 +68,7 @@ const columns: ColumnsType<DataType> = [
     key: "x",
     render: () => (
       <Space>
-        <Link to={path.usersDetail}>
+        <Link to={path.productsDetail}>
           {" "}
           <IconButton className="text-mainColor">
             <EditIcon

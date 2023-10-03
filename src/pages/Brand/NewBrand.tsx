@@ -124,7 +124,7 @@ const FormDisabledDemo: React.FC = () => {
         layout="horizontal"
         style={{ maxWidth: 600, padding: 5 }}
       >
-        <Form.Item label="Loại loại hàng" className="rounded-3xl">
+        <Form.Item label="Loại sản phẩm" className="rounded-3xl">
           {/* <TreeSelect
             treeData={[
               {
@@ -161,7 +161,7 @@ const FormDisabledDemo: React.FC = () => {
           </SelectCustom>
         </Form.Item>
 
-        <Form.Item label="Tên loại hàng">
+        <Form.Item label="Tên thương hiệu">
           <Input
             name="name"
             register={register}
@@ -173,7 +173,7 @@ const FormDisabledDemo: React.FC = () => {
         {/* <Form.Item label="slug">
           <Input name="slug" />
         </Form.Item> */}
-        <Form.Item label="Hãng sản xuất">
+        {/* <Form.Item label="Hãng sản xuất">
           <Input
             name="model"
             register={register}
@@ -181,8 +181,8 @@ const FormDisabledDemo: React.FC = () => {
             className=""
             errorMessage={errors.model?.message}
           />
-        </Form.Item>
-        <Form.Item label="Giá sản phẩm">
+        </Form.Item> */}
+        {/* <Form.Item label="Giá sản phẩm">
           <Input
             name="price"
             register={register}
@@ -190,8 +190,8 @@ const FormDisabledDemo: React.FC = () => {
             className=""
             errorMessage={errors.price?.message}
           />
-        </Form.Item>
-        <Form.Item label="Khuyến mãi">
+        </Form.Item> */}
+        {/* <Form.Item label="Khuyến mãi">
           <Input
             name="sale"
             register={register}
@@ -199,7 +199,7 @@ const FormDisabledDemo: React.FC = () => {
             className=""
             errorMessage={errors.sale?.message}
           />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item label="Mô tả">
           <Textarea
             defaultValue="Mô tả sản phẩm"

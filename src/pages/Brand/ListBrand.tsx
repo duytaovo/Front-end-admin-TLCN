@@ -22,7 +22,7 @@ export default function ListBrand() {
           type="products"
           reply
         /> */}
-        <TableBrand onClick={() => {}} />
+        <TableBrand />
       </div>
     </div>
   );

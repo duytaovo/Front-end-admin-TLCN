@@ -1,12 +1,12 @@
 import React from "react";
-import ListProduct from "./ListCategory";
+import ListCategory from "./ListCategory";
 
 type Props = {};
 
 const Categorys = (props: Props) => {
   return (
     <div>
-      <ListProduct />
+      <ListCategory />
     </div>
   );
 };
