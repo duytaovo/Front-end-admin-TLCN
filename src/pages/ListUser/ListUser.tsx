@@ -17,18 +17,7 @@ const ListUser = () => {
   }, []);
   return (
     <div className="">
-      <div className="">
-        {/* <UserDatatable
-          rows={data}
-          title=""
-          userColumns={userColumns}
-          setData={setData}
-        /> */}
-
-        <div>
-          <TableUser />
-        </div>
-      </div>
+      <TableUser />
     </div>
   );
 };

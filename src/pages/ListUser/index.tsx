@@ -3,11 +3,7 @@ import ListUser from "./ListUser";
 
 type Props = {};
 
-const Users = (props: Props) => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = (value: boolean) => {
-    setOpen(value);
-  };
+const Users = () => {
   return (
     <div className="">
       <ListUser />

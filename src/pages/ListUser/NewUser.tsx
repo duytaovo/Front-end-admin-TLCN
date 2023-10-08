@@ -2,7 +2,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unwrapResult } from "@reduxjs/toolkit";
 
-import { Button, DatePicker, Form, Radio, Upload } from "antd";
+import { Button, Form, Upload } from "antd";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +29,10 @@ interface FormData {
 }
 const FormDisabledDemo: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [file, setFile] = useState<File[]>();
+
   const {
     handleSubmit,
     formState: { errors },
@@ -38,9 +42,6 @@ const FormDisabledDemo: React.FC = () => {
   } = useForm({
     resolver: yupResolver(schemaAddUser),
   });
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const [file, setFile] = useState<File[]>();
   useEffect(() => {
     setValue("address", "");
     setValue("gioitinh", "");
@@ -91,6 +92,7 @@ const FormDisabledDemo: React.FC = () => {
     setValue("name", "");
     setValue("phone", "");
   };
+
   return (
     <div className="bg-white shadow ">
       <h2 className="font-bold m-4 text-2xl">Thêm người dùng</h2>
