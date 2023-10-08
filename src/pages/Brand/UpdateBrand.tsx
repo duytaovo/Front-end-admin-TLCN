@@ -222,9 +222,28 @@ const FormDisabledDemo: React.FC = () => {
             </div>
           </Upload>
         </Form.Item>
-        <Form.Item label="" className="ml-[100px] mb-2">
-          <Button className="w-[100px]">Lưu</Button>
-        </Form.Item>
+        <div className="flex justify-start">
+          <Form.Item label="" className="ml-[115px] mb-2">
+            <Button className="w-[100px]" onClick={onSubmit}>
+              Lưu
+            </Button>
+          </Form.Item>
+          {/* <Form.Item label="" className="ml-[100px] mb-2">
+            <Button className="w-[100px]" onClick={onClickHuy}>
+              Đặt lại
+            </Button>
+          </Form.Item> */}
+          <Form.Item label="" className="ml-[20px] mb-2">
+            <Button
+              className="w-[100px]"
+              onClick={() => {
+                navigate(path.users);
+              }}
+            >
+              Hủy
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </div>
   );

@@ -117,14 +117,19 @@ const FormDisabledDemo: React.FC = () => {
   };
   return (
     <div className="bg-white shadow ">
-      <h2 className="font-bold m-4 text-2xl">Thêm loại hàng</h2>
+      <h2 className="font-bold m-4 text-2xl">Thêm danh mục</h2>
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
         layout="horizontal"
-        style={{ maxWidth: 600, padding: 5 }}
+        style={{ maxWidth: 700, padding: 5 }}
       >
-        <Form.Item label="Loại loại hàng" className="rounded-3xl">
+        <Form.Item
+          label="Loại danh mục"
+          className="rounded-3xl"
+          name="loaiDm"
+          rules={[{ required: true }]}
+        >
           {/* <TreeSelect
             treeData={[
               {
@@ -161,7 +166,11 @@ const FormDisabledDemo: React.FC = () => {
           </SelectCustom>
         </Form.Item>
 
-        <Form.Item label="Tên loại hàng">
+        <Form.Item
+          label="Tên danh mục"
+          name="name"
+          rules={[{ required: true }]}
+        >
           <Input
             name="name"
             register={register}
@@ -173,7 +182,11 @@ const FormDisabledDemo: React.FC = () => {
         {/* <Form.Item label="slug">
           <Input name="slug" />
         </Form.Item> */}
-        <Form.Item label="Hãng sản xuất">
+        <Form.Item
+          label="Hãng sản xuất"
+          name="model"
+          rules={[{ required: true }]}
+        >
           <Input
             name="model"
             register={register}
@@ -182,7 +195,7 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.model?.message}
           />
         </Form.Item>
-        <Form.Item label="Giá sản phẩm">
+        {/* <Form.Item label="Giá sản phẩm">
           <Input
             name="price"
             register={register}
@@ -190,8 +203,8 @@ const FormDisabledDemo: React.FC = () => {
             className=""
             errorMessage={errors.price?.message}
           />
-        </Form.Item>
-        <Form.Item label="Khuyến mãi">
+        </Form.Item> */}
+        {/* <Form.Item label="Khuyến mãi">
           <Input
             name="sale"
             register={register}
@@ -199,8 +212,8 @@ const FormDisabledDemo: React.FC = () => {
             className=""
             errorMessage={errors.sale?.message}
           />
-        </Form.Item>
-        <Form.Item label="Mô tả">
+        </Form.Item> */}
+        {/* <Form.Item label="Mô tả">
           <Textarea
             defaultValue="Mô tả sản phẩm"
             id="mota"
@@ -209,8 +222,8 @@ const FormDisabledDemo: React.FC = () => {
             setValue={() => {}}
             textAlign={"left"}
           />
-        </Form.Item>
-        <Form.Item
+        </Form.Item> */}
+        {/* <Form.Item
           label="Upload"
           valuePropName="fileList"
           getValueFromEvent={normFile}
@@ -221,10 +234,29 @@ const FormDisabledDemo: React.FC = () => {
               <div style={{ marginTop: 8 }}>Upload</div>
             </div>
           </Upload>
-        </Form.Item>
-        <Form.Item label="" className="ml-[100px] mb-2">
-          <Button className="w-[100px]">Lưu</Button>
-        </Form.Item>
+        </Form.Item> */}
+        <div className="flex justify-start">
+          <Form.Item label="" className="ml-[115px] mb-2">
+            <Button className="w-[100px]" onClick={onSubmit}>
+              Lưu
+            </Button>
+          </Form.Item>
+          <Form.Item label="" className="ml-[50px] mb-2">
+            <Button className="w-[100px]" onClick={onClickHuy}>
+              Đặt lại
+            </Button>
+          </Form.Item>
+          <Form.Item label="" className="ml-[50px] mb-2">
+            <Button
+              className="w-[100px]"
+              onClick={() => {
+                navigate(path.users);
+              }}
+            >
+              Hủy
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </div>
   );

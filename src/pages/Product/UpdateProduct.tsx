@@ -62,11 +62,11 @@ const FormDisabledDemo: React.FC = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState<File[]>();
   useEffect(() => {
-    setValue("loaiSp", "");
-    setValue("model", "");
+    setValue("loaiSp", "Điện thoại");
+    setValue("model", "Apple");
     setValue("mota", "");
-    setValue("name", "");
-    setValue("price", "");
+    setValue("name", "Iphone 15 Plus");
+    setValue("price", "33.500.000đ");
     setValue("sale", "");
     setValue("upload", "");
   }, []);
@@ -122,34 +122,42 @@ const FormDisabledDemo: React.FC = () => {
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
         layout="horizontal"
-        style={{ maxWidth: 600, padding: 5 }}
+        style={{ maxWidth: 700, padding: 6 }}
+        autoComplete="off"
+        noValidate
+        onSubmitCapture={onSubmit}
       >
-        <Form.Item label="Loại sản phẩm" className="rounded-3xl">
+        <Form.Item
+          label="Loại sản phẩm"
+          className="rounded-3xl"
+          name="loaiSp"
+          rules={[{ required: true }]}
+        >
           {/* <TreeSelect
-            treeData={[
-              {
-                title: "Laptop",
-                value: "laptop",
-                children: [{ title: "Bamboo", value: "bamboo" }],
-              },
-              {
-                title: "Điện thoại",
-                value: "phone",
-                children: [{ title: "Bamboo", value: "bamboo" }],
-              },
-              {
-                title: "Tablet",
-                value: "tablet",
-                children: [{ title: "Bamboo", value: "bamboo" }],
-              },
-            ]}
-          /> */}
+          treeData={[
+            {
+              title: "Laptop",
+              value: "laptop",
+              children: [{ title: "Bamboo", value: "bamboo" }],
+            },
+            {
+              title: "Điện thoại",
+              value: "phone",
+              children: [{ title: "Bamboo", value: "bamboo" }],
+            },
+            {
+              title: "Tablet",
+              value: "tablet",
+              children: [{ title: "Bamboo", value: "bamboo" }],
+            },
+          ]}
+        /> */}
           <SelectCustom
             className={"flex-1 text-black"}
             id="carBrand"
             // label="Hãng xe"
             placeholder="Vui lòng chọn"
-            defaultValue={""}
+            defaultValue={"Điện thoại"}
             options={["Điện thoại", "Laptop", "Tablet", "Phụ kiện"]}
             register={register}
             isBrand={true}
@@ -161,7 +169,11 @@ const FormDisabledDemo: React.FC = () => {
           </SelectCustom>
         </Form.Item>
 
-        <Form.Item label="Tên sản phẩm">
+        <Form.Item
+          label="Tên sản phẩm"
+          name="name"
+          rules={[{ required: true }]}
+        >
           <Input
             name="name"
             register={register}
@@ -171,9 +183,13 @@ const FormDisabledDemo: React.FC = () => {
           />
         </Form.Item>
         {/* <Form.Item label="slug">
-          <Input name="slug" />
-        </Form.Item> */}
-        <Form.Item label="Hãng sản xuất">
+        <Input name="slug" />
+      </Form.Item> */}
+        <Form.Item
+          label="Hãng sản xuất"
+          name="model"
+          rules={[{ required: true }]}
+        >
           <Input
             name="model"
             register={register}
@@ -182,7 +198,11 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.model?.message}
           />
         </Form.Item>
-        <Form.Item label="Giá sản phẩm">
+        <Form.Item
+          label="Giá sản phẩm"
+          name="price"
+          rules={[{ required: true }]}
+        >
           <Input
             name="price"
             register={register}
@@ -191,7 +211,7 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.price?.message}
           />
         </Form.Item>
-        <Form.Item label="Khuyến mãi">
+        <Form.Item label="Khuyến mãi" name="sale">
           <Input
             name="sale"
             register={register}
@@ -200,7 +220,7 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.sale?.message}
           />
         </Form.Item>
-        <Form.Item label="Mô tả">
+        <Form.Item label="Mô tả" name="mota" rules={[{ required: true }]}>
           <Textarea
             defaultValue="Mô tả sản phẩm"
             id="mota"
@@ -211,6 +231,8 @@ const FormDisabledDemo: React.FC = () => {
           />
         </Form.Item>
         <Form.Item
+          name="file"
+          rules={[{ required: true }]}
           label="Upload"
           valuePropName="fileList"
           getValueFromEvent={normFile}
@@ -222,9 +244,28 @@ const FormDisabledDemo: React.FC = () => {
             </div>
           </Upload>
         </Form.Item>
-        <Form.Item label="" className="ml-[100px] mb-2">
-          <Button className="w-[100px]">Lưu</Button>
-        </Form.Item>
+        <div className="flex justify-start">
+          <Form.Item label="" className="ml-[115px] mb-2">
+            <Button className="w-[100px]" onClick={onSubmit}>
+              Lưu
+            </Button>
+          </Form.Item>
+          {/* <Form.Item label="" className="ml-[100px] mb-2">
+            <Button className="w-[100px]" onClick={onClickHuy}>
+              Đặt lại
+            </Button>
+          </Form.Item> */}
+          <Form.Item label="" className="ml-[20px] mb-2">
+            <Button
+              className="w-[100px]"
+              onClick={() => {
+                navigate(path.users);
+              }}
+            >
+              Hủy
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </div>
   );

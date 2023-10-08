@@ -1,9 +1,7 @@
 import { PlusOutlined } from "@ant-design/icons";
-
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unwrapResult } from "@reduxjs/toolkit";
-
-import { Button, DatePicker, Form, Radio, TreeSelect, Upload } from "antd";
+import { Button, Form, Upload } from "antd";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -13,12 +11,11 @@ import path from "src/constants/path";
 import { useAppDispatch } from "src/hooks/useRedux";
 import { addUser, getUser } from "src/store/user/userSlice";
 import { ErrorResponse } from "src/types/utils.type";
-import { schemaAddUser, schemaProduct } from "src/utils/rules";
+import { schemaProduct } from "src/utils/rules";
 import { isAxiosUnprocessableEntityError } from "src/utils/utils";
 import SelectCustom from "src/components/Select";
-import { FormControl, MenuItem, Select } from "@mui/material";
+
 import Textarea from "src/components/Textarea";
-const { RangePicker } = DatePicker;
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -122,9 +119,17 @@ const FormDisabledDemo: React.FC = () => {
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
         layout="horizontal"
-        style={{ maxWidth: 600, padding: 5 }}
+        style={{ maxWidth: 700, padding: 6 }}
+        autoComplete="off"
+        noValidate
+        onSubmitCapture={onSubmit}
       >
-        <Form.Item label="Loại sản phẩm" className="rounded-3xl">
+        <Form.Item
+          label="Loại sản phẩm"
+          className="rounded-3xl"
+          name="loaiSp"
+          rules={[{ required: true }]}
+        >
           {/* <TreeSelect
             treeData={[
               {
@@ -161,7 +166,11 @@ const FormDisabledDemo: React.FC = () => {
           </SelectCustom>
         </Form.Item>
 
-        <Form.Item label="Tên sản phẩm">
+        <Form.Item
+          label="Tên sản phẩm"
+          name="name"
+          rules={[{ required: true }]}
+        >
           <Input
             name="name"
             register={register}
@@ -173,7 +182,11 @@ const FormDisabledDemo: React.FC = () => {
         {/* <Form.Item label="slug">
           <Input name="slug" />
         </Form.Item> */}
-        <Form.Item label="Hãng sản xuất">
+        <Form.Item
+          label="Hãng sản xuất"
+          name="model"
+          rules={[{ required: true }]}
+        >
           <Input
             name="model"
             register={register}
@@ -182,7 +195,11 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.model?.message}
           />
         </Form.Item>
-        <Form.Item label="Giá sản phẩm">
+        <Form.Item
+          label="Giá sản phẩm"
+          name="price"
+          rules={[{ required: true }]}
+        >
           <Input
             name="price"
             register={register}
@@ -191,7 +208,7 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.price?.message}
           />
         </Form.Item>
-        <Form.Item label="Khuyến mãi">
+        <Form.Item label="Khuyến mãi" name="sale">
           <Input
             name="sale"
             register={register}
@@ -200,7 +217,7 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.sale?.message}
           />
         </Form.Item>
-        <Form.Item label="Mô tả">
+        <Form.Item label="Mô tả" name="mota" rules={[{ required: true }]}>
           <Textarea
             defaultValue="Mô tả sản phẩm"
             id="mota"
@@ -211,6 +228,8 @@ const FormDisabledDemo: React.FC = () => {
           />
         </Form.Item>
         <Form.Item
+          name="file"
+          rules={[{ required: true }]}
           label="Upload"
           valuePropName="fileList"
           getValueFromEvent={normFile}
@@ -222,9 +241,28 @@ const FormDisabledDemo: React.FC = () => {
             </div>
           </Upload>
         </Form.Item>
-        <Form.Item label="" className="ml-[100px] mb-2">
-          <Button className="w-[100px]">Lưu</Button>
-        </Form.Item>
+        <div className="flex justify-start">
+          <Form.Item label="" className="ml-[115px] mb-2">
+            <Button className="w-[100px]" onClick={onSubmit}>
+              Lưu
+            </Button>
+          </Form.Item>
+          <Form.Item label="" className="ml-[50px] mb-2">
+            <Button className="w-[100px]" onClick={onClickHuy}>
+              Đặt lại
+            </Button>
+          </Form.Item>
+          <Form.Item label="" className="ml-[50px] mb-2">
+            <Button
+              className="w-[100px]"
+              onClick={() => {
+                navigate(path.users);
+              }}
+            >
+              Hủy
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </div>
   );

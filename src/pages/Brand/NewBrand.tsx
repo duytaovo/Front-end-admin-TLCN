@@ -122,7 +122,7 @@ const FormDisabledDemo: React.FC = () => {
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
         layout="horizontal"
-        style={{ maxWidth: 600, padding: 5 }}
+        style={{ maxWidth: 700, padding: 5 }}
       >
         <Form.Item label="Loại sản phẩm" className="rounded-3xl">
           {/* <TreeSelect
@@ -222,9 +222,28 @@ const FormDisabledDemo: React.FC = () => {
             </div>
           </Upload>
         </Form.Item>
-        <Form.Item label="" className="ml-[100px] mb-2">
-          <Button className="w-[100px]">Lưu</Button>
-        </Form.Item>
+        <div className="flex justify-start">
+          <Form.Item label="" className="ml-[115px] mb-2">
+            <Button className="w-[100px]" onClick={onSubmit}>
+              Lưu
+            </Button>
+          </Form.Item>
+          <Form.Item label="" className="ml-[50px] mb-2">
+            <Button className="w-[100px]" onClick={onClickHuy}>
+              Đặt lại
+            </Button>
+          </Form.Item>
+          <Form.Item label="" className="ml-[50px] mb-2">
+            <Button
+              className="w-[100px]"
+              onClick={() => {
+                navigate(path.users);
+              }}
+            >
+              Hủy
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </div>
   );

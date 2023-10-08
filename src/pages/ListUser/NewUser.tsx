@@ -111,7 +111,8 @@ const FormDisabledDemo: React.FC = () => {
             <Radio value="pear"> Nữ </Radio>
           </Radio.Group>
         </Form.Item> */}
-        <Form.Item label="Họ Tên">
+
+        <Form.Item name="name" label="Họ Tên" rules={[{ required: true }]}>
           <Input
             name="name"
             register={register}
@@ -120,7 +121,7 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.name?.message}
           />
         </Form.Item>
-        <Form.Item label="Địa chỉ">
+        <Form.Item label="Địa chỉ" name="address">
           <Input
             name="address"
             register={register}
@@ -129,7 +130,11 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.address?.message}
           />
         </Form.Item>
-        <Form.Item label="Số điện thoại">
+        <Form.Item
+          name="phone"
+          label="Số điện thoại"
+          rules={[{ required: true }]}
+        >
           <Input
             name="phone"
             register={register}
@@ -153,6 +158,7 @@ const FormDisabledDemo: React.FC = () => {
           <InputNumber />
         </Form.Item> */}
         <Form.Item
+          name="file"
           label="Upload"
           valuePropName="fileList"
           getValueFromEvent={normFile}
@@ -164,11 +170,28 @@ const FormDisabledDemo: React.FC = () => {
             </div>
           </Upload>
         </Form.Item>
-        <Form.Item label="" className="ml-[100px] mb-2">
-          <Button className="w-[100px]" onClick={onSubmit}>
-            Lưu
-          </Button>
-        </Form.Item>
+        <div className="flex justify-start">
+          <Form.Item label="" className="ml-[100px] mb-2">
+            <Button className="w-[100px]" onClick={onSubmit}>
+              Lưu
+            </Button>
+          </Form.Item>
+          <Form.Item label="" className="ml-[20px] mb-2">
+            <Button className="w-[100px]" onClick={onClickHuy}>
+              Đặt lại
+            </Button>
+          </Form.Item>
+          <Form.Item label="" className="ml-[20px] mb-2">
+            <Button
+              className="w-[100px]"
+              onClick={() => {
+                navigate(path.users);
+              }}
+            >
+              Hủy
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </div>
   );

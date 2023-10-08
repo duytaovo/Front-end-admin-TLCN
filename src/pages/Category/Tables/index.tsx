@@ -12,9 +12,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { SelectChangeEvent } from "@mui/material/Select";
 import path from "src/constants/path";
-
 import React, { useEffect, useState } from "react";
-import { Button, Space, Table, Typography } from "antd";
+import { Button, Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
 interface DataType {
@@ -66,7 +65,7 @@ const columns: ColumnsType<DataType> = [
     key: "x",
     render: () => (
       <Space>
-        <Link to={path.brandDetail}>
+        <Link to={path.category}>
           {" "}
           <IconButton className="text-mainColor">
             <EditIcon

@@ -59,7 +59,7 @@ const Order = ({ title }: { title?: string }) => {
           <Table.HeadCell> Ngày đặt mua</Table.HeadCell>
           <Table.HeadCell>Trạng thái</Table.HeadCell>
           <Table.HeadCell>
-            <span className="sr-only">Edit</span>
+            <span className="sr-only">Chỉnh sửa</span>
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className=" ">

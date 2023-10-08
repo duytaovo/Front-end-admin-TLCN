@@ -2,7 +2,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unwrapResult } from "@reduxjs/toolkit";
 
-import { Button, DatePicker, Form, Radio, Upload } from "antd";
+import { Button, Form, Upload } from "antd";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -84,16 +84,13 @@ const FormDisabledDemo: React.FC = () => {
       setIsSubmitting(false);
     }
   });
+
   const onClickHuy = () => {
-    setValue("address", "");
-    setValue("gioitinh", "");
-    setValue("image", "");
-    setValue("name", "");
-    setValue("phone", "");
+    navigate(path.users);
   };
   return (
     <div className="bg-white shadow ">
-      <h2 className="font-bold m-4 text-2xl">Thêm người dùng</h2>
+      <h2 className="font-bold m-4 text-2xl">Cập nhật người dùng</h2>
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
@@ -103,7 +100,7 @@ const FormDisabledDemo: React.FC = () => {
         noValidate
         onSubmitCapture={onSubmit}
       >
-        <Form.Item label="Họ Tên">
+        <Form.Item label="Họ Tên" name="name" rules={[{ required: true }]}>
           <Input
             name="name"
             register={register}
@@ -121,7 +118,11 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.address?.message}
           />
         </Form.Item>
-        <Form.Item label="Số điện thoại">
+        <Form.Item
+          name="phone"
+          label="Số điện thoại"
+          rules={[{ required: true }]}
+        >
           <Input
             name="phone"
             register={register}
@@ -156,11 +157,18 @@ const FormDisabledDemo: React.FC = () => {
             </div>
           </Upload>
         </Form.Item>
-        <Form.Item label="" className="ml-[100px] mb-2">
-          <Button className="w-[100px]" onClick={onSubmit}>
-            Lưu
-          </Button>
-        </Form.Item>
+        <div className="flex justify-start">
+          <Form.Item label="" className="ml-[100px] mb-2">
+            <Button className="w-[100px]" onClick={onSubmit}>
+              Lưu
+            </Button>
+          </Form.Item>
+          <Form.Item label="" className="ml-[20px] mb-2">
+            <Button className="w-[100px]" onClick={onClickHuy}>
+              Hủy
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </div>
   );

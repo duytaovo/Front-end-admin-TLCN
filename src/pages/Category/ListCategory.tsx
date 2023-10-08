@@ -14,16 +14,7 @@ export default function ListCategory() {
   }, []);
   return (
     <div>
-      <div>
-        {/* <Datatable
-          rows={data}
-          title=""
-          productColumns={productColumns}
-          type="products"
-          reply
-        /> */}
-        <TableCategory />
-      </div>
+      <TableCategory />
     </div>
   );
 }

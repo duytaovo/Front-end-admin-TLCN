@@ -8,18 +8,9 @@ import path from "src/constants/path";
 interface Props {
   rows: any;
   columns: any;
-  totalPages?: number;
-  totalItems?: number;
-  handleOnChange?: any;
 }
 
-const DataTable = ({
-  rows,
-  columns,
-  totalPages,
-  totalItems = 0,
-  handleOnChange,
-}: Props) => {
+const DataTable = ({ rows, columns }: Props) => {
   return (
     <Paper className="p-4">
       <div className="w-full text-[24px] text-gray-500 mb-[10px] flex items-center justify-between">
@@ -41,7 +32,6 @@ const DataTable = ({
             },
           }}
           pageSizeOptions={[5, 10]}
-          // checkboxSelection
         />
       </div>
       <div className="">
