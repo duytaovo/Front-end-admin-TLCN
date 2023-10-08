@@ -14,19 +14,19 @@ import { AppProvider } from "./contexts/app.context";
 import { DarkModeProvider } from "./contexts/darkModeContext";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ConfigProvider theme={theme}>
-        <Provider store={store}>
-          <GlobalStyles>
-            <AppProvider>
-              <DarkModeProvider>
-                <App />
-              </DarkModeProvider>
-            </AppProvider>
-          </GlobalStyles>
-        </Provider>
-      </ConfigProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <BrowserRouter>
+    <ConfigProvider theme={theme}>
+      <Provider store={store}>
+        <GlobalStyles>
+          <AppProvider>
+            <DarkModeProvider>
+              <App />
+            </DarkModeProvider>
+          </AppProvider>
+        </GlobalStyles>
+      </Provider>
+    </ConfigProvider>
+  </BrowserRouter>
+  // </React.StrictMode>
 );
