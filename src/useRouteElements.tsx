@@ -6,6 +6,9 @@ import CommonLayout from "./layouts/CommonLayout";
 import Login from "./pages/Login";
 import AuthenticatedGuard from "./guards/AuthenticatedGuard";
 import UnAuthenticatedGuard from "./guards/UnAuthenticatedGuard";
+import Products from "./pages/Product";
+import { typeProduct } from "./formSource";
+import NewProduct from "./pages/New/Product/NewProduct";
 
 export default function useRouteElements() {
   const renderRouter = useMemo(() => {
@@ -36,6 +39,17 @@ export default function useRouteElements() {
       >
         {renderRouter}
       </Route>
+      {/* <Route path="products">
+        <Route index element={<Products />} />
+        <Route
+          path=":productId"
+          element={<EditProduct inputs={typeProduct} title="Add New Product" />}
+        />
+        <Route
+          path="/new"
+          element={<NewProduct inputs={typeProduct} title="Add New Product" />}
+        />
+      </Route> */}
       <Route
         path="/login"
         element={

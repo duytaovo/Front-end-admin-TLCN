@@ -179,14 +179,14 @@ const TableProduct: React.FC = () => {
         </Link>
       </div>
       <div style={{ marginBottom: 16 }}>
-        <Button
+        {/* <Button
           type="primary"
           onClick={start}
           disabled={!hasSelected}
           loading={loading}
         >
           Reload
-        </Button>
+        </Button> */}
         <span style={{ marginLeft: 8 }}>
           {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
         </span>

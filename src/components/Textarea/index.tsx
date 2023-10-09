@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import ReactQuill from "react-quill";
+import React, { useEffect, useState } from "react";
+import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
 type Props = {
   label?: string;
   id: string;
@@ -10,7 +9,7 @@ type Props = {
   register: any;
   check?: boolean;
   requirementField?: boolean;
-  setValue: (id: string, defaultValue: string) => void;
+  setValue: any;
   defaultValue: string;
   textAlign: any;
   isUpdate: boolean;
@@ -44,7 +43,7 @@ const Textarea = ({
   let errorMessage = " * Bạn phải nhập thông tin sản phẩm...";
 
   const handleOnChange = (
-    content: string,
+    content: any,
     delta: any,
     source: any,
     editor: any
@@ -57,6 +56,22 @@ const Textarea = ({
       setShowError2(false);
     }
     setValue(id, content);
+  };
+  const modules = {
+    toolbar: {
+      container: [
+        [{ header: "1" }, { header: "2" }, { font: [] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [
+          { list: "ordered" },
+          { list: "bullet" },
+          { indent: "-1" },
+          { indent: "+1" },
+        ],
+        ["link", "image"], // Thêm tùy chọn "image" vào toolbar
+        ["clean"],
+      ],
+    },
   };
   return (
     <>
@@ -73,11 +88,13 @@ const Textarea = ({
         </label>
         <div id={id} className={check ? "" : ""}>
           <ReactQuill
+            modules={modules}
             theme="snow"
             onChange={handleOnChange}
             placeholder={placeholder}
             defaultValue={defaultValue}
           />
+
           {check ? null : (
             <p className="w-full text-left">
               {(children === null

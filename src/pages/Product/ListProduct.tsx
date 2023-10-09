@@ -15,13 +15,6 @@ export default function ListProduct() {
   return (
     <div>
       <div>
-        {/* <Datatable
-          rows={data}
-          title=""
-          productColumns={productColumns}
-          type="products"
-          reply
-        /> */}
         <TableProduct />
       </div>
     </div>

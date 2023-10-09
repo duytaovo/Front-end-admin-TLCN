@@ -1,9 +1,7 @@
 import { PlusOutlined } from "@ant-design/icons";
-
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unwrapResult } from "@reduxjs/toolkit";
-
-import { Button, DatePicker, Form, Radio, TreeSelect, Upload } from "antd";
+import { Button, Form, Upload } from "antd";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -13,12 +11,10 @@ import path from "src/constants/path";
 import { useAppDispatch } from "src/hooks/useRedux";
 import { addUser, getUser } from "src/store/user/userSlice";
 import { ErrorResponse } from "src/types/utils.type";
-import { schemaAddUser, schemaProduct } from "src/utils/rules";
+import { schemaProduct } from "src/utils/rules";
 import { isAxiosUnprocessableEntityError } from "src/utils/utils";
 import SelectCustom from "src/components/Select";
-import { FormControl, MenuItem, Select } from "@mui/material";
 import Textarea from "src/components/Textarea";
-const { RangePicker } = DatePicker;
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -35,6 +31,15 @@ interface FormData {
   price: string;
   sale: string;
   upload: string;
+  screen: string;
+  os: string;
+  cameraBehind: string;
+  cameraBefore: string;
+  chip: string;
+  sim: string;
+  pin: string;
+  Ram: string;
+  Rom: string;
 }
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -62,11 +67,11 @@ const FormDisabledDemo: React.FC = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState<File[]>();
   useEffect(() => {
-    setValue("loaiSp", "Điện thoại");
-    setValue("model", "Apple");
+    setValue("loaiSp", "");
+    setValue("model", "");
     setValue("mota", "");
-    setValue("name", "Iphone 15 Plus");
-    setValue("price", "33.500.000đ");
+    setValue("name", "");
+    setValue("price", "");
     setValue("sale", "");
     setValue("upload", "");
   }, []);
@@ -114,10 +119,17 @@ const FormDisabledDemo: React.FC = () => {
     setValue("price", "");
     setValue("sale", "");
     setValue("upload", "");
+    setValue("Ram", "");
+    setValue("Rom", "");
+    setValue("cameraBefore", "");
+    setValue("cameraBehind", "");
+    setValue("chip", "");
+    setValue("sim", "");
   };
+
   return (
     <div className="bg-white shadow ">
-      <h2 className="font-bold m-4 text-2xl">Cập nhật sản phẩm</h2>
+      <h2 className="font-bold m-4 text-2xl">Thêm sản phẩm Tablet</h2>
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
@@ -139,9 +151,9 @@ const FormDisabledDemo: React.FC = () => {
             type="text"
             className=""
             errorMessage={errors.loaiSp?.message}
-            value="Điện thoại"
+            value="Tablet"
             disabled
-            placeholder="Điện thoại"
+            placeholder="Tablet"
           />
         </Form.Item>
 
@@ -151,6 +163,7 @@ const FormDisabledDemo: React.FC = () => {
           rules={[{ required: true }]}
         >
           <Input
+            // placeholder="Iphone 15 Plus"
             name="name"
             register={register}
             type="text"
@@ -207,6 +220,7 @@ const FormDisabledDemo: React.FC = () => {
             type="text"
             className=""
             errorMessage={errors.screen?.message}
+            // placeholder="Màn hinh"
           />
         </Form.Item>
         <Form.Item

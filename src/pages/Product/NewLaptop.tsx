@@ -11,7 +11,7 @@ import path from "src/constants/path";
 import { useAppDispatch } from "src/hooks/useRedux";
 import { addUser, getUser } from "src/store/user/userSlice";
 import { ErrorResponse } from "src/types/utils.type";
-import { schemaProduct } from "src/utils/rules";
+import { schemaLaptop, schemaProduct } from "src/utils/rules";
 import { isAxiosUnprocessableEntityError } from "src/utils/utils";
 import SelectCustom from "src/components/Select";
 
@@ -32,6 +32,13 @@ interface FormData {
   price: string;
   sale: string;
   upload: string;
+  screen: string;
+  os: string;
+  chip: string;
+  pin: string;
+  Ram: string;
+  Rom: string;
+  card: string;
 }
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -53,7 +60,7 @@ const FormDisabledDemo: React.FC = () => {
     register,
     setValue,
   } = useForm({
-    resolver: yupResolver(schemaProduct),
+    resolver: yupResolver(schemaLaptop),
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -111,10 +118,15 @@ const FormDisabledDemo: React.FC = () => {
     setValue("price", "");
     setValue("sale", "");
     setValue("upload", "");
+    setValue("Ram", "");
+    setValue("Rom", "");
+    setValue("card", "");
+    setValue("chip", "");
+    setValue("pin", "");
   };
   return (
     <div className="bg-white shadow ">
-      <h2 className="font-bold m-4 text-2xl">Thêm sản phẩm</h2>
+      <h2 className="font-bold m-4 text-2xl">Thêm sản phẩm laptop</h2>
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
@@ -130,40 +142,16 @@ const FormDisabledDemo: React.FC = () => {
           name="loaiSp"
           rules={[{ required: true }]}
         >
-          {/* <TreeSelect
-            treeData={[
-              {
-                title: "Laptop",
-                value: "laptop",
-                children: [{ title: "Bamboo", value: "bamboo" }],
-              },
-              {
-                title: "Điện thoại",
-                value: "phone",
-                children: [{ title: "Bamboo", value: "bamboo" }],
-              },
-              {
-                title: "Tablet",
-                value: "tablet",
-                children: [{ title: "Bamboo", value: "bamboo" }],
-              },
-            ]}
-          /> */}
-          <SelectCustom
-            className={"flex-1 text-black"}
-            id="carBrand"
-            // label="Hãng xe"
-            placeholder="Vui lòng chọn"
-            defaultValue={""}
-            options={["Điện thoại", "Laptop", "Tablet", "Phụ kiện"]}
+          <Input
+            name="loaiSp"
             register={register}
-            isBrand={true}
-            // disabled={false}
-
-            // onChange={handleOnChangeCarBrand}
-          >
-            {errors.loaiSp?.message}
-          </SelectCustom>
+            type="text"
+            className=""
+            errorMessage={errors.loaiSp?.message}
+            value="Laptop"
+            disabled
+            placeholder="Laptop"
+          />
         </Form.Item>
 
         <Form.Item
@@ -179,20 +167,127 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.name?.message}
           />
         </Form.Item>
-        {/* <Form.Item label="slug">
-          <Input name="slug" />
-        </Form.Item> */}
+
         <Form.Item
           label="Hãng sản xuất"
           name="model"
           rules={[{ required: true }]}
         >
+          <SelectCustom
+            className={"flex-1 text-black"}
+            id="carBrand"
+            // label="Hãng xe"
+            placeholder="Vui lòng chọn"
+            defaultValue={""}
+            options={[
+              "Apple",
+              "Samsung",
+              "Oppo",
+              "Xiaomi",
+              "Vivo",
+              "Readmi",
+              "Nokia",
+              "Mastel",
+            ]}
+            register={register}
+            isBrand={true}
+          >
+            {errors.loaiSp?.message}
+          </SelectCustom>
+        </Form.Item>
+        <Form.Item label="Hệ điều hành" name="os" rules={[{ required: true }]}>
+          <SelectCustom
+            className={" text-black"}
+            id="os"
+            // label="Hãng xe"
+            placeholder="Vui lòng chọn"
+            defaultValue={""}
+            options={["iOS", "Android"]}
+            register={register}
+            isBrand={true}
+          >
+            {errors.os?.message}
+          </SelectCustom>
+        </Form.Item>
+        <Form.Item label="Màn hình" name="screen" rules={[{ required: true }]}>
           <Input
-            name="model"
+            name="screen"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.model?.message}
+            errorMessage={errors.screen?.message}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Card màn hình"
+          name="card"
+          rules={[{ required: true }]}
+        >
+          <Input
+            name="card"
+            register={register}
+            type="text"
+            className=""
+            errorMessage={errors.card?.message}
+          />
+        </Form.Item>
+
+        <Form.Item label="Chip" name="chip" rules={[{ required: true }]}>
+          <Input
+            name="chip"
+            register={register}
+            type="text"
+            className=""
+            errorMessage={errors.chip?.message}
+          />
+        </Form.Item>
+        <Form.Item label="Ram" name="ram" rules={[{ required: true }]}>
+          <SelectCustom
+            className={" text-black"}
+            id="Ram"
+            // label="Hãng xe"
+            placeholder="Vui lòng chọn"
+            defaultValue={""}
+            options={["2Gb", "4Gb", "6Gb", "8Gb", "16Gb", "32Gb"]}
+            register={register}
+            isBrand={true}
+          >
+            {errors.Ram?.message}
+          </SelectCustom>
+        </Form.Item>
+        <Form.Item label="Rom" name="rom" rules={[{ required: true }]}>
+          <SelectCustom
+            className={" text-black"}
+            id="Rom"
+            // label="Hãng xe"
+            placeholder="Vui lòng chọn"
+            defaultValue={""}
+            options={[
+              "2Gb",
+              "4Gb",
+              "6Gb",
+              "8Gb",
+              "16Gb",
+              "32Gb",
+              "64Gb",
+              "128Gb",
+              "256Gb",
+              "512Gb",
+              "1T",
+            ]}
+            register={register}
+            isBrand={true}
+          >
+            {errors.Rom?.message}
+          </SelectCustom>
+        </Form.Item>
+        <Form.Item label="Pin" name="pin" rules={[{ required: true }]}>
+          <Input
+            name="pin"
+            register={register}
+            type="text"
+            className=""
+            errorMessage={errors.chip?.message}
           />
         </Form.Item>
         <Form.Item
@@ -230,14 +325,14 @@ const FormDisabledDemo: React.FC = () => {
         <Form.Item
           name="file"
           rules={[{ required: true }]}
-          label="Upload"
+          label="Hình ảnh"
           valuePropName="fileList"
           getValueFromEvent={normFile}
         >
           <Upload action="/upload.do" listType="picture-card">
             <div>
               <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Upload</div>
+              <div style={{ marginTop: 8 }}>Hình ảnh</div>
             </div>
           </Upload>
         </Form.Item>

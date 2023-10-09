@@ -108,6 +108,46 @@ export const schemaAddUser = yup.object({
 
 export const schemaProduct = yup.object({
   loaiSp: yup.string().required("Loại sản phẩm là bắt buộc"),
+  screen: yup.string().required("Màn hình sản phẩm là bắt buộc"),
+  os: yup.string().required("Hệ điều hành sản phẩm là bắt buộc"),
+  cameraBehind: yup.string().required("Camera trước sản phẩm là bắt buộc"),
+  cameraBefore: yup.string().required("Camera sau sản phẩm là bắt buộc"),
+  chip: yup.string().required("Chip sản phẩm là bắt buộc"),
+  sim: yup.string().required("Sim sản phẩm là bắt buộc"),
+  pin: yup.string().required("Pin sản phẩm là bắt buộc"),
+  Ram: yup.string().required("Ram sản phẩm là bắt buộc"),
+  Rom: yup.string().required("Rom sản phẩm là bắt buộc"),
+  name: yup.string().required("Tên sp là bắt buộc"),
+  model: yup.string().required("Hãng sx là bắt buộc"),
+  price: yup.string().required("Giá sản phẩm là bắt buộc"),
+  sale: yup.string(),
+  mota: yup.string().required("Mô tả là bắt buộc"),
+  upload: yup.string().required("Upload ảnh là bắt buộc"),
+});
+
+export const schemaLaptop = yup.object({
+  loaiSp: yup.string().required("Loại sản phẩm là bắt buộc"),
+  screen: yup.string().required("Màn hình sản phẩm là bắt buộc"),
+  os: yup.string().required("Hệ điều hành sản phẩm là bắt buộc"),
+  chip: yup.string().required("Chip sản phẩm là bắt buộc"),
+  Ram: yup.string().required("Ram sản phẩm là bắt buộc"),
+  pin: yup.string().required("Pin sản phẩm là bắt buộc"),
+  card: yup.string().required("Card màn hình sản phẩm là bắt buộc"),
+  Rom: yup.string().required("Rom sản phẩm là bắt buộc"),
+  name: yup.string().required("Tên sp là bắt buộc"),
+  model: yup.string().required("Hãng sx là bắt buộc"),
+  price: yup.string().required("Giá sản phẩm là bắt buộc"),
+  sale: yup.string(),
+  mota: yup.string().required("Mô tả là bắt buộc"),
+  upload: yup.string().required("Upload ảnh là bắt buộc"),
+});
+
+export const schemaSmartWatch = yup.object({
+  loaiSp: yup.string().required("Loại sản phẩm là bắt buộc"),
+  sex: yup.string().required("Giới tính là bắt buộc"),
+  face: yup.string(),
+  pin: yup.string(),
+  healcare: yup.string(),
   name: yup.string().required("Tên sp là bắt buộc"),
   model: yup.string().required("Hãng sx là bắt buộc"),
   price: yup.string().required("Giá sản phẩm là bắt buộc"),

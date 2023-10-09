@@ -1,9 +1,7 @@
 import { PlusOutlined } from "@ant-design/icons";
-
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unwrapResult } from "@reduxjs/toolkit";
-
-import { Button, DatePicker, Form, Radio, TreeSelect, Upload } from "antd";
+import { Button, Form, Radio, RadioChangeEvent, Upload } from "antd";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -13,12 +11,11 @@ import path from "src/constants/path";
 import { useAppDispatch } from "src/hooks/useRedux";
 import { addUser, getUser } from "src/store/user/userSlice";
 import { ErrorResponse } from "src/types/utils.type";
-import { schemaAddUser, schemaProduct } from "src/utils/rules";
 import { isAxiosUnprocessableEntityError } from "src/utils/utils";
 import SelectCustom from "src/components/Select";
-import { FormControl, MenuItem, Select } from "@mui/material";
+
 import Textarea from "src/components/Textarea";
-const { RangePicker } = DatePicker;
+import { schemaSmartWatch } from "src/utils/rules";
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -35,6 +32,10 @@ interface FormData {
   price: string;
   sale: string;
   upload: string;
+  pin: string;
+  face: string;
+  healcare: string;
+  sex: string;
 }
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -49,6 +50,12 @@ const MenuProps = {
 const FormDisabledDemo: React.FC = () => {
   const [componentDisabled, setComponentDisabled] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [value, setValueSex] = useState(1);
+
+  const onChange = (e: RadioChangeEvent) => {
+    console.log("radio checked", e.target.value);
+    setValueSex(e.target.value);
+  };
   const {
     handleSubmit,
     formState: { errors },
@@ -56,7 +63,7 @@ const FormDisabledDemo: React.FC = () => {
     register,
     setValue,
   } = useForm({
-    resolver: yupResolver(schemaProduct),
+    resolver: yupResolver(schemaSmartWatch),
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -115,53 +122,51 @@ const FormDisabledDemo: React.FC = () => {
     setValue("sale", "");
     setValue("upload", "");
   };
+
   return (
     <div className="bg-white shadow ">
-      <h2 className="font-bold m-4 text-2xl">Thêm thương hiệu</h2>
+      <h2 className="font-bold m-4 text-2xl">
+        Thêm sản phẩm đồng hồ thông minh
+      </h2>
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
         layout="horizontal"
-        style={{ maxWidth: 700, padding: 5 }}
+        style={{ maxWidth: 700, padding: 6 }}
+        autoComplete="off"
+        noValidate
+        onSubmitCapture={onSubmit}
       >
-        <Form.Item label="Loại sản phẩm" className="rounded-3xl">
-          {/* <TreeSelect
-            treeData={[
-              {
-                title: "Laptop",
-                value: "laptop",
-                children: [{ title: "Bamboo", value: "bamboo" }],
-              },
-              {
-                title: "Điện thoại",
-                value: "phone",
-                children: [{ title: "Bamboo", value: "bamboo" }],
-              },
-              {
-                title: "Tablet",
-                value: "tablet",
-                children: [{ title: "Bamboo", value: "bamboo" }],
-              },
-            ]}
-          /> */}
-          <SelectCustom
-            className={"flex-1 text-black"}
-            id="carBrand"
-            // label="Hãng xe"
-            placeholder="Vui lòng chọn"
-            defaultValue={""}
-            options={["Điện thoại", "Laptop", "Tablet", "Phụ kiện"]}
+        <Form.Item
+          label="Loại sản phẩm"
+          className="rounded-3xl"
+          name="loaiSp"
+          rules={[{ required: true }]}
+        >
+          <Input
+            name="loaiSp"
             register={register}
-            isBrand={true}
-            // disabled={false}
-
-            // onChange={handleOnChangeCarBrand}
-          >
-            {errors.loaiSp?.message}
-          </SelectCustom>
+            type="text"
+            className=""
+            errorMessage={errors.loaiSp?.message}
+            value="Smart Watch"
+            disabled
+            placeholder="Smart Watch"
+          />
+        </Form.Item>
+        <Form.Item label="Giới tính" name="sex" rules={[{ required: true }]}>
+          <Radio.Group onChange={onChange} value={value}>
+            <Radio value={"Nam"}>Nam </Radio>
+            <Radio value={"Nữ"}>Nữ</Radio>
+          </Radio.Group>
+          {errors.sex?.message}
         </Form.Item>
 
-        <Form.Item label="Tên thương hiệu">
+        <Form.Item
+          label="Tên sản phẩm"
+          name="name"
+          rules={[{ required: true }]}
+        >
           <Input
             name="name"
             register={register}
@@ -170,19 +175,65 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.name?.message}
           />
         </Form.Item>
-        {/* <Form.Item label="slug">
-          <Input name="slug" />
-        </Form.Item> */}
-        {/* <Form.Item label="Hãng sản xuất">
+
+        <Form.Item
+          label="Hãng sản xuất"
+          name="model"
+          rules={[{ required: true }]}
+        >
+          <SelectCustom
+            className={"flex-1 text-black"}
+            id="carBrand"
+            // label="Hãng xe"
+            placeholder="Vui lòng chọn"
+            defaultValue={""}
+            options={[
+              "Apple",
+              "Samsung",
+              "Oppo",
+              "Xiaomi",
+              "Vivo",
+              "Readmi",
+              "Nokia",
+              "Mastel",
+            ]}
+            register={register}
+            isBrand={true}
+          >
+            {errors.loaiSp?.message}
+          </SelectCustom>
+        </Form.Item>
+        <Form.Item
+          label="Mặt sản phẩm"
+          name="face"
+          rules={[{ required: true }]}
+        >
           <Input
-            name="model"
+            name="face"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.model?.message}
+            errorMessage={errors.face?.message}
           />
-        </Form.Item> */}
-        {/* <Form.Item label="Giá sản phẩm">
+        </Form.Item>
+        <Form.Item
+          label="Sức khỏe "
+          name="healcare"
+          rules={[{ required: true }]}
+        >
+          <Input
+            name="healcare"
+            register={register}
+            type="text"
+            className=""
+            errorMessage={errors.healcare?.message}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Giá sản phẩm"
+          name="price"
+          rules={[{ required: true }]}
+        >
           <Input
             name="price"
             register={register}
@@ -190,8 +241,8 @@ const FormDisabledDemo: React.FC = () => {
             className=""
             errorMessage={errors.price?.message}
           />
-        </Form.Item> */}
-        {/* <Form.Item label="Khuyến mãi">
+        </Form.Item>
+        <Form.Item label="Khuyến mãi" name="sale">
           <Input
             name="sale"
             register={register}
@@ -199,26 +250,28 @@ const FormDisabledDemo: React.FC = () => {
             className=""
             errorMessage={errors.sale?.message}
           />
-        </Form.Item> */}
-        <Form.Item label="Mô tả">
+        </Form.Item>
+        <Form.Item label="Mô tả" name="mota" rules={[{ required: true }]}>
           <Textarea
             defaultValue="Mô tả sản phẩm"
             id="mota"
             isUpdate={false}
             register={register}
-            setValue={setValue}
+            setValue={() => {}}
             textAlign={"left"}
           />
         </Form.Item>
         <Form.Item
-          label="Upload"
+          name="file"
+          rules={[{ required: true }]}
+          label="Hình ảnh"
           valuePropName="fileList"
           getValueFromEvent={normFile}
         >
           <Upload action="/upload.do" listType="picture-card">
             <div>
               <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Upload</div>
+              <div style={{ marginTop: 8 }}>Hình ảnh</div>
             </div>
           </Upload>
         </Form.Item>
