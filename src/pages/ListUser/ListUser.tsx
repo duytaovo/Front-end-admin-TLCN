@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Search from "src/components/Search";
-import UserDatatable from "src/components/Userdatatable/UserDatatable";
-import { userColumns } from "src/datatablesource";
 import TableUser from "./Tables";
 
 const ListUser = () => {

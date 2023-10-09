@@ -8,7 +8,6 @@ import AuthenticatedGuard from "./guards/AuthenticatedGuard";
 import UnAuthenticatedGuard from "./guards/UnAuthenticatedGuard";
 import Products from "./pages/Product";
 import { typeProduct } from "./formSource";
-import NewProduct from "./pages/New/Product/NewProduct";
 
 export default function useRouteElements() {
   const renderRouter = useMemo(() => {
