@@ -6,7 +6,7 @@ import {
   Select,
   Tooltip,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -16,6 +16,7 @@ import path from "src/constants/path";
 import React, { useEffect, useState } from "react";
 import { Button, Space, Table, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import SelectCustom from "src/components/Select";
 
 interface DataType {
   key: React.Key;
@@ -135,7 +136,7 @@ const data: DataType[] = [
 const TableProduct: React.FC = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
-
+  const navigate = useNavigate();
   useEffect(() => {
     // dispatch(getCars(""));
   }, []);
@@ -167,29 +168,68 @@ const TableProduct: React.FC = () => {
     onChange: onSelectChange,
   };
   const hasSelected = selectedRowKeys.length > 0;
+  const [product, setProduct] = React.useState("");
+
+  const handleChangeProduct = (event: SelectChangeEvent) => {
+    setProduct(event.target.value as string);
+  };
+
+  const onClick = (value: string) => {
+    navigate(value);
+  };
   return (
     <div className="mx-6">
       <div className="w-full text-[24px] text-gray-500 mb-[10px] flex items-center justify-between">
-        Quản lý sản phẩm
+        <div>
+          Quản lý sản phẩm
+          <div>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Product</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={product}
+                label="Age"
+                onChange={handleChangeProduct}
+              >
+                <MenuItem
+                  value={"Điện thoại"}
+                  onClick={() => onClick("/phone")}
+                >
+                  Điện thoại
+                </MenuItem>
+                <MenuItem value={"Laptop"} onClick={() => onClick("/laptop")}>
+                  Laptop
+                </MenuItem>
+                <MenuItem value={"Tablet"} onClick={() => onClick("/tablet")}>
+                  Tablet
+                </MenuItem>
+                <MenuItem
+                  value={"Phụ kiện"}
+                  onClick={() => onClick("/accessory")}
+                >
+                  Phụ kiện
+                </MenuItem>
+                <MenuItem
+                  value={"Đồng hồ thông minh"}
+                  onClick={() => onClick("/smartwatch")}
+                >
+                  Đồng hồ thông minh
+                </MenuItem>
+                {/* <MenuItem value={30}></MenuItem> */}
+              </Select>
+            </FormControl>
+            <span style={{ marginLeft: 8 }}>
+              {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
+            </span>
+          </div>
+        </div>
         <Link
           to={path.productNew}
           className="no-underline text-green-500 text-lg font-medium border-[1px] border-solid border-[green] p-3 rounded cursor-pointer"
         >
           Thêm mới
         </Link>
-      </div>
-      <div style={{ marginBottom: 16 }}>
-        {/* <Button
-          type="primary"
-          onClick={start}
-          disabled={!hasSelected}
-          loading={loading}
-        >
-          Reload
-        </Button> */}
-        <span style={{ marginLeft: 8 }}>
-          {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
-        </span>
       </div>
       <Table
         columns={columns}
