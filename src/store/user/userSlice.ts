@@ -17,14 +17,33 @@ export const logoutUser = createAsyncThunk(
   "auth/logoutUser",
   payloadCreator(authApi.logout)
 );
-export const getUser = createAsyncThunk(
-  "auth/getUser",
-  payloadCreator(authApi.getUser)
+export const getUsers = createAsyncThunk(
+  "auth/getUsers",
+  payloadCreator(authApi.getUsers)
+);
+
+export const getDetailUser = createAsyncThunk(
+  "auth/getDetailUser",
+  payloadCreator(authApi.getDetailUser)
 );
 export const addUser = createAsyncThunk(
   "auth/addUser",
   payloadCreator(authApi.addUser)
 );
+export const uploadAvatar = createAsyncThunk(
+  "auth/uploadAvatar",
+  payloadCreator(authApi.uploadAvatar)
+);
+export const updateUserProfile = createAsyncThunk(
+  "auth/updateUserProfile",
+  payloadCreator(authApi.updateUserProfile)
+);
+
+export const deleteUser = createAsyncThunk(
+  "auth/deleteUser",
+  payloadCreator(authApi.deleteUser)
+);
+
 interface DecodedToken {
   userId: number;
   permissions: number;
@@ -39,7 +58,7 @@ interface IUser {
   isActiveEdit?: boolean;
   userUuid: any;
   userId: number;
-  user: [];
+  user: any;
 }
 
 let decodeToken: DecodedToken;
@@ -73,24 +92,28 @@ const initialState: IUser = {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    updateUser: (state, action: { payload: any }) => {
-      state.permission = action?.payload?.permission;
-      state.userId = action?.payload?.userId;
-      state.userUuid = action?.payload?.userUuid;
-    },
-
-    toggleActiveEdit: (state) => {
-      state.isActiveEdit = !state.isActiveEdit;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, { payload }) => {
       state.accessToken = payload.data.accessToken;
     });
+    // builder.addCase(addUser.fulfilled, (state, { payload }) => {
+    //   state.user = payload.data;
+    // });
+    builder.addCase(getUsers.fulfilled, (state, { payload }) => {
+      state.user = payload.data.data;
+    });
+    // builder.addCase(getDetailUser.fulfilled, (state, { payload }) => {
+    //   state.user = payload.data;
+    // });
+    // builder.addCase(updateUserProfile.fulfilled, (state, { payload }) => {
+    //   state.user = payload.data;
+    // });
+    // builder.addCase(deleteUser.fulfilled, (state, { payload }) => {
+    //   state.user = payload.data;
+    // });
   },
 });
 
-export const { updateUser, toggleActiveEdit } = userSlice.actions;
 const userReducer = userSlice.reducer;
 export default userReducer;

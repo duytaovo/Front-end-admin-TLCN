@@ -8,14 +8,21 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Input from "src/components/Input";
 import path from "src/constants/path";
-import { useAppDispatch } from "src/hooks/useRedux";
-import { addUser, getUser } from "src/store/user/userSlice";
+import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
 import { ErrorResponse } from "src/types/utils.type";
 import { schemaProduct } from "src/utils/rules";
-import { isAxiosUnprocessableEntityError } from "src/utils/utils";
+import { getAvatarUrl, isAxiosUnprocessableEntityError } from "src/utils/utils";
 import SelectCustom from "src/components/Select";
 
 import Textarea from "src/components/Textarea";
+import InputFile from "src/components/InputFile";
+import {
+  addProduct,
+  getProducts,
+  uploadImageProduct,
+  uploadImagesProduct,
+} from "src/store/product/productSlice";
+import { getCategorys } from "src/store/category/categorySlice";
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -25,22 +32,20 @@ const normFile = (e: any) => {
 };
 
 interface FormData {
-  loaiSp: string;
-  model: string;
-  mota: string;
+  images: string[];
+  price: number;
+  // rating: number;
+  price_before_discount: number;
+  quantity: number;
+  sold: number;
+  // view: number;
   name: string;
-  price: string;
-  sale: string;
-  upload: string;
-  screen: string;
-  os: string;
-  cameraBehind: string;
-  cameraBefore: string;
-  chip: string;
-  sim: string;
-  pin: string;
-  Ram: string;
-  Rom: string;
+  description: string;
+  // category: {
+  //   _id: string;
+  //   name: string;
+  // };
+  image: string;
 }
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -55,54 +60,96 @@ const MenuProps = {
 const FormDisabledDemo: React.FC = () => {
   const [componentDisabled, setComponentDisabled] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { category, categoryDetail } = useAppSelector(
+    (state) => state.category
+  );
+  console.log(category);
   const {
     handleSubmit,
     formState: { errors },
     setError,
     register,
     setValue,
+    watch,
   } = useForm({
     resolver: yupResolver(schemaProduct),
   });
+  const avatar = watch("image");
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [file, setFile] = useState<File[]>();
+  const imageArray = file || []; // Mảng chứa các đối tượng ảnh (File hoặc Blob)
+
+  // Tạo một mảng chứa các URL tạm thời cho ảnh
+  const imageUrls: string[] = [];
+
+  for (const image of imageArray) {
+    const imageUrl = URL.createObjectURL(image);
+    imageUrls.push(imageUrl);
+  }
+
   useEffect(() => {
-    setValue("loaiSp", "");
-    setValue("model", "");
-    setValue("mota", "");
-    setValue("name", "");
-    setValue("price", "");
-    setValue("sale", "");
-    setValue("upload", "");
+    dispatch(getCategorys(""));
   }, []);
 
+  useEffect(() => {
+    setValue("name", "");
+    setValue("description", "");
+    setValue("image", "");
+    setValue("images", "");
+    setValue("price_before_discount", "");
+    setValue("quantity", "");
+    setValue("sold", "");
+  }, []);
   const onSubmit = handleSubmit(async (data) => {
-    const body = JSON.stringify({});
-    if (file) {
-      const form = new FormData();
-      form.append("file", file[0]);
-      form.append("image", file[0]);
-    } else {
-      toast.warning("Cần chọn ảnh");
-    }
-
+    console.log(data);
+    let images = [];
     try {
+      if (file) {
+        const form = new FormData();
+        form.append("file", file[0]);
+        for (let i = 0; i < file.length; i++) {
+          form.append("images", file[i]);
+        }
+        const res = await dispatch(uploadImagesProduct(form));
+        unwrapResult(res);
+
+        const d = res?.payload?.data;
+        console.log("res", d);
+        images = d.data;
+      } else {
+        toast.warning("Cần chọn ảnh");
+      }
+
+      const body = JSON.stringify({
+        images,
+        price: data.price,
+        // rating: data.rating
+        price_before_discount: data.price_before_discount,
+        quantity: data.quantity,
+        // sold: data.sold,
+        // view: data.view,
+        name: data.name,
+        description: data.description,
+        category: data.category,
+        image: images[0],
+      });
       setIsSubmitting(true);
-      const res = await dispatch(addUser(body));
+      const res = await dispatch(addProduct(body));
       unwrapResult(res);
-      const d = res?.payload?.data;
-      if (d?.status !== 200) return toast.error(d?.message);
-      await toast.success("Thêm thành công ");
-      await dispatch(getUser(""));
-      await navigate(path.users);
+      // const d = res?.payload?.data.data;
+      // if (d?.status !== 200) return toast.error(d?.message);
+      await toast.success("Thêm sản phẩm thành công ");
+      await dispatch(getProducts(""));
+      await navigate(path.products);
     } catch (error: any) {
       if (isAxiosUnprocessableEntityError<ErrorResponse<FormData>>(error)) {
         const formError = error.response?.data.data;
         if (formError) {
           Object.keys(formError).forEach((key) => {
             setError(key as keyof FormData, {
-              message: formError[key as keyof FormData],
+              // message: formError[key as keyof FormData],
               type: "Server",
             });
           });
@@ -113,21 +160,17 @@ const FormDisabledDemo: React.FC = () => {
     }
   });
   const onClickHuy = () => {
-    setValue("loaiSp", "");
-    setValue("model", "");
-    setValue("mota", "");
     setValue("name", "");
-    setValue("price", "");
-    setValue("sale", "");
-    setValue("upload", "");
-    setValue("Ram", "");
-    setValue("Rom", "");
-    setValue("cameraBefore", "");
-    setValue("cameraBehind", "");
-    setValue("chip", "");
-    setValue("sim", "");
+    setValue("description", "");
+    setValue("image", "");
+    setValue("images", "");
+    setValue("price_before_discount", "");
+    setValue("quantity", "");
+    setValue("sold", "");
   };
-
+  const handleChangeFile = (file?: File[]) => {
+    setFile(file);
+  };
   return (
     <div className="bg-white shadow ">
       <h2 className="font-bold m-4 text-2xl">Thêm sản phẩm điện thoại</h2>
@@ -140,24 +183,25 @@ const FormDisabledDemo: React.FC = () => {
         noValidate
         onSubmitCapture={onSubmit}
       >
+        {" "}
         <Form.Item
-          label="Loại sản phẩm"
-          className="rounded-3xl"
-          name="loaiSp"
+          label="Hãng sản xuất"
+          name="model"
           rules={[{ required: true }]}
         >
-          <Input
-            name="loaiSp"
+          <SelectCustom
+            className={"flex-1 text-black"}
+            id="category"
+            // label="Hãng xe"
+            placeholder="Vui lòng chọn"
+            defaultValue={""}
+            options={category}
             register={register}
-            type="text"
-            className=""
-            errorMessage={errors.loaiSp?.message}
-            value="Điện thoại"
-            disabled
-            placeholder="Điện thoại"
-          />
+            isBrand={true}
+          >
+            {errors.category?.message}
+          </SelectCustom>
         </Form.Item>
-
         <Form.Item
           label="Tên sản phẩm"
           name="name"
@@ -172,95 +216,56 @@ const FormDisabledDemo: React.FC = () => {
             errorMessage={errors.name?.message}
           />
         </Form.Item>
-
-        <Form.Item
-          label="Hãng sản xuất"
-          name="model"
-          rules={[{ required: true }]}
-        >
-          <SelectCustom
-            className={"flex-1 text-black"}
-            id="carBrand"
-            // label="Hãng xe"
-            placeholder="Vui lòng chọn"
-            defaultValue={""}
-            options={[
-              "Apple",
-              "Samsung",
-              "Oppo",
-              "Xiaomi",
-              "Vivo",
-              "Readmi",
-              "Nokia",
-              "Mastel",
-            ]}
-            register={register}
-            isBrand={true}
-          >
-            {errors.loaiSp?.message}
-          </SelectCustom>
-        </Form.Item>
-        <Form.Item label="Hệ điều hành" name="os" rules={[{ required: true }]}>
-          <SelectCustom
-            className={" text-black"}
-            id="os"
-            // label="Hãng xe"
-            placeholder="Vui lòng chọn"
-            defaultValue={""}
-            options={["iOS", "Android"]}
-            register={register}
-            isBrand={true}
-          >
-            {errors.os?.message}
-          </SelectCustom>
-        </Form.Item>
-        <Form.Item label="Màn hình" name="screen" rules={[{ required: true }]}>
+        <Form.Item label="Price" name="price" rules={[{ required: true }]}>
           <Input
-            name="screen"
+            name="price"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.screen?.message}
+            errorMessage={errors.price?.message}
             // placeholder="Màn hinh"
           />
         </Form.Item>
-        <Form.Item
-          label="Camera trước"
-          name="cameraBefore"
+        {/* <Form.Item
+          label="Link hình ảnh"
+          name="image"
           rules={[{ required: true }]}
         >
           <Input
-            name="cameraBefore"
+            name="image"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.cameraBefore?.message}
+            errorMessage={errors.image?.message}
           />
-        </Form.Item>
-
-        <Form.Item
-          label="Camera sau"
-          name="cameraBehind"
+        </Form.Item> */}
+        {/* <Form.Item
+          label="Link ảnh mô tả"
+          name="images"
           rules={[{ required: true }]}
         >
           <Input
-            name="cameraBehind"
+            name="images"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.cameraBehind?.message}
+            errorMessage={errors.images?.message}
           />
-        </Form.Item>
-        <Form.Item label="Chip" name="chip" rules={[{ required: true }]}>
+        </Form.Item> */}
+        <Form.Item
+          label="Số lượng"
+          name="quantity"
+          rules={[{ required: true }]}
+        >
           <Input
-            name="chip"
+            name="quantity"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.chip?.message}
+            errorMessage={errors.quantity?.message}
           />
         </Form.Item>
-        <Form.Item label="Sim" name="sim" rules={[{ required: true }]}>
+        {/* <Form.Item label="Sim" name="sim" rules={[{ required: true }]}>
           <SelectCustom
             className={" text-black"}
             id="sim"
@@ -335,23 +340,27 @@ const FormDisabledDemo: React.FC = () => {
             className=""
             errorMessage={errors.price?.message}
           />
-        </Form.Item>
-        <Form.Item label="Khuyến mãi" name="sale">
+        </Form.Item> */}
+        <Form.Item label="Khuyến mãi" name="price_before_discount">
           <Input
-            name="sale"
+            name="price_before_discount"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.sale?.message}
+            errorMessage={errors.price_before_discount?.message}
           />
         </Form.Item>
-        <Form.Item label="Mô tả" name="mota" rules={[{ required: true }]}>
+        <Form.Item
+          label="Mô tả"
+          name="description"
+          rules={[{ required: true }]}
+        >
           <Textarea
             defaultValue="Mô tả sản phẩm"
-            id="mota"
+            id="description"
             isUpdate={false}
             register={register}
-            setValue={() => {}}
+            setValue={setValue}
             textAlign={"left"}
           />
         </Form.Item>
@@ -362,12 +371,54 @@ const FormDisabledDemo: React.FC = () => {
           valuePropName="fileList"
           getValueFromEvent={normFile}
         >
-          <Upload action="/upload.do" listType="picture-card">
-            <div>
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Hình ảnh</div>
+          <div className="flex flex-col items-start ">
+            <div className="my-5 w-24 space-y-5 justify-between items-center">
+              {imageUrls.map((imageUrl, index) => {
+                return (
+                  <img
+                    key={index}
+                    src={imageUrl || getAvatarUrl(avatar)}
+                    className="h-full rounded-md w-full  object-cover"
+                    alt="avatar"
+                  />
+                );
+              })}
             </div>
-          </Upload>
+            <InputFile
+              label="Upload ảnh"
+              onChange={handleChangeFile}
+              id="images"
+            />
+            {/* <InputFile
+              label="Chọn ảnh mặt trước"
+              onChange={handleChangeFile}
+              id="image"
+            />
+            <InputFile
+              label="Chọn ảnh mặt trước"
+              onChange={handleChangeFile}
+              id="image"
+            />
+            <InputFile
+              label="Chọn ảnh mặt trước"
+              onChange={handleChangeFile}
+              id="image"
+            />
+            <InputFile
+              label="Chọn ảnh mặt trước"
+              onChange={handleChangeFile}
+              id="image"
+            />
+            <InputFile
+              label="Chọn ảnh mặt trước"
+              onChange={handleChangeFile}
+              id="image"
+            /> */}
+            <div className="mt-3  flex flex-col items-center text-red-500">
+              <div>Dụng lượng file tối đa 2 MB</div>
+              <div>Định dạng:.JPEG, .PNG</div>
+            </div>
+          </div>
         </Form.Item>
         <div className="flex justify-start">
           <Form.Item label="" className="ml-[115px] mb-2">

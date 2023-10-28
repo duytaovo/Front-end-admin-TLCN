@@ -9,14 +9,12 @@ import { toast } from "react-toastify";
 import Input from "src/components/Input";
 import path from "src/constants/path";
 import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
-import { addUser, getUsers } from "src/store/user/userSlice";
 import { ErrorResponse } from "src/types/utils.type";
 import { schemaProduct } from "src/utils/rules";
 import { getAvatarUrl, isAxiosUnprocessableEntityError } from "src/utils/utils";
 import SelectCustom from "src/components/Select";
 
 import Textarea from "src/components/Textarea";
-import { Product } from "src/types/product.type";
 import InputFile from "src/components/InputFile";
 import {
   addProduct,
@@ -61,7 +59,9 @@ const MenuProps = {
 const FormDisabledDemo: React.FC = () => {
   const [componentDisabled, setComponentDisabled] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { category } = useAppSelector((state) => state);
+  const { category, categoryDetail } = useAppSelector(
+    (state) => state.category
+  );
   console.log(category);
   const {
     handleSubmit,
@@ -101,7 +101,6 @@ const FormDisabledDemo: React.FC = () => {
     setValue("quantity", "");
     setValue("sold", "");
   }, []);
-
   const onSubmit = handleSubmit(async (data) => {
     let image;
     try {
@@ -120,7 +119,6 @@ const FormDisabledDemo: React.FC = () => {
       } else {
         toast.warning("Cần chọn ảnh");
       }
-
       const body = JSON.stringify({
         // images: [
         //   "https://api-ecom.duthanhduoc.com/images/bbea6d3e-e5b1-494f-ab16-02eece816d50.jpg",
@@ -133,7 +131,7 @@ const FormDisabledDemo: React.FC = () => {
         // view: data.view,
         name: data.name,
         description: data.description,
-        category: "653c67597099fb731694c0fd",
+        category: data.category,
         image: image,
       });
       setIsSubmitting(true);
@@ -172,7 +170,6 @@ const FormDisabledDemo: React.FC = () => {
   const handleChangeFile = (file?: File[]) => {
     setFile(file);
   };
-
   return (
     <div className="bg-white shadow ">
       <h2 className="font-bold m-4 text-2xl">Thêm sản phẩm điện thoại</h2>
@@ -193,19 +190,11 @@ const FormDisabledDemo: React.FC = () => {
         >
           <SelectCustom
             className={"flex-1 text-black"}
-            id="carBrand"
+            id="category"
             // label="Hãng xe"
             placeholder="Vui lòng chọn"
             defaultValue={""}
-            options={[
-              "Apple",
-              "Samsung",
-              "Oppo",
-              "Readmi",
-              "Nokia",
-              "Xiaomi",
-              "Vivo",
-            ]}
+            options={category}
             register={register}
             isBrand={true}
           >

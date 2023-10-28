@@ -13,29 +13,33 @@ import { deleteProduct, getProducts } from "src/store/product/productSlice";
 import { Product } from "src/types/product.type";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import {
+  deletePurchase,
+  getPurchase,
+  updatePurchase,
+} from "src/store/purchases/productSlice";
 
-const TableProduct: React.FC = () => {
+const TablePurchase: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { product } = useAppSelector((state) => state.product);
+  const { purchase } = useAppSelector((state) => state.purchase);
   const navigate = useNavigate();
   useEffect(() => {
-    dispatch(getProducts(""));
+    dispatch(getPurchase(""));
   }, []);
   const columns: ColumnsType<any> = [
-    { title: "Tên sản phẩm", dataIndex: "name", key: "name" },
-    { title: "Tên thương hiệu", dataIndex: "category", key: "category" },
+    { title: "Tên sản phẩm", dataIndex: "product_name", key: "product_name" },
     { title: "Giá sản phẩm", dataIndex: "price", key: "price" },
 
     // { title: "Mô tả", dataIndex: "description", key: "description" },
-    { title: "Số lượng", dataIndex: "quantity", key: "quantity" },
+    { title: "Số lượng", dataIndex: "buy_count", key: "buy_count" },
     { title: "Đánh giá", dataIndex: "rating", key: "rating" },
-    { title: "Đã bán", dataIndex: "sold", key: "sold" },
-    // { title: "Đã bán", dataIndex: "sold", key: "sold" },
     {
       title: "Khuyến mãi",
       dataIndex: "price_before_discount",
       key: "price_before_discount",
     },
+    { title: "Trạng thái", dataIndex: "status", key: "status" },
+
     { title: "Ngày tạo", dataIndex: "createdAt", key: "createdAt" },
     {
       title: "Action",
@@ -43,28 +47,35 @@ const TableProduct: React.FC = () => {
       key: "x",
       render: (params) => {
         const { key, _id } = params;
-        // console.log("first" + params._id);
-        const handleDelete = async () => {
-          const res = await dispatch(deleteProduct([_id]));
+        const handleUpdate = async () => {
+          const res = await dispatch(updatePurchase(_id));
           unwrapResult(res);
           const d = res?.payload;
           if (d?.status !== 200) return toast.error(d?.message);
-          await toast.success("Xóa sản phẩm thành công ");
-          await dispatch(getProducts(""));
+          await toast.success("Cập nhật đơn thành công ");
+          await dispatch(getPurchase(""));
+        };
+
+        const handleDelete = async () => {
+          const res = await dispatch(deletePurchase(_id));
+          unwrapResult(res);
+          const d = res?.payload;
+          if (d?.status !== 200) return toast.error(d?.message);
+          await toast.success("Xóa đơn thành công ");
+          await dispatch(getPurchase(""));
         };
         return (
           <Space>
-            <Link to={`/product/detail/${_id}`}>
-              {" "}
-              <IconButton className="text-mainColor">
-                <EditIcon
-                  className="text-mainColor"
-                  sx={{
-                    color: "",
-                  }}
-                />
-              </IconButton>
-            </Link>
+            {/* <Link to={`/product/detail/${_id}`}> */}{" "}
+            <IconButton className="text-mainColor" onClick={handleUpdate}>
+              <EditIcon
+                className="text-mainColor"
+                sx={{
+                  color: "",
+                }}
+              />
+            </IconButton>
+            {/* </Link> */}
             {/* <Link to={path.users}> */}
             <Tooltip title="Thay đổi trạng thái " className="disabled:bg-white">
               <IconButton onClick={handleDelete}>
@@ -77,26 +88,25 @@ const TableProduct: React.FC = () => {
       },
     },
   ];
-  const originData: Product[] = [];
-  for (let i = 0; i < product.products?.length; i++) {
+  const originData: any[] = [];
+  for (let i = 0; i < purchase?.length; i++) {
     originData.push({
-      _id: product.products[i]._id,
-      name: product.products[i].name,
-      category: product.products[i].category?.name,
-      description: product.products[i].description,
-      price: product.products[i].price,
-      price_before_discount: product.products[i].price_before_discount,
-      quantity: product.products[i].quantity,
-      rating: product.products[i].rating,
-      images: product.products[i].images,
-      image: product.products[i].image,
-      sold: product.products[i].sold,
-      view: product.products[i].view,
-      createdAt: product.products[i].createdAt,
-      updatedAt: product.products[i].updatedAt,
+      _id: purchase[i]?._id,
+      buy_count: purchase[i]?.buy_count,
+      price: purchase[i]?.price,
+      price_before_discount: purchase[i]?.price_before_discount,
+      status: purchase[i].status === 4 ? "Đã giao" : "Đang xác nhận",
+      product_name: purchase[i].product?.name,
+      product_id: purchase[i].product?._id,
+      rating: purchase[i].product?.rating,
+      images: purchase[i].product?.images,
+      image: purchase[i].product?.image,
+      sold: purchase[i].product?.sold,
+      view: purchase[i].product?.view,
+      createdAt: purchase[i].createdAt,
+      updatedAt: purchase[i].updatedAt,
     });
   }
-  console.log(originData);
   const [status, setStatus] = React.useState<string>("");
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -138,19 +148,13 @@ const TableProduct: React.FC = () => {
     <div className="mx-6">
       <div className="w-full text-[24px] text-gray-500 mb-[10px] flex items-center justify-between">
         <div>
-          Quản lý sản phẩm
+          Quản lý đơn hàng
           <div>
             <span style={{ marginLeft: 8 }}>
               {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
             </span>
           </div>
         </div>
-        <Link
-          to={path.productNew}
-          className="no-underline text-green-500 text-lg font-medium border-[1px] border-solid border-[green] p-3 rounded cursor-pointer"
-        >
-          Thêm mới
-        </Link>
       </div>
       <Table
         columns={columns}
@@ -166,4 +170,4 @@ const TableProduct: React.FC = () => {
   );
 };
 
-export default TableProduct;
+export default TablePurchase;

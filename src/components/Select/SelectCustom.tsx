@@ -24,13 +24,13 @@ export default function SelectCustom({
       return (
         <MenuItem
           onClick={() => {
-            handleChange(item);
+            handleChange(item._id);
           }}
-          value={item}
+          value={item._id}
           key={index}
           className="text-black"
         >
-          {item}
+          {item.name}
         </MenuItem>
       );
     });

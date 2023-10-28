@@ -4,10 +4,6 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import NewPhone from "../Product/NewPhone";
-import NewLaptop from "../Product/NewLaptop";
-import NewSmartWatch from "../Product/NewSmartWatch";
-import NewAcces from "../Product/NewAcces";
-import NewTablet from "../Product/NewTablet";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -58,26 +54,10 @@ export default function TabsProducts() {
           aria-label="basic tabs example"
         >
           <Tab label="Điện thoại" {...a11yProps(0)} />
-          <Tab label="Tablet" {...a11yProps(1)} />
-          <Tab label="Laptop" {...a11yProps(2)} />
-          <Tab label="Đồng hồ thông minh" {...a11yProps(3)} />
-          <Tab label="Phụ kiện" {...a11yProps(4)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
         <NewPhone />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <NewTablet />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        <NewLaptop />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
-        <NewSmartWatch />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
-        <NewAcces />
       </CustomTabPanel>
     </Box>
   );

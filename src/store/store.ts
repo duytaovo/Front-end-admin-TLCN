@@ -7,12 +7,18 @@ import {
 import appReducer from "src/app.slice";
 import userReducer from "./user/userSlice";
 import orderReducer from "./order/ordersSlice";
+import productReducer from "./product/productSlice";
+import categoryReducer from "./category/categorySlice";
+import purchaseReducer from "./purchases/productSlice";
 
 export const store = configureStore({
   reducer: {
     loading: appReducer,
     user: userReducer,
+    product: productReducer,
+    category: categoryReducer,
     orders: orderReducer,
+    purchase: purchaseReducer,
   },
   devTools: process.env.NODE_ENV === "development",
   middleware: (getDefaultMiddleware) => [

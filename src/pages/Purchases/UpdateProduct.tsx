@@ -4,17 +4,26 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { Button, Form, Upload } from "antd";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Input from "src/components/Input";
 import path from "src/constants/path";
 import { useAppDispatch } from "src/hooks/useRedux";
-import { addUser, getUser } from "src/store/user/userSlice";
+import { addUser, getUsers } from "src/store/user/userSlice";
 import { ErrorResponse } from "src/types/utils.type";
 import { schemaProduct } from "src/utils/rules";
-import { isAxiosUnprocessableEntityError } from "src/utils/utils";
+import { getAvatarUrl, isAxiosUnprocessableEntityError } from "src/utils/utils";
 import SelectCustom from "src/components/Select";
+
 import Textarea from "src/components/Textarea";
+import { Product } from "src/types/product.type";
+import InputFile from "src/components/InputFile";
+import {
+  addProduct,
+  getDetailProduct,
+  getProducts,
+  uploadImageProduct,
+} from "src/store/product/productSlice";
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -24,22 +33,20 @@ const normFile = (e: any) => {
 };
 
 interface FormData {
-  loaiSp: string;
-  model: string;
-  mota: string;
+  images: string[];
+  price: number;
+  // rating: number;
+  price_before_discount: number;
+  quantity: number;
+  sold: number;
+  // view: number;
   name: string;
-  price: string;
-  sale: string;
-  upload: string;
-  screen: string;
-  os: string;
-  cameraBehind: string;
-  cameraBefore: string;
-  chip: string;
-  sim: string;
-  pin: string;
-  Ram: string;
-  Rom: string;
+  description: string;
+  // category: {
+  //   _id: string;
+  //   name: string;
+  // };
+  image: string;
 }
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -60,48 +67,92 @@ const FormDisabledDemo: React.FC = () => {
     setError,
     register,
     setValue,
+    watch,
   } = useForm({
     resolver: yupResolver(schemaProduct),
   });
+  const [productDetail, setProductDetail] = useState<any>();
+  const { _id } = useParams();
+  const image: any = productDetail?.image;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [file, setFile] = useState<File[]>();
+  const imageArray = file || []; // Mảng chứa các đối tượng ảnh (File hoặc Blob)
+
+  // Tạo một mảng chứa các URL tạm thời cho ảnh
+  const imageUrls: string[] = [] || [image];
+
+  for (const image of imageArray) {
+    const imageUrl = URL.createObjectURL(image);
+    imageUrls.push(imageUrl);
+  }
+
   useEffect(() => {
-    setValue("loaiSp", "");
-    setValue("model", "");
-    setValue("mota", "");
-    setValue("name", "");
-    setValue("price", "");
-    setValue("sale", "");
-    setValue("upload", "");
+    dispatch(getDetailProduct(_id))
+      .then(unwrapResult)
+      .then((res) => {
+        setProductDetail(res.data.data);
+      });
   }, []);
 
-  const onSubmit = handleSubmit(async (data) => {
-    const body = JSON.stringify({});
-    if (file) {
-      const form = new FormData();
-      form.append("file", file[0]);
-      form.append("image", file[0]);
-    } else {
-      toast.warning("Cần chọn ảnh");
-    }
+  useEffect(() => {
+    setValue("name", productDetail?.name);
+    setValue("description", productDetail?.description);
+    setValue("category", productDetail?.category.name);
+    setValue("price", productDetail?.price);
+    setValue("images", productDetail?.images);
+    setValue("price_before_discount", productDetail?.price_before_discount);
+    setValue("quantity", productDetail?.quantity);
+    setValue("sold", productDetail?.sold);
+  }, [productDetail]);
 
+  const onSubmit = handleSubmit(async (data) => {
     try {
+      if (file) {
+        const form = new FormData();
+        form.append("file", file[0]);
+        for (let i = 0; i < file.length; i++) {
+          form.append("image", file[i]);
+        }
+        const res = await dispatch(uploadImageProduct(form));
+        unwrapResult(res);
+        console.log(res);
+        const d = res?.payload?.data;
+      } else {
+        toast.warning("Cần chọn ảnh");
+      }
+
+      const body = JSON.stringify({
+        images: [
+          "https://api-ecom.duthanhduoc.com/images/bbea6d3e-e5b1-494f-ab16-02eece816d50.jpg",
+        ],
+        price: data.price,
+        // rating: data.rating
+        price_before_discount: data.price_before_discount,
+        quantity: data.quantity,
+        sold: data.sold,
+        // view: data.view,
+        name: data.name,
+        description: data.description,
+        category: "60afafe76ef5b902180aacb5",
+        image:
+          "https://api-ecom.duthanhduoc.com/images/bbea6d3e-e5b1-494f-ab16-02eece816d50.jpg",
+      });
       setIsSubmitting(true);
-      const res = await dispatch(addUser(body));
+      const res = await dispatch(addProduct(body));
       unwrapResult(res);
       const d = res?.payload?.data;
       if (d?.status !== 200) return toast.error(d?.message);
-      await toast.success("Thêm thành công ");
-      await dispatch(getUser(""));
-      await navigate(path.users);
+      await toast.success("Cập nhật sản phẩm thành công ");
+      await dispatch(getProducts(""));
+      await navigate(path.products);
     } catch (error: any) {
       if (isAxiosUnprocessableEntityError<ErrorResponse<FormData>>(error)) {
         const formError = error.response?.data.data;
         if (formError) {
           Object.keys(formError).forEach((key) => {
             setError(key as keyof FormData, {
-              message: formError[key as keyof FormData],
+              // message: formError[key as keyof FormData],
               type: "Server",
             });
           });
@@ -112,24 +163,20 @@ const FormDisabledDemo: React.FC = () => {
     }
   });
   const onClickHuy = () => {
-    setValue("loaiSp", "");
-    setValue("model", "");
-    setValue("mota", "");
-    setValue("name", "");
-    setValue("price", "");
-    setValue("sale", "");
-    setValue("upload", "");
-    setValue("Ram", "");
-    setValue("Rom", "");
-    setValue("cameraBefore", "");
-    setValue("cameraBehind", "");
-    setValue("chip", "");
-    setValue("sim", "");
+    setValue("name", productDetail.name);
+    setValue("description", productDetail.description);
+    setValue("image", productDetail.image);
+    setValue("images", productDetail.images);
+    setValue("price_before_discount", productDetail.price_before_discount);
+    setValue("quantity", productDetail.quantity);
+    setValue("sold", productDetail.sold);
   };
-
+  const handleChangeFile = (file?: File[]) => {
+    setFile(file);
+  };
   return (
     <div className="bg-white shadow ">
-      <h2 className="font-bold m-4 text-2xl">Thêm sản phẩm Tablet</h2>
+      <h2 className="font-bold m-4 text-2xl">Thêm sản phẩm điện thoại</h2>
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
@@ -139,39 +186,7 @@ const FormDisabledDemo: React.FC = () => {
         noValidate
         onSubmitCapture={onSubmit}
       >
-        <Form.Item
-          label="Loại sản phẩm"
-          className="rounded-3xl"
-          name="loaiSp"
-          rules={[{ required: true }]}
-        >
-          <Input
-            name="loaiSp"
-            register={register}
-            type="text"
-            className=""
-            errorMessage={errors.loaiSp?.message}
-            value="Tablet"
-            disabled
-            placeholder="Tablet"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Tên sản phẩm"
-          name="name"
-          rules={[{ required: true }]}
-        >
-          <Input
-            // placeholder="Iphone 15 Plus"
-            name="name"
-            register={register}
-            type="text"
-            className=""
-            errorMessage={errors.name?.message}
-          />
-        </Form.Item>
-
+        {" "}
         <Form.Item
           label="Hãng sản xuất"
           name="model"
@@ -196,70 +211,60 @@ const FormDisabledDemo: React.FC = () => {
             register={register}
             isBrand={true}
           >
-            {errors.loaiSp?.message}
+            {errors.category?.message}
           </SelectCustom>
         </Form.Item>
-        <Form.Item label="Hệ điều hành" name="os" rules={[{ required: true }]}>
-          <SelectCustom
-            className={" text-black"}
-            id="os"
-            // label="Hãng xe"
-            placeholder="Vui lòng chọn"
-            defaultValue={""}
-            options={["iOS", "Android"]}
-            register={register}
-            isBrand={true}
-          >
-            {errors.os?.message}
-          </SelectCustom>
-        </Form.Item>
-        <Form.Item label="Màn hình" name="screen" rules={[{ required: true }]}>
+        <Form.Item
+          label="Tên sản phẩm"
+          name="name"
+          rules={[{ required: true }]}
+        >
           <Input
-            name="screen"
+            // placeholder="Iphone 15 Plus"
+            name="name"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.screen?.message}
+            errorMessage={errors.name?.message}
+          />
+        </Form.Item>
+        <Form.Item label="Price" name="price" rules={[{ required: true }]}>
+          <Input
+            name="price"
+            register={register}
+            type="text"
+            className=""
+            errorMessage={errors.price?.message}
             // placeholder="Màn hinh"
           />
         </Form.Item>
         <Form.Item
-          label="Camera trước"
-          name="cameraBefore"
+          label="Số lượng"
+          name="quantity"
           rules={[{ required: true }]}
         >
           <Input
-            name="cameraBefore"
+            name="quantity"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.cameraBefore?.message}
+            errorMessage={errors.quantity?.message}
           />
         </Form.Item>
-
         <Form.Item
-          label="Camera sau"
-          name="cameraBehind"
+          label="Số lượng đã bán"
+          name="sold"
           rules={[{ required: true }]}
         >
           <Input
-            name="cameraBehind"
+            name="sold"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.cameraBehind?.message}
+            errorMessage={errors.sold?.message}
           />
         </Form.Item>
-        <Form.Item label="Chip" name="chip" rules={[{ required: true }]}>
-          <Input
-            name="chip"
-            register={register}
-            type="text"
-            className=""
-            errorMessage={errors.chip?.message}
-          />
-        </Form.Item>
-        <Form.Item label="Sim" name="sim" rules={[{ required: true }]}>
+        {/* <Form.Item label="Sim" name="sim" rules={[{ required: true }]}>
           <SelectCustom
             className={" text-black"}
             id="sim"
@@ -334,14 +339,14 @@ const FormDisabledDemo: React.FC = () => {
             className=""
             errorMessage={errors.price?.message}
           />
-        </Form.Item>
-        <Form.Item label="Khuyến mãi" name="sale">
+        </Form.Item> */}
+        <Form.Item label="Khuyến mãi" name="price_before_discount">
           <Input
-            name="sale"
+            name="price_before_discount"
             register={register}
             type="text"
             className=""
-            errorMessage={errors.sale?.message}
+            errorMessage={errors.price_before_discount?.message}
           />
         </Form.Item>
         <Form.Item label="Mô tả" name="mota" rules={[{ required: true }]}>
@@ -361,12 +366,54 @@ const FormDisabledDemo: React.FC = () => {
           valuePropName="fileList"
           getValueFromEvent={normFile}
         >
-          <Upload action="/upload.do" listType="picture-card">
-            <div>
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Hình ảnh</div>
+          <div className="flex flex-col items-start ">
+            <div className="my-5 w-24 space-y-5 justify-between items-center">
+              {imageUrls.map((imageUrl, index) => {
+                return (
+                  <img
+                    key={index}
+                    src={imageUrl || image}
+                    className="h-full rounded-md w-full  object-cover"
+                    alt="image"
+                  />
+                );
+              })}
             </div>
-          </Upload>
+            <InputFile
+              label="Upload ảnh"
+              onChange={handleChangeFile}
+              id="image"
+            />
+            {/* <InputFile
+              label="Chọn ảnh mặt trước"
+              onChange={handleChangeFile}
+              id="image"
+            />
+            <InputFile
+              label="Chọn ảnh mặt trước"
+              onChange={handleChangeFile}
+              id="image"
+            />
+            <InputFile
+              label="Chọn ảnh mặt trước"
+              onChange={handleChangeFile}
+              id="image"
+            />
+            <InputFile
+              label="Chọn ảnh mặt trước"
+              onChange={handleChangeFile}
+              id="image"
+            />
+            <InputFile
+              label="Chọn ảnh mặt trước"
+              onChange={handleChangeFile}
+              id="image"
+            /> */}
+            <div className="mt-3  flex flex-col items-center text-red-500">
+              <div>Dụng lượng file tối đa 2 MB</div>
+              <div>Định dạng:.JPEG, .PNG</div>
+            </div>
+          </div>
         </Form.Item>
         <div className="flex justify-start">
           <Form.Item label="" className="ml-[115px] mb-2">

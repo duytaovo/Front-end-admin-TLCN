@@ -12,7 +12,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { login } from "src/store/user/userSlice";
 import { isAxiosUnprocessableEntityError } from "src/utils/utils";
-import { getAccessTokenFromLS, setAccessTokenToLS } from "src/utils/auth";
+import {
+  getAccessTokenFromLS,
+  setAccessTokenToLS,
+  setRefreshTokenToLS,
+} from "src/utils/auth";
 import { Helmet } from "react-helmet-async";
 import { Spin } from "antd";
 import { CircularProgress } from "@mui/material";
@@ -41,22 +45,23 @@ const Login = () => {
       password: data.password,
     };
     try {
-      setIsSubmitting(true);
-      // const res = await dispatch(login(body));
-      // unwrapResult(res);
-      // const d = res?.payload?.data;
-      // if (d?.result == 0) return toast.error(d?.message);
-      // await setAccessTokenToLS(d?.accessToken);
-      // await getAccessTokenFromLS();
-      // await setIsAuthenticated(true);
-      if (body.email === "admin" && body.password === "123456") {
-        await toast.success("Đăng nhập thành công ");
-        setTimeout(async () => {
-          await navigate("/");
-        }, 1000);
-      } else {
-        await toast.error("Email hoặc mật khẩu sai!! ");
-      }
+      await setIsSubmitting(true);
+      const res = await dispatch(login(body));
+      unwrapResult(res);
+      const d = res?.payload?.data;
+      if (d?.result == 0) return toast.error(d?.message);
+      console.log(d);
+      await setAccessTokenToLS(d?.data.access_token);
+      await setRefreshTokenToLS(d?.data.refresh_token);
+      await setIsAuthenticated(true);
+      await navigate("/");
+      // if (body.email === "admin" && body.password === "123456") {
+      //   await toast.success("Đăng nhập thành công ");
+      //   setTimeout(async () => {
+      //   }, 1000);
+      // } else {
+      //   await toast.error("Email hoặc mật khẩu sai!! ");
+      // }
     } catch (error: any) {
       if (isAxiosUnprocessableEntityError<ErrorResponse<FormData>>(error)) {
         const formError = error.response?.data.data;

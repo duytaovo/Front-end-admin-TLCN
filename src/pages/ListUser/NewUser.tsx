@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import Input from "src/components/Input";
 import path from "src/constants/path";
 import { useAppDispatch } from "src/hooks/useRedux";
-import { addUser, getUser } from "src/store/user/userSlice";
+import { addUser, getUsers, uploadAvatar } from "src/store/user/userSlice";
 import { ErrorResponse } from "src/types/utils.type";
 import { schemaAddUser } from "src/utils/rules";
 import { isAxiosUnprocessableEntityError } from "src/utils/utils";
@@ -22,7 +22,9 @@ const normFile = (e: any) => {
   return e?.fileList;
 };
 interface FormData {
+  email: string;
   name: string;
+  password: string;
   address: string;
   phone: string;
   image: string;
@@ -44,30 +46,41 @@ const FormDisabledDemo: React.FC = () => {
   });
   useEffect(() => {
     setValue("address", "");
-    setValue("gioitinh", "");
     setValue("image", "");
     setValue("name", "");
     setValue("phone", "");
   }, []);
 
   const onSubmit = handleSubmit(async (data) => {
-    const body = JSON.stringify({});
-    if (file) {
-      const form = new FormData();
-      form.append("file", file[0]);
-      form.append("image", file[0]);
-    } else {
-      toast.warning("Cần chọn ảnh");
-    }
+    const body = JSON.stringify({
+      email: data.email,
+      address: data.address,
+      password: data.password,
+      name: data.name,
+      phone: data.phone,
+      // date_of_birth,
+      roles: "0",
+      // avatar,
+    });
+    // if (file) {
+    //   const form = new FormData();
+    //   form.append("file", file[0]);
+    //   form.append("image", file[0]);
+    //   const res = await dispatch(uploadAvatar(uploadAvatar));
+    //   unwrapResult(res);
+    // } else {
+    //   toast.warning("Cần chọn ảnh");
+    // }
 
     try {
       setIsSubmitting(true);
       const res = await dispatch(addUser(body));
       unwrapResult(res);
-      const d = res?.payload?.data;
+      console.log(res);
+      const d = res?.payload;
       if (d?.status !== 200) return toast.error(d?.message);
       await toast.success("Thêm thành công ");
-      await dispatch(getUser(""));
+      await dispatch(getUsers(""));
       await navigate(path.users);
     } catch (error: any) {
       if (isAxiosUnprocessableEntityError<ErrorResponse<FormData>>(error)) {
@@ -111,7 +124,28 @@ const FormDisabledDemo: React.FC = () => {
             <Radio value="pear"> Nữ </Radio>
           </Radio.Group>
         </Form.Item> */}
-
+        <Form.Item name="email" label="Email" rules={[{ required: true }]}>
+          <Input
+            name="email"
+            register={register}
+            type="text"
+            className=""
+            errorMessage={errors.email?.message}
+          />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          label="Password"
+          rules={[{ required: true }]}
+        >
+          <Input
+            name="password"
+            register={register}
+            type="text"
+            className=""
+            errorMessage={errors.password?.message}
+          />
+        </Form.Item>
         <Form.Item name="name" label="Họ Tên" rules={[{ required: true }]}>
           <Input
             name="name"
